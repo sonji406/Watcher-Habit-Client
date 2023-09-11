@@ -1,1 +1,1 @@
-# Wathcher-Habit-Client
+# Watcher-Habit-Client
