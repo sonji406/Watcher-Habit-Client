@@ -51,6 +51,7 @@ const Carousel = () => {
 
     if (Math.abs(offsetX) <= 20) {
       setOffsetX(0);
+
       return;
     }
 
