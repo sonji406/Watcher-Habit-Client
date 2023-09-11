@@ -1,3 +1,29 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@font-face {
+  font-family: 'Sinoreta';
+  src: url('/public/fonts/Sinoreta_PERSONAL_USE_ONLY.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('/public/fonts/NotoSansKR-VariableFont_wght.ttf') format('opentype');
+}
+
+@keyframes glowing {
+  0% {
+    box-shadow: 0 0 2.5px #fff, 0 0 5px #fff, 0 0 7.5px #fff, 0 0 10px #fff, 0 0 12.5px #fff, 0 0 15px #fff, 0 0 17.5px #fff;
+  }
+  50% {
+    box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #fff, 0 0 25px #fff, 0 0 30px #fff, 0 0 35px #fff;
+  }
+  100% {
+    box-shadow: 0 0 2.5px #fff, 0 0 5px #fff, 0 0 7.5px #fff, 0 0 10px #fff, 0 0 12.5px #fff, 0 0 15px #fff, 0 0 17.5px #fff;
+  }
+}
+
+.glowing-box {
+  animation: glowing 5s infinite alternate;
+}
