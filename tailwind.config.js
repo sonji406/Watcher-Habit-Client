@@ -6,6 +6,13 @@ module.exports = {
       backgroundColor: {
         "main-bg": "#27313C",
       },
+      backgroundImage: {
+        vignette:
+          "radial-gradient(circle, transparent 50%, rgba(0,0,0,0.8) 130%)",
+      },
+      fontFamily: {
+        sinoreta: ["Sinoreta", "sans-serif"],
+      },
     },
   },
   plugins: [],
