@@ -36,7 +36,7 @@ const NotificationList = ({ notifications, setNotifications }) => {
           전체 알림 닫기
         </button>
       </div>
-      <div className='overflow-y-auto flex-grow'>
+      <div className='overflow-y-auto flex-grow custom-scrollbar'>
         {notifications.map((notification, index) => (
           <NotificationItem
             key={index}

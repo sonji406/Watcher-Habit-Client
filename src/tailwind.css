@@ -27,3 +27,14 @@
 .glowing-box {
   animation: glowing 5s infinite alternate;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(38, 163, 79, 0.4);
+  border-radius: 8px;
+}
+
