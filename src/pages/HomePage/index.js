@@ -1,13 +1,13 @@
 import React from 'react';
 import Carousel from './Carousel';
-import Logo from './Logo';
+import MainLogo from './MainLogo';
 import SubTitle from './SubTitle';
 import GoogleLoginButton from '../../components/Common/GoogleLoginButton';
 
 function HomePage() {
   return (
     <div className='min-h-screen flex flex-col items-center justify-center bg-main-bg text-white p-20 space-y-6 bg-vignette'>
-      <Logo />
+      <MainLogo />
       <div className='mb-4'>
         <SubTitle />
       </div>
