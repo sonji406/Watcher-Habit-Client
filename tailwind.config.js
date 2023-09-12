@@ -6,6 +6,12 @@ module.exports = {
       backgroundColor: {
         'main-bg': '#27313C',
         'main-green': '#26A34F',
+        'main-dark-blue': '#1C2532',
+      },
+      textColor: {
+        'main-bg': '#27313C',
+        'main-green': '#26A34F',
+        'main-dark-blue': '#1C2532',
       },
       backgroundImage: {
         vignette:
