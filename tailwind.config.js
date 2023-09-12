@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       backgroundColor: {
         'main-bg': '#27313C',
+        'main-green': '#1C2532',
       },
       backgroundImage: {
         vignette:
