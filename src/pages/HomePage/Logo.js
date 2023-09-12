@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 const Logo = () => {
   return (
-    <div className="text-7xl" style={{ fontFamily: "Sinoreta" }}>
+    <div className='text-7xl' style={{ fontFamily: 'Sinoreta' }}>
       WatcherHabit
     </div>
   );

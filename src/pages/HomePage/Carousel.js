@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from 'react';
 
 const Carousel = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -67,7 +67,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="relative w-80 h-60 overflow-hidden glowing-box">
+    <div className='relative w-80 h-60 overflow-hidden glowing-box'>
       <div
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
@@ -81,19 +81,19 @@ const Carousel = () => {
               key={index}
               src={images[index]}
               style={{
-                position: "absolute",
+                position: 'absolute',
                 left: `${(relativeIndex - 1) * 100 + offsetX}%`,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                transition: isDragging.current ? "none" : "left 0.5s ease-out",
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transition: isDragging.current ? 'none' : 'left 0.5s ease-out',
               }}
               onDragStart={(e) => e.preventDefault()}
             />
-          )
+          ),
         )}
       </div>
-      <div className="absolute bottom-2 flex space-x-4 justify-center w-full">
+      <div className='absolute bottom-2 flex space-x-4 justify-center w-full'>
         {Array.from({ length }).map((_, index) => (
           <div
             key={index}
@@ -102,8 +102,8 @@ const Carousel = () => {
         transform hover:scale-110
         ${
           index === currentImageIndex
-            ? "bg-white scale-125"
-            : "bg-white opacity-50 hover:bg-gray-400"
+            ? 'bg-white scale-125'
+            : 'bg-white opacity-50 hover:bg-gray-400'
         }
       `}
             onClick={() => handleIndicatorClick(index)}
