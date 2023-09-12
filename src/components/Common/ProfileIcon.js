@@ -72,18 +72,20 @@ const Profile = () => {
             style={{ width: '40px', height: '40px' }}
           ></div>
         )}
-        <span
-          className='absolute bottom-0 right-0 bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center'
-          style={{
-            width: '20px',
-            height: '20px',
-            fontSize: '12px',
-            bottom: '-5px',
-            right: '-5px',
-          }}
-        >
-          {visibleCount}
-        </span>
+        {visibleCount > 0 && (
+          <span
+            className='absolute bottom-0 right-0 bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center'
+            style={{
+              width: '20px',
+              height: '20px',
+              fontSize: '12px',
+              bottom: '-5px',
+              right: '-5px',
+            }}
+          >
+            {visibleCount}
+          </span>
+        )}
       </div>
       {showNotifications && (
         <div className='absolute right-0 mt-2 w-64 rounded-lg shadow-lg'>
