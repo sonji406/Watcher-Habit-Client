@@ -1,5 +1,8 @@
 import React from 'react';
 
+const commonButtonClass =
+  'bg-main-dark-blue text-white hover:text-main-green text-sm mt-2 px-4 py-2 rounded-full';
+
 const NotificationItem = ({
   message,
   date,
@@ -9,44 +12,29 @@ const NotificationItem = ({
   setIsVisible,
 }) => {
   const renderButton = () => {
+    let buttonText = '확인하러 가기';
     switch (status) {
       case 'success':
-        return (
-          <button className='bg-[#1C2532] text-white text-sm mt-2 px-4 py-2 rounded-full'>
-            확인하러 가기
-          </button>
-        );
+        buttonText = '확인하러 가기';
+        break;
       case 'failure':
-        return (
-          <button className='bg-[#1C2532] text-white text-sm mt-2 px-4 py-2 rounded-full'>
-            확인하러 가기
-          </button>
-        );
+        buttonText = '확인하러 가기';
+        break;
       case 'verificationRequest':
-        return (
-          <button className='bg-[#1C2532] text-white text-sm mt-2 px-4 py-2 rounded-full'>
-            인증하러 가기
-          </button>
-        );
+        buttonText = '인증하러 가기';
+        break;
       case 'approveRequest':
-        return (
-          <button className='bg-[#1C2532] text-white text-sm mt-2 px-4 py-2 rounded-full'>
-            승인하러 가기
-          </button>
-        );
+        buttonText = '승인하러 가기';
+        break;
       case 'invite':
-        return (
-          <button className='bg-[#1C2532] text-white text-sm mt-2 px-4 py-2 rounded-full'>
-            수락하기
-          </button>
-        );
+        buttonText = '수락하기';
+        break;
       default:
-        return (
-          <button className='bg-[#1C2532] text-white text-sm mt-2 px-4 py-2 rounded-full'>
-            확인하러 가기
-          </button>
-        );
+        buttonText = '확인하러 가기';
+        break;
     }
+
+    return <button className={commonButtonClass}>{buttonText}</button>;
   };
 
   return (
