@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setAccessToken } from '../../redux/authSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import NicknameInput from './NicknameInput';
+import ErrorMessage from './ErrorMessage';
+import CreateNicknameButton from './CreateNicknameButton';
+import loginAPI from '../../services/api/login';
+import userPostAPI from '../../services/api/userPost';
+import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
-function CreateNickname() {
+const CreateNickname = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
   const [nickName, setNickName] = useState('');
   const [error, setError] = useState('');
+
   const responsePayload = location.state?.responsePayload;
 
   const handleNicknameChange = (e) => {
@@ -24,7 +28,7 @@ function CreateNickname() {
     }
 
     if (/\s/.test(value)) {
-      setError('닉네임은 공백을 포함할 수 없습니다.');
+      setError('닉네임에 공백을 포함할 수 없습니다.');
       return;
     }
 
@@ -46,6 +50,11 @@ function CreateNickname() {
 
   const handleSubmit = async () => {
     try {
+      if (!nickName) {
+        setError('닉네임을 입력해주세요');
+        return;
+      }
+
       const userData = {
         nickName,
         profileImageUrl: responsePayload.picture,
@@ -53,38 +62,30 @@ function CreateNickname() {
         socialLoginType: getSocialLoginType(responsePayload),
       };
 
-      await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/user`,
-        userData,
+      await userPostAPI(userData);
+
+      await loginAndRedirect(
+        loginAPI,
+        responsePayload,
+        nickName,
+        dispatch,
+        navigate,
       );
-
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/login`,
-        userData,
-      );
-
-      dispatch(setAccessToken(response.data.accessToken));
-
-      navigate(`/my-habit/${nickName}`);
     } catch (error) {
-      setError(error.response.data);
+      setError(error.message);
     }
   };
 
   return (
-    <>
-      <div>
-        <input
-          value={nickName}
-          onChange={handleNicknameChange}
-          placeholder='닉네임 입력'
-          maxLength={10}
-        />
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-      </div>
-      <button onClick={handleSubmit}>생성</button>
-    </>
+    <div className='flex flex-col items-center justify-center pt-32'>
+      <span className='text-white text-2xl pb-5 font-extrabold'>
+        닉네임 생성
+      </span>
+      <NicknameInput nickName={nickName} onChange={handleNicknameChange} />
+      <ErrorMessage error={error} />
+      <CreateNicknameButton onClick={handleSubmit} />
+    </div>
   );
-}
+};
 
 export default CreateNickname;
