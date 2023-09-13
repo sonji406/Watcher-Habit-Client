@@ -34,7 +34,6 @@ const GoogleLoginButton = () => {
         navigate,
       );
     } catch (error) {
-      console.log('error');
       setError(error.message);
     }
   };
