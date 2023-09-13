@@ -7,6 +7,7 @@ import CreateNickname from './pages/CreateNickname';
 import CreateHabit from './pages/CreateHabitPage';
 import MyHabit from './pages/MyHabitPage';
 import GroupPage from './pages/GroupPage';
+import AwsS3Test from './pages/AwsS3Test';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           />
           <Route path='/my-habit/:nickname' element={<MyHabit />} />
           <Route path='/group/:groupId' element={<GroupPage />} />
+          <Route path='/aws-s3-test' element={<AwsS3Test />} />
         </Routes>
       </Router>
     </Provider>
