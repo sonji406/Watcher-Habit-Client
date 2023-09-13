@@ -1,48 +1,42 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
-import { useDispatch, useSelector } from 'react-redux';
-import { setAccessToken } from '../../redux/authSlice';
+import decodeJwtResponse from '../../utils/decodeJwtResponse';
+import loginAPI from '../../services/api/login';
+import userCheckAPI from '../../services/api/userCheck';
+import checkUserByEmail from '../../lib/userCheck/checkUserByEmail';
+import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
-function GoogleLoginButton() {
+const GoogleLoginButton = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const checkUserByEmail = async (email) => {
-    try {
-      const userCheckEndpoint = `${process.env.REACT_APP_SERVER_DOMAIN}/api/userCheck?email=${email}`;
-      const response = await axios.get(userCheckEndpoint);
-
-      if (response.data.user) {
-        return response.data.user;
-      }
-    } catch (error) {
-      console.error('API 요청 중 오류 발생:', error);
-    }
-    return false;
-  };
+  const [error, setError] = useState();
 
   const handleResponse = async (response) => {
-    const responsePayload = decodeJwtResponse(response.credential);
-    const existingUser = await checkUserByEmail(responsePayload.email);
-
-    if (!existingUser) {
-      navigate('/create-nickname', { state: { responsePayload } });
-    } else {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/login`,
-        responsePayload,
+    try {
+      const responsePayload = decodeJwtResponse(response.credential);
+      const nickName = await checkUserByEmail(
+        userCheckAPI,
+        responsePayload.email,
       );
 
-      dispatch(setAccessToken(response.data.accessToken));
+      if (!nickName) {
+        navigate('/create-nickname', { state: { responsePayload } });
+        return;
+      }
 
-      navigate(`/my-habit/${existingUser.nickName}`);
+      await loginAndRedirect(
+        loginAPI,
+        responsePayload,
+        nickName,
+        dispatch,
+        navigate,
+      );
+    } catch (error) {
+      console.log('error');
+      setError(error.message);
     }
-  };
-
-  const decodeJwtResponse = (credential) => {
-    return jwtDecode(credential);
   };
 
   useEffect(() => {
@@ -52,12 +46,17 @@ function GoogleLoginButton() {
     });
 
     window.google.accounts.id.renderButton(
-      document.getElementById('signInDiv'),
+      document.getElementById('googleLoginButton'),
       { theme: 'outline', size: 'large' },
     );
   });
 
-  return <div id='signInDiv'></div>;
-}
+  return (
+    <>
+      <div id='googleLoginButton' className='place-content-center'></div>
+      <div className='pt-4 text-sm text-red-500'>{error}</div>
+    </>
+  );
+};
 
 export default GoogleLoginButton;
