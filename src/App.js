@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import HomePage from './pages/HomePage';
 import CreateNickname from './pages/CreateNickname';
 import CreateHabit from './pages/CreateHabitPage';
@@ -9,7 +10,7 @@ import GroupPage from './pages/GroupPage';
 
 function App() {
   return (
-    <AuthProvider>
+    <Provider store={store}>
       <Router>
         <Routes>
           <Route path='/' element={<HomePage />} />
@@ -22,7 +23,7 @@ function App() {
           <Route path='/group/:groupId' element={<GroupPage />} />
         </Routes>
       </Router>
-    </AuthProvider>
+    </Provider>
   );
 }
 

@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { useAuth } from '../../AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAccessToken } from '../../redux/authSlice';
 
 function GoogleLoginButton() {
   const navigate = useNavigate();
-  const { setAccessToken } = useAuth();
+  const dispatch = useDispatch();
 
   const checkUserByEmail = async (email) => {
     try {
@@ -34,7 +35,7 @@ function GoogleLoginButton() {
         responsePayload,
       );
 
-      setAccessToken(response.data.accessToken);
+      dispatch(setAccessToken(response.data.accessToken));
 
       navigate(`/my-habit/${existingUser.nickName}`);
     }

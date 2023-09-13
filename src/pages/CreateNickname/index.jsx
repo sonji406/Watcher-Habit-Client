@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from '../../AuthContext';
+import { useDispatch } from 'react-redux';
+import { setAccessToken } from '../../redux/authSlice';
 
 function CreateNickname() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { setAccessToken } = useAuth();
+  const dispatch = useDispatch();
 
   const [nickName, setNickName] = useState('');
   const [error, setError] = useState('');
@@ -62,7 +63,7 @@ function CreateNickname() {
         userData,
       );
 
-      setAccessToken(response.data.accessToken);
+      dispatch(setAccessToken(response.data.accessToken));
 
       navigate(`/my-habit/${nickName}`);
     } catch (error) {
