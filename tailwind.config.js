@@ -5,13 +5,12 @@ module.exports = {
     extend: {
       backgroundColor: {
         'main-bg': '#27313C',
-        'main-green': '#26A34F',
-        'main-dark-blue': '#1C2532',
+        'gray-bg': '#BCC2C4',
+        'green-bg': '#26A34F',
+        'dark-blue-bg': '#1C2532',
       },
       textColor: {
-        'main-bg': '#27313C',
-        'main-green': '#26A34F',
-        'main-dark-blue': '#1C2532',
+        'green-txt': '#26A34F',
       },
       backgroundImage: {
         vignette:
@@ -19,6 +18,7 @@ module.exports = {
       },
       fontFamily: {
         sinoreta: ['Sinoreta', 'sans-serif'],
+        sans: ['NotoSansKR', 'sans-serif'],
       },
     },
   },
