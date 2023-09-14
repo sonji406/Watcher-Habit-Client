@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import NotificationList from '../notifications/NotificationList';
-import { useSelector } from 'react-redux';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
 
 const Profile = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
 
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  const accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     const fetchData = async () => {

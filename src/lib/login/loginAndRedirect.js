@@ -1,4 +1,4 @@
-import { setAccessToken } from '../../redux/authSlice';
+import axios from 'axios';
 
 const loginAndRedirect = async (
   loginApi,
@@ -8,9 +8,15 @@ const loginAndRedirect = async (
   navigate,
 ) => {
   try {
-    const apiResponse = await loginApi(loginData);
-
-    dispatch(setAccessToken(apiResponse.data.accessToken));
+    await axios
+      .post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`, loginData)
+      .then((response) => {
+        const accessToken = response.data.accessToken;
+        localStorage.setItem('accessToken', accessToken);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     navigate(`/my-habit/${nickname}`);
   } catch (error) {
