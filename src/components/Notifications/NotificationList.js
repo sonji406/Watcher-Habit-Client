@@ -1,9 +1,22 @@
 import React from 'react';
 import NotificationItem from './NotificationItem';
+import { useNavigate } from 'react-router-dom';
+import logoutAPI from '../../services/api/logout';
 
 const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 
 const NotificationList = ({ notifications, setNotifications }) => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutAPI();
+      navigate('/');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
+  };
+
   const setIsVisible = (id, value) => {
     setNotifications(
       notifications.map((notification) =>
@@ -51,7 +64,10 @@ const NotificationList = ({ notifications, setNotifications }) => {
         ))}
       </div>
       <div className='flex-shrink-0'>
-        <button className='w-full text-center py-2 text-sm text-red-400'>
+        <button
+          className='w-full text-center py-2 text-sm text-red-400'
+          onClick={handleLogout}
+        >
           로그아웃
         </button>
       </div>
