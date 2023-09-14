@@ -37,7 +37,10 @@ const NotificationList = ({ notifications, setNotifications }) => {
   };
 
   return (
-    <div className='bg-main-dark-blue rounded-lg h-[80vh] flex flex-col'>
+    <div
+      className='bg-main-dark-blue rounded-lg h-[80vh] flex flex-col'
+      style={{ fontFamily: 'NotoSansKR' }}
+    >
       <div className='flex justify-between p-2 items-center'>
         <div className='flex items-center'>
           <img src={bellIcon} alt='bell icon' className='h-4 w-4 mr-2' />

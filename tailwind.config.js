@@ -21,6 +21,7 @@ module.exports = {
       },
       fontFamily: {
         sinoreta: ['Sinoreta', 'sans-serif'],
+        sans: ['NotoSansKR', 'sans-serif'],
       },
       color: {
         'custom-dark-gray': '#727C86',

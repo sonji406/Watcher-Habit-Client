@@ -82,7 +82,7 @@ const Profile = () => {
   const visibleCount = notifications.filter((n) => n.isVisible).length;
 
   return (
-    <div className='relative'>
+    <div className='relative' style={{ fontFamily: 'NotoSansKR' }}>
       <div onClick={() => setShowNotifications(!showNotifications)}>
         {profileImageUrl ? (
           <img

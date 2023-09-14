@@ -6,7 +6,10 @@ const MyHabit = () => {
   const { nickname } = useParams();
 
   return (
-    <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
+    <div
+      className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'
+      style={{ fontFamily: 'NotoSansKR' }}
+    >
       <Header />
       <h2>{nickname}'s Habits</h2>
       <LogoutButton />
