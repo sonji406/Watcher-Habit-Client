@@ -5,7 +5,7 @@ const CreateHabit = () => {
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
       <Header />
-      MyHabit 페이지
+      생성/수정 페이지
     </div>
   );
 };
