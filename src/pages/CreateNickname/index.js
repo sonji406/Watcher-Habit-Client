@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import NicknameInput from './NicknameInput';
 import ErrorMessage from './ErrorMessage';
-import CreateNickNameButton from './CreateNickNameButton';
+import CreateNicknameButton from './CreateNicknameButton';
 import loginAPI from '../../services/api/login';
 import userPostAPI from '../../services/api/userPost';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
@@ -83,7 +83,7 @@ const CreateNickName = () => {
       </span>
       <NicknameInput nickName={nickName} onChange={handleNicknameChange} />
       <ErrorMessage error={error} />
-      <CreateNickNameButton onClick={handleSubmit} />
+      <CreateNicknameButton onClick={handleSubmit} />
     </div>
   );
 };
