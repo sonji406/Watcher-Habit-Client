@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import NotificationList from '../notifications/NotificationList';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import NotificationList from '../notifications/NotificationList';
+import { useSelector } from 'react-redux';
+import decodeJwtResponse from '../../utils/decodeJwtResponse';
 
 const Profile = () => {
   const [showNotifications, setShowNotifications] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
+  const [profileImageUrl, setProfileImageUrl] = useState(null);
+
+  const accessToken = useSelector((state) => state.auth.accessToken);
+
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchData = async () => {
+      let userId = null;
       try {
-        const token = localStorage.getItem('accessToken');
-        const response = await axios.get('/api/user/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUserProfile(response.data);
+        const decoded = decodeJwtResponse(accessToken);
+        userId = decoded.userId;
       } catch (error) {
-        console.error('Profile fetch failed:', error);
+        console.error('Error decoding JWT:', error);
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
+        );
+        const user = response.data;
+        setProfileImageUrl(user.profileImageUrl);
+      } catch (error) {
+        console.error('Error fetching user:', error);
       }
     };
 
-    fetchProfile();
-  }, []);
+    fetchData();
+  }, [accessToken]);
 
   const mockNotifications = [
     {
@@ -73,9 +85,9 @@ const Profile = () => {
   return (
     <div className='relative'>
       <div onClick={() => setShowNotifications(!showNotifications)}>
-        {userProfile.profileImageUrl ? (
+        {profileImageUrl ? (
           <img
-            src={userProfile.profileImageUrl}
+            src={profileImageUrl}
             alt='프로필 이미지'
             className='rounded object-cover'
             style={{ width: '40px', height: '40px' }}
