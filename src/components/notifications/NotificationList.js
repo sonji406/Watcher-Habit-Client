@@ -20,7 +20,7 @@ const NotificationList = ({ notifications, setNotifications }) => {
   const setIsVisible = (id, value) => {
     setNotifications(
       notifications.map((notification) =>
-        notification.id === id
+        notification._id === id
           ? { ...notification, isVisible: value }
           : notification,
       ),
@@ -55,15 +55,14 @@ const NotificationList = ({ notifications, setNotifications }) => {
       </div>
 
       <div className='overflow-y-auto flex-grow custom-scrollbar'>
-        {notifications.map((notification, index) => (
+        {notifications.map((notification) => (
           <NotificationItem
-            key={index}
+            key={notification._id}
             content={notification.content}
-            date={notification.date}
-            time={notification.time}
+            date={notification.createdAt}
             status={notification.status}
-            isVisible={notification.isVisible}
-            setIsVisible={(value) => setIsVisible(notification.id, value)}
+            isVisible={notification.isNeedToSend}
+            setIsVisible={(value) => setIsVisible(notification._id, value)}
           />
         ))}
       </div>
