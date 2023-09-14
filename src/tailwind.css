@@ -49,6 +49,10 @@
   animation: glowing 5s infinite alternate;
 }
 
+body {
+  background-color: #27313c;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
   background: transparent;
