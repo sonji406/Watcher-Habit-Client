@@ -8,13 +8,13 @@ const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 const NotificationList = ({ notifications, setNotifications }) => {
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logoutAPI();
-      navigate('/');
-    } catch (error) {
-      console.error('Error during logout:', error);
-    }
+  const closeAllNotifications = () => {
+    setNotifications(
+      notifications.map((notification) => ({
+        ...notification,
+        isVisible: false,
+      })),
+    );
   };
 
   const setIsVisible = (id, value) => {
@@ -27,13 +27,13 @@ const NotificationList = ({ notifications, setNotifications }) => {
     );
   };
 
-  const closeAllNotifications = () => {
-    setNotifications(
-      notifications.map((notification) => ({
-        ...notification,
-        isVisible: false,
-      })),
-    );
+  const handleLogout = async () => {
+    try {
+      await logoutAPI();
+      navigate('/');
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
   };
 
   return (

@@ -3,6 +3,10 @@ import React from 'react';
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
 
+const handleCloseClick = (setIsVisible) => {
+  setIsVisible(false);
+};
+
 const NotificationItem = ({
   content,
   date,
@@ -44,7 +48,7 @@ const NotificationItem = ({
           <p className='text-sm text-gray-600'>{date}</p>
           <p className='text-sm text-gray-600'>{time}</p>
           <button
-            onClick={() => setIsVisible(false)}
+            onClick={() => handleCloseClick(setIsVisible)}
             className='text-blue-500 text-xs'
           >
             닫기
