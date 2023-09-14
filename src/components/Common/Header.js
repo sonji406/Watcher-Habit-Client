@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from './Logo';
-import ProfileIcon from './ProfileIcon';
+import Profile from './Profile';
 
 const Header = () => {
   return (
@@ -9,7 +9,7 @@ const Header = () => {
         <Logo />
       </div>
       <div className='absolute top-0 right-0 flex items-center p-4'>
-        <ProfileIcon />
+        <Profile />
       </div>
     </header>
   );

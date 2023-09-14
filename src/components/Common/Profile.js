@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
-import NotificationList from '../Notifications/NotificationList';
+import React, { useEffect, useState } from 'react';
+import NotificationList from '../notifications/NotificationList';
+import axios from 'axios';
 
 const Profile = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await axios.get('/api/user/me', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserProfile(response.data);
+      } catch (error) {
+        console.error('Profile fetch failed:', error);
+      }
+    };
 
-  const loggedInUser = {
-    profileImageUrl:
-      'https://lh3.googleusercontent.com/a/ACg8ocIVfvshvLgaDn6HoKsLXVQ62HogKTZSAzxdJPSH5v6t=s96-c',
-  };
+    fetchProfile();
+  }, []);
 
   const mockNotifications = [
     {
@@ -59,9 +73,9 @@ const Profile = () => {
   return (
     <div className='relative'>
       <div onClick={() => setShowNotifications(!showNotifications)}>
-        {loggedInUser.profileImageUrl ? (
+        {userProfile.profileImageUrl ? (
           <img
-            src={loggedInUser.profileImageUrl}
+            src={userProfile.profileImageUrl}
             alt='프로필 이미지'
             className='rounded object-cover'
             style={{ width: '40px', height: '40px' }}
