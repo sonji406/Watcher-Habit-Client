@@ -16,12 +16,12 @@ const GoogleLoginButton = () => {
   const handleResponse = async (response) => {
     try {
       const responsePayload = decodeJwtResponse(response.credential);
-      const nickName = await checkUserByEmail(
+      const nickname = await checkUserByEmail(
         userCheckAPI,
         responsePayload.email,
       );
 
-      if (!nickName) {
+      if (!nickname) {
         navigate('/create-nickname', { state: { responsePayload } });
         return;
       }
@@ -29,7 +29,7 @@ const GoogleLoginButton = () => {
       await loginAndRedirect(
         loginAPI,
         responsePayload,
-        nickName,
+        nickname,
         dispatch,
         navigate,
       );

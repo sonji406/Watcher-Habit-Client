@@ -8,12 +8,12 @@ import loginAPI from '../../services/api/login';
 import userPostAPI from '../../services/api/userPost';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
-const CreateNickName = () => {
+const CreateNickname = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [nickName, setNickName] = useState('');
+  const [nickname, setNickname] = useState('');
   const [error, setError] = useState('');
 
   const responsePayload = location.state?.responsePayload;
@@ -22,7 +22,7 @@ const CreateNickName = () => {
     const value = e.target.value;
 
     if (/^[a-zA-Z0-9]+$/.test(value) || value === '') {
-      setNickName(value);
+      setNickname(value);
       setError('');
       return;
     }
@@ -50,13 +50,13 @@ const CreateNickName = () => {
 
   const handleSubmit = async () => {
     try {
-      if (!nickName) {
+      if (!nickname) {
         setError('닉네임을 입력해주세요');
         return;
       }
 
       const userData = {
-        nickName,
+        nickname,
         profileImageUrl: responsePayload.picture,
         email: responsePayload.email,
         socialLoginType: getSocialLoginType(responsePayload),
@@ -67,7 +67,7 @@ const CreateNickName = () => {
       await loginAndRedirect(
         loginAPI,
         responsePayload,
-        nickName,
+        nickname,
         dispatch,
         navigate,
       );
@@ -81,11 +81,11 @@ const CreateNickName = () => {
       <span className='text-white text-2xl pb-5 font-extrabold'>
         닉네임 생성
       </span>
-      <NicknameInput nickName={nickName} onChange={handleNicknameChange} />
+      <NicknameInput nickname={nickname} onChange={handleNicknameChange} />
       <ErrorMessage error={error} />
       <CreateNicknameButton onClick={handleSubmit} />
     </div>
   );
 };
 
-export default CreateNickName;
+export default CreateNickname;

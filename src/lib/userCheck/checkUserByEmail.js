@@ -6,8 +6,8 @@ const checkUserByEmail = async (userCheckAPI, email) => {
 
     const response = await userCheckAPI(email);
 
-    if (response.data.nickName) {
-      return response.data.nickName;
+    if (response.data.nickname) {
+      return response.data.nickname;
     }
   } catch (error) {
     throw new Error('사용자 정보 확인 중 문제가 발생했습니다.');
