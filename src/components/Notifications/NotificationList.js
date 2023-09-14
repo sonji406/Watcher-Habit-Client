@@ -54,7 +54,7 @@ const NotificationList = ({ notifications, setNotifications }) => {
         {notifications.map((notification, index) => (
           <NotificationItem
             key={index}
-            message={notification.message}
+            content={notification.content}
             date={notification.date}
             time={notification.time}
             status={notification.status}

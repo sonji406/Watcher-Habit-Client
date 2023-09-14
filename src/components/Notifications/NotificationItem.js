@@ -4,7 +4,7 @@ const commonButtonClass =
   'bg-main-dark-blue text-white hover:text-main-green text-sm mt-2 px-4 py-2 rounded-full';
 
 const NotificationItem = ({
-  message,
+  content,
   date,
   time,
   status,
@@ -50,7 +50,7 @@ const NotificationItem = ({
             닫기
           </button>
         </div>
-        <p className='text-center mt-5'>{message}</p>
+        <p className='text-center mt-5'>{content}</p>
         {renderButton()}
       </div>
     )

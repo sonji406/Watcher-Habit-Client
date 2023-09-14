@@ -38,7 +38,7 @@ const Profile = () => {
   const mockNotifications = [
     {
       id: 1,
-      message: 'ㅇㅇㅇ님이 습관 성공',
+      content: 'ㅇㅇㅇ님이 습관 성공',
       date: '2023-09-12',
       time: '14:30',
       status: 'success',
@@ -46,7 +46,7 @@ const Profile = () => {
     },
     {
       id: 2,
-      message: 'ㅇㅇㅇ님이 습관 실패',
+      content: 'ㅇㅇㅇ님이 습관 실패',
       date: '2023-09-12',
       time: '14:30',
       status: 'failure',
@@ -54,7 +54,7 @@ const Profile = () => {
     },
     {
       id: 3,
-      message: 'ㅇㅇㅇ님이 인증 요청',
+      content: 'ㅇㅇㅇ님이 인증 요청',
       date: '2023-09-12',
       time: '14:30',
       status: 'verificationRequest',
@@ -62,7 +62,7 @@ const Profile = () => {
     },
     {
       id: 4,
-      message: 'ㅇㅇㅇ님이 승인 완료',
+      content: 'ㅇㅇㅇ님이 승인 완료',
       date: '2023-09-12',
       time: '14:30',
       status: 'approveRequest',
@@ -70,7 +70,7 @@ const Profile = () => {
     },
     {
       id: 5,
-      message: 'ㅇㅇㅇ님이 초대',
+      content: 'ㅇㅇㅇ님이 초대',
       date: '2023-09-12',
       time: '14:30',
       status: 'invite',
