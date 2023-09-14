@@ -58,42 +58,47 @@ const Profile = () => {
   const toggleNotifications = () => {
     setShowNotifications((prevState) => !prevState);
   };
+
   useClickOutside(containerRef, () => setShowNotifications(false));
 
   return (
-    <div
-      className='relative'
-      style={{ fontFamily: 'NotoSansKR' }}
-      ref={containerRef}
-    >
-      <div onClick={toggleNotifications}>
-        {error ? (
-          <div className='bg-red-500 rounded w-[40px] h-[40px] text-white flex justify-center items-center'>
-            !
+    <div className='absolute top-0 right-0 flex items-center p-4'>
+      <div
+        className='relative'
+        style={{ fontFamily: 'NotoSansKR' }}
+        ref={containerRef}
+      >
+        <div onClick={toggleNotifications}>
+          {error ? (
+            <div className='bg-red-500 rounded w-[40px] h-[40px] text-white flex justify-center items-center'>
+              !
+            </div>
+          ) : profileImageUrl ? (
+            <img
+              src={profileImageUrl}
+              alt='프로필 이미지'
+              className='rounded object-cover w-[40px] h-[40px]'
+            />
+          ) : (
+            <div className='bg-blue-400 rounded w-[40px] h-[40px]'></div>
+          )}
+
+          {visibleCount > 0 && (
+            <span className='absolute bottom-[-5px] right-[-5px] bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center w-[20px] h-[20px] text-[12px]'>
+              {visibleCount}
+            </span>
+          )}
+        </div>
+
+        {showNotifications && (
+          <div className='absolute right-0 mt-2 w-64 rounded-lg shadow-lg'>
+            <NotificationList
+              notifications={notifications}
+              setNotifications={setNotifications}
+            />
           </div>
-        ) : profileImageUrl ? (
-          <img
-            src={profileImageUrl}
-            alt='프로필 이미지'
-            className='rounded object-cover w-[40px] h-[40px]'
-          />
-        ) : (
-          <div className='bg-blue-400 rounded w-[40px] h-[40px]'></div>
-        )}
-        {visibleCount > 0 && (
-          <span className='absolute bottom-[-5px] right-[-5px] bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center w-[20px] h-[20px] text-[12px]'>
-            {visibleCount}
-          </span>
         )}
       </div>
-      {showNotifications && (
-        <div className='absolute right-0 mt-2 w-64 rounded-lg shadow-lg'>
-          <NotificationList
-            notifications={notifications}
-            setNotifications={setNotifications}
-          />
-        </div>
-      )}
     </div>
   );
 };
