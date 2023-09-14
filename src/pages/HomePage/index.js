@@ -11,10 +11,10 @@ function HomePage() {
       <div className='mb-4'>
         <SubTitle />
       </div>
-      <div className='mb-4'>
+      <div>
         <Carousel />
       </div>
-      <div>
+      <div className='pt-8'>
         <GoogleLoginButton />
       </div>
     </div>
