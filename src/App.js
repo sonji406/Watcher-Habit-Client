@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import HomePage from './pages/HomePage';
-import CreateNickName from './pages/CreateNickName';
-import CreateHabit from './pages/CreateHabitPage';
-import MyHabit from './pages/MyHabitPage';
-import GroupPage from './pages/GroupPage';
-import AwsS3Test from './pages/AwsS3Test';
+import HomePage from './pages/Home';
+import CreateNicknamePage from './pages/CreateNickName';
+import CreateHabitPage from './pages/CreateHabit';
+import MyHabitPage from './pages/MyHabitPage';
+import GroupPage from './pages/Group';
+import AwsS3TestPage from './pages/AwsS3Test';
 
 function App() {
   return (
@@ -15,14 +15,14 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/create-nickname' element={<CreateNickName />} />
+          <Route path='/create-nickname' element={<CreateNicknamePage />} />
           <Route
             path='/my-habit/:nickname/new-habit'
-            element={<CreateHabit />}
+            element={<CreateHabitPage />}
           />
-          <Route path='/my-habit/:nickname' element={<MyHabit />} />
+          <Route path='/my-habit/:nickname' element={<MyHabitPage />} />
           <Route path='/group/:groupId' element={<GroupPage />} />
-          <Route path='/aws-s3-test' element={<AwsS3Test />} />
+          <Route path='/aws-s3-test' element={<AwsS3TestPage />} />
         </Routes>
       </Router>
     </Provider>
