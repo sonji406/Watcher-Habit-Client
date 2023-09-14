@@ -13,32 +13,32 @@ const GoogleLoginButton = () => {
 
   const [error, setError] = useState();
 
-  const handleResponse = async (response) => {
-    try {
-      const responsePayload = decodeJwtResponse(response.credential);
-      const nickname = await checkUserByEmail(
-        userCheckAPI,
-        responsePayload.email,
-      );
-
-      if (!nickname) {
-        navigate('/create-nickname', { state: { responsePayload } });
-        return;
-      }
-
-      await loginAndRedirect(
-        loginAPI,
-        responsePayload,
-        nickname,
-        dispatch,
-        navigate,
-      );
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
   useEffect(() => {
+    const handleResponse = async (response) => {
+      try {
+        const responsePayload = decodeJwtResponse(response.credential);
+        const nickname = await checkUserByEmail(
+          userCheckAPI,
+          responsePayload.email,
+        );
+
+        if (!nickname) {
+          navigate('/create-nickname', { state: { responsePayload } });
+          return;
+        }
+
+        await loginAndRedirect(
+          loginAPI,
+          responsePayload,
+          nickname,
+          dispatch,
+          navigate,
+        );
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
     window.google.accounts.id.initialize({
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleResponse,
@@ -48,7 +48,7 @@ const GoogleLoginButton = () => {
       document.getElementById('googleLoginButton'),
       { theme: 'outline', size: 'large' },
     );
-  });
+  }, [dispatch, navigate]);
 
   return (
     <>
