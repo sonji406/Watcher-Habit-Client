@@ -17,6 +17,7 @@ export const useProfileImage = () => {
       } catch (error) {
         console.error('Error decoding JWT:', error);
         setError(error);
+
         return;
       }
 
@@ -27,7 +28,6 @@ export const useProfileImage = () => {
         const user = response.data;
         setProfileImageUrl(user.profileImageUrl);
       } catch (error) {
-        console.error('Error fetching user:', error);
         setError(error);
       }
     };

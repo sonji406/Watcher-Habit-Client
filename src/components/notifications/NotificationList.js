@@ -53,6 +53,7 @@ const NotificationList = ({ notifications, setNotifications }) => {
           전체 알림 닫기
         </button>
       </div>
+
       <div className='overflow-y-auto flex-grow custom-scrollbar'>
         {notifications.map((notification, index) => (
           <NotificationItem
@@ -66,6 +67,7 @@ const NotificationList = ({ notifications, setNotifications }) => {
           />
         ))}
       </div>
+
       <div className='flex-shrink-0'>
         <button
           className='w-full text-center py-2 text-sm text-red-400'
