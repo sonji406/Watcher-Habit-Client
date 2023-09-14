@@ -66,8 +66,68 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [sharedGroup, setSharedGroup] = useState(null);
   const [groupOptions, setGroupOptions] = useState([]);
   const [submitFlag, setSubmitFlag] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
 
   const navigate = useNavigate();
+
+  const validateForm = () => {
+    if (!habitTitle) {
+      setValidationMessage('습관 제목을 입력해 주세요.');
+      return false;
+    }
+
+    if (habitTitle.length < 2 || habitTitle.length > 10) {
+      setValidationMessage('습관 제목은 2자 이상 10자 이내로 입력해 주세요.');
+      return false;
+    }
+
+    if (!habitStartDate) {
+      setValidationMessage('시작일을 선택해 주세요.');
+      return false;
+    }
+
+    if (!habitEndDate) {
+      setValidationMessage('종료일을 선택해 주세요.');
+      return false;
+    }
+
+    if (new Date(habitEndDate) < new Date(habitStartDate)) {
+      setValidationMessage('종료일은 시작일 이후로 설정해 주세요.');
+      return false;
+    }
+
+    if (!doDay.length) {
+      setValidationMessage('반복 주기를 선택해 주세요.');
+      return false;
+    }
+
+    if (!startTime) {
+      setValidationMessage('습관 시작 시간을 선택해 주세요.');
+      return false;
+    }
+
+    if (duration === 0) {
+      setValidationMessage('습관 진행 시간을 선택해 주세요.');
+      return false;
+    }
+
+    if (sharedGroup) {
+      if (!penalty) {
+        setValidationMessage('그룹 공유 시 패널티는 필수 입력 사항입니다.');
+        return false;
+      }
+
+      if (minApprovalCount <= 0) {
+        setValidationMessage(
+          '그룹 공유 시 최소 승인 인원은 1명 이상이어야 합니다.',
+        );
+        return false;
+      }
+    }
+
+    setValidationMessage('');
+    return true;
+  };
 
   const hourOptions =
     timePeriod === 'AM'
@@ -94,7 +154,9 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   }, []);
 
   const handleSubmit = () => {
-    if (!isFormValid) return;
+    const isValid = validateForm();
+    if (!isValid) return;
+
     setSubmitFlag(!submitFlag);
   };
 
@@ -397,11 +459,13 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
               </div>
             </>
           )}
+          {validationMessage && (
+            <div className='text-red-500'>{validationMessage}</div>
+          )}
           <div className='flex justify-between mt-6'>
             <button
               className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
               onClick={handleSubmit}
-              disabled={!isFormValid}
             >
               {isEdit ? 'Edit' : 'Create'}
             </button>
