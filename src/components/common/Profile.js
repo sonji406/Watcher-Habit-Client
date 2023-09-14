@@ -47,11 +47,11 @@ const mockNotifications = [
 ];
 
 const Profile = () => {
+  const containerRef = useRef(null);
+
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState(mockNotifications);
   const { profileImageUrl, error } = useProfileImage();
-
-  const containerRef = useRef(null);
 
   const visibleCount = notifications.filter((n) => n.isVisible).length;
 
@@ -70,17 +70,17 @@ const Profile = () => {
       >
         <div onClick={toggleNotifications}>
           {error ? (
-            <div className='bg-red-500 rounded w-[40px] h-[40px] text-white flex justify-center items-center'>
+            <div className='bg-red-500 rounded w-[40px] h-[40px] text-white flex justify-center items-center border border-white'>
               !
             </div>
           ) : profileImageUrl ? (
             <img
               src={profileImageUrl}
               alt='프로필 이미지'
-              className='rounded object-cover w-[40px] h-[40px]'
+              className='rounded object-cover w-[40px] h-[40px] border border-white'
             />
           ) : (
-            <div className='bg-blue-400 rounded w-[40px] h-[40px]'></div>
+            <div className='bg-transparent rounded w-[40px] h-[40px] border border-white'></div>
           )}
 
           {visibleCount > 0 && (

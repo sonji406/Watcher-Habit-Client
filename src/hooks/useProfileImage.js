@@ -8,30 +8,30 @@ export const useProfileImage = () => {
 
   const accessToken = localStorage.getItem('accessToken');
 
+  const fetchData = async () => {
+    let userId = null;
+
+    try {
+      const decoded = decodeJwtResponse(accessToken);
+      userId = decoded.userId;
+    } catch (decodeError) {
+      console.error('Error decoding JWT:', decodeError);
+      setError(decodeError);
+      return;
+    }
+
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
+      );
+      const user = response.data;
+      setProfileImageUrl(user.profileImageUrl);
+    } catch (fetchError) {
+      setError(fetchError);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      let userId = null;
-      try {
-        const decoded = decodeJwtResponse(accessToken);
-        userId = decoded.userId;
-      } catch (error) {
-        console.error('Error decoding JWT:', error);
-        setError(error);
-
-        return;
-      }
-
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
-        );
-        const user = response.data;
-        setProfileImageUrl(user.profileImageUrl);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
     fetchData();
   }, [accessToken]);
 
