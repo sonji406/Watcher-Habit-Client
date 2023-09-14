@@ -112,11 +112,6 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
     }
 
     if (sharedGroup) {
-      if (!penalty) {
-        setValidationMessage('그룹 공유 시 패널티는 필수 입력 사항입니다.');
-        return false;
-      }
-
       if (minApprovalCount <= 0) {
         setValidationMessage(
           '그룹 공유 시 최소 승인 인원은 1명 이상이어야 합니다.',
@@ -431,7 +426,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
               type='text'
               value={penalty}
               onChange={(e) => setPenalty(e.target.value)}
-              placeholder='패널티 내용을 입력하세요(최대 50자)'
+              placeholder='(선택사항) 패널티 내용을 입력하세요(최대 50자)'
               minLength={2}
               maxLength={50}
             />
