@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import HomePage from './pages/HomePage';
-import CreateNicknamePage from './pages/CreateNickName';
+import CreateNickNamePage from './pages/CreateNickName';
 import CreateHabitPage from './pages/CreateHabit';
 import MyHabitPage from './pages/MyHabit';
 import GroupPage from './pages/Group';
@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Routes>
           <Route path='/' element={<HomePage />} />
-          <Route path='/create-nickname' element={<CreateNicknamePage />} />
+          <Route path='/create-nickname' element={<CreateNickNamePage />} />
           <Route
             path='/my-habit/:nickname/new-habit'
             element={<CreateHabitPage />}
