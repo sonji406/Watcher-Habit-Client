@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
-import LogoutButton from '../../components/common/LogoutButton';
-import Header from '../../components/common/Header';
+import LogoutButton from '../../components/a/LogoutButton';
+import Header from '../../components/a/Header';
 
 const MyHabit = () => {
   const { nickname } = useParams();
