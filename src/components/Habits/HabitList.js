@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import GroupInviteButton from './GroupInviteButton';
 import { useState } from 'react';
 import HabitItem from './HabitItem';
+import HabbitCreateButton from './HabitCreateButton';
 
 function HabitList({ dailyHabits }) {
   const currentUrl = useLocation().pathname;
@@ -36,7 +37,9 @@ function HabitList({ dailyHabits }) {
         {habits.map((habit) => {
           return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;
         })}
-        {/* want to add some hovering button on the HabitItemlist */}
+        {currentPage === 'my-habit' && (
+          <HabbitCreateButton></HabbitCreateButton>
+        )}
       </div>
     </div>
   );
