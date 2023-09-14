@@ -5,7 +5,7 @@ import store from './redux/store';
 import HomePage from './pages/HomePage';
 import CreateNicknamePage from './pages/CreateNickName';
 import CreateHabitPage from './pages/CreateHabit';
-import MyHabitPage from './pages/MyHabitPage';
+import MyHabitPage from './pages/MyHabit';
 import GroupPage from './pages/Group';
 import AwsS3TestPage from './pages/AwsS3Test';
 

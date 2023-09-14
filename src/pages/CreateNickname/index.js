@@ -8,7 +8,7 @@ import loginAPI from '../../services/api/login';
 import userPostAPI from '../../services/api/userPost';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
-const CreateNicknamePage = () => {
+const CreateNickname = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -88,4 +88,4 @@ const CreateNicknamePage = () => {
   );
 };
 
-export default CreateNicknamePage;
+export default CreateNickname;
