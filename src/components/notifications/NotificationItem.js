@@ -1,7 +1,7 @@
 import React from 'react';
 
 const commonButtonClass =
-  'bg-main-dark-blue text-white hover:text-main-green text-sm mt-2 px-4 py-2 rounded-full';
+  'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
 
 const NotificationItem = ({
   content,
@@ -39,7 +39,7 @@ const NotificationItem = ({
 
   return (
     isVisible && (
-      <div className='py-2 px-4 flex flex-col items-center justify-center rounded-lg bg-[#27313C] m-4 relative'>
+      <div className='py-2 px-4 flex flex-col items-center justify-center rounded-lg bg-main-bg m-4 relative'>
         <div className='absolute top-0 right-3 flex space-x-1'>
           <p className='text-sm text-gray-600'>{date}</p>
           <p className='text-sm text-gray-600'>{time}</p>
