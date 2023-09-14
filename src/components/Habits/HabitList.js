@@ -1,53 +1,42 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import GroupInviteButton from './GroupInviteButton';
 import { useState } from 'react';
+import HabitItem from './HabitItem';
 
-function HabitList({ userDailyHaibt, groupDailyHaibt }) {
+function HabitList({ dailyHabits }) {
   const currentUrl = useLocation().pathname;
-  const { nickname: currentUserNickName } = useParams();
-  const [selectedMemberNickname, setSelectedMemberNickname] =
-    useState(currentUserNickName);
-
   const currentPage = currentUrl.split('/')[1]; // 'my-habit' or 'group'
-  const groupMembers =
-    currentPage === 'group' ? Object.keys(groupDailyHaibt.data) : null;
-
-  let habits = [];
-
-  if (currentPage === 'my-habit') {
-    habits = userDailyHaibt.data;
-  }
-
-  if (currentPage === 'group') {
-    habits = groupDailyHaibt.data[selectedMemberNickname];
-  }
+  const members = Object.keys(dailyHabits.data);
+  const [selectedMemberNickname, setSelectedMemberNickname] = useState(
+    members[0],
+  );
+  const habits = dailyHabits.data[selectedMemberNickname];
 
   return (
-    <div>
-      {currentPage === 'my-habit' && (
-        <div>
-          <p>My Daily Habits</p>
-        </div>
-      )}
-      {currentPage === 'group' && (
-        <div>
-          <select
-            value={selectedMemberNickname}
-            onChange={(e) => setSelectedMemberNickname(e.target.value)}
-          >
-            {groupMembers.map((member) => (
-              <option key={member} value={member}>
-                {member}
-              </option>
-            ))}
-          </select>
-          <GroupInviteButton></GroupInviteButton>
-        </div>
-      )}
+    <div className='w-3/10 bg-main-dark-blue'>
       <div>
+        {currentPage === 'my-habit' && <p>My Daily Habits</p>}
+        {currentPage === 'group' && (
+          <>
+            <select
+              value={selectedMemberNickname}
+              onChange={(e) => setSelectedMemberNickname(e.target.value)}
+            >
+              {members.map((member) => (
+                <option key={member} value={member}>
+                  {member}
+                </option>
+              ))}
+            </select>
+            <GroupInviteButton></GroupInviteButton>
+          </>
+        )}
+      </div>
+      <div className='h-72 overflow-y-auto'>
         {habits.map((habit) => {
-          return <div>test</div>;
+          return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;
         })}
+        {/* want to add some hovering button on the HabitItemlist */}
       </div>
     </div>
   );

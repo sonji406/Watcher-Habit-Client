@@ -1,5 +1,5 @@
 function GroupInviteButton() {
-  return <button>그룹 초대 버튼</button>;
+  return <button>+</button>;
 }
 
 export default GroupInviteButton;
