@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import NotificationList from '../Notifications/NotificationList';
+import NotificationList from '../notifications/NotificationList';
 
 const Profile = () => {
   const [showNotifications, setShowNotifications] = useState(false);

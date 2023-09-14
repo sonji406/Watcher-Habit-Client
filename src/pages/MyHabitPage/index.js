@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/Common/Header';
+import Header from '../../components/common/Header';
 
 const MyHabit = () => {
   return (
