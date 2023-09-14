@@ -1,6 +1,7 @@
 import React from 'react';
 import NotificationItem from './NotificationItem';
-import bellIcon from './bell.png';
+
+const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 
 const NotificationList = ({ notifications, setNotifications }) => {
   const setIsVisible = (id, value) => {
