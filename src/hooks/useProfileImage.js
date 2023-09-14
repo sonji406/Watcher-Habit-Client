@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { getUserProfileImage } from '../services/api/userGet';
 import decodeJwtResponse from '../utils/decodeJwtResponse';
 
 export const useProfileImage = () => {
@@ -21,11 +21,8 @@ export const useProfileImage = () => {
     }
 
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
-      );
-      const user = response.data;
-      setProfileImageUrl(user.profileImageUrl);
+      const imageUrl = await getUserProfileImage(userId);
+      setProfileImageUrl(imageUrl);
     } catch (fetchError) {
       setError(fetchError);
     }
