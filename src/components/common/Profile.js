@@ -88,26 +88,13 @@ const Profile = () => {
           <img
             src={profileImageUrl}
             alt='프로필 이미지'
-            className='rounded object-cover'
-            style={{ width: '40px', height: '40px' }}
+            className='rounded object-cover w-[40px] h-[40px]'
           />
         ) : (
-          <div
-            className='bg-blue-400 rounded'
-            style={{ width: '40px', height: '40px' }}
-          ></div>
+          <div className='bg-blue-400 rounded w-[40px] h-[40px]'></div>
         )}
         {visibleCount > 0 && (
-          <span
-            className='absolute bottom-0 right-0 bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center'
-            style={{
-              width: '20px',
-              height: '20px',
-              fontSize: '12px',
-              bottom: '-5px',
-              right: '-5px',
-            }}
-          >
+          <span className='absolute bottom-[-5px] right-[-5px] bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center w-[20px] h-[20px] text-[12px]'>
             {visibleCount}
           </span>
         )}

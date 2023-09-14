@@ -80,13 +80,10 @@ const Carousel = () => {
               alt={`Carousel slide ${index + 1}`}
               key={index}
               src={images[index]}
+              className='absolute w-full h-full object-cover transition-all duration-200 ease-out'
               style={{
-                position: 'absolute',
                 left: `${(relativeIndex - 1) * 100 + offsetX}%`,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                transition: isDragging.current ? 'none' : 'left 0.5s ease-out',
+                transition: isDragging.current ? 'none' : undefined,
               }}
               onDragStart={(e) => e.preventDefault()}
             />
