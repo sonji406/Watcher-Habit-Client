@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import NotificationList from '../notifications/NotificationList';
 import { useProfileImage } from '../../hooks/useProfileImage';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 const mockNotifications = [
   {
@@ -47,15 +48,25 @@ const mockNotifications = [
 
 const Profile = () => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState(mockNotifications);
   const { profileImageUrl, error } = useProfileImage();
 
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const containerRef = useRef(null);
 
   const visibleCount = notifications.filter((n) => n.isVisible).length;
 
+  const toggleNotifications = () => {
+    setShowNotifications((prevState) => !prevState);
+  };
+  useClickOutside(containerRef, () => setShowNotifications(false));
+
   return (
-    <div className='relative' style={{ fontFamily: 'NotoSansKR' }}>
-      <div onClick={() => setShowNotifications(!showNotifications)}>
+    <div
+      className='relative'
+      style={{ fontFamily: 'NotoSansKR' }}
+      ref={containerRef}
+    >
+      <div onClick={toggleNotifications}>
         {error ? (
           <div className='bg-red-500 rounded w-[40px] h-[40px] text-white flex justify-center items-center'>
             !
