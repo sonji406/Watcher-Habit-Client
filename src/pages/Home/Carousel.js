@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 
 const Carousel = () => {
+  const isDragging = useRef(false);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [startX, setStartX] = useState(0);
   const [offsetX, setOffsetX] = useState(0);
-  const isDragging = useRef(false);
 
   const images = [
     `${process.env.PUBLIC_URL}/images/carousel/image1.png`,
@@ -16,6 +17,47 @@ const Carousel = () => {
 
   const length = images.length;
 
+  const updateImageIndex = (direction) => {
+    setCurrentImageIndex((prevIndex) => {
+      return (prevIndex + direction + length) % length;
+    });
+  };
+
+  const resetOffset = () => setOffsetX(0);
+
+  const dragStart = (clientX) => {
+    isDragging.current = true;
+    setStartX(clientX);
+  };
+
+  const dragMove = (clientX) => {
+    if (!isDragging.current) return;
+    const newOffsetX = clientX - startX;
+    setOffsetX(newOffsetX);
+  };
+
+  const dragEnd = () => {
+    isDragging.current = false;
+
+    if (Math.abs(offsetX) <= 20) {
+      resetOffset();
+      return;
+    }
+
+    updateImageIndex(offsetX > 0 ? -1 : 1);
+    resetOffset();
+  };
+
+  useEffect(() => {
+    if (!isDragging.current) {
+      const timer = setTimeout(() => {
+        updateImageIndex(1);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentImageIndex, length]);
+
   const getCarouselIndices = (currentIndex, totalImages) => {
     const previous = (currentIndex - 1 + totalImages) % totalImages;
     const next = (currentIndex + 1) % totalImages;
@@ -23,56 +65,13 @@ const Carousel = () => {
     return [previous, currentIndex, next];
   };
 
-  useEffect(() => {
-    if (!isDragging.current) {
-      const timer = setTimeout(() => {
-        setCurrentImageIndex((prevIndex) => (prevIndex + 1) % length);
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [currentImageIndex, length]);
-
-  const handleMouseDown = (e) => {
-    isDragging.current = true;
-    setStartX(e.clientX);
-  };
-
-  const handleMouseMove = (e) => {
-    if (isDragging.current) {
-      const currentX = e.clientX;
-      const newOffsetX = currentX - startX;
-      setOffsetX(newOffsetX);
-    }
-  };
-
-  const handleMouseUp = (e) => {
-    isDragging.current = false;
-
-    if (Math.abs(offsetX) <= 20) {
-      setOffsetX(0);
-
-      return;
-    }
-
-    setCurrentImageIndex((prevIndex) => {
-      return (prevIndex + (offsetX > 0 ? -1 : 1) + length) % length;
-    });
-
-    setOffsetX(0);
-  };
-
-  const handleIndicatorClick = (index) => {
-    setCurrentImageIndex(index);
-  };
-
   return (
     <div className='relative w-80 h-60 overflow-hidden glowing-box'>
       <div
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
+        onMouseDown={(e) => dragStart(e.clientX)}
+        onMouseMove={(e) => dragMove(e.clientX)}
+        onMouseUp={dragEnd}
+        onMouseLeave={dragEnd}
       >
         {getCarouselIndices(currentImageIndex, length).map(
           (index, relativeIndex) => (
@@ -90,20 +89,17 @@ const Carousel = () => {
           ),
         )}
       </div>
+
       <div className='absolute bottom-2 flex space-x-4 justify-center w-full'>
         {Array.from({ length }).map((_, index) => (
           <div
             key={index}
-            className={`
-        w-4 h-4 rounded-full cursor-pointer transition-all duration-300 ease-in-out
-        transform hover:scale-110
-        ${
-          index === currentImageIndex
-            ? 'bg-white scale-125'
-            : 'bg-white opacity-50 hover:bg-gray-400'
-        }
-      `}
-            onClick={() => handleIndicatorClick(index)}
+            className={`w-4 h-4 rounded-full cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-110 ${
+              index === currentImageIndex
+                ? 'bg-white scale-125'
+                : 'bg-white opacity-50 hover:bg-gray-400'
+            }`}
+            onClick={() => updateImageIndex(index - currentImageIndex)}
           />
         ))}
       </div>
