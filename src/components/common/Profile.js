@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import NotificationList from '../b/NotificationList';
+import NotificationList from '../notifications/NotificationList';
 import { useSelector } from 'react-redux';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
 
