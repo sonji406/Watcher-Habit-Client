@@ -8,18 +8,17 @@ const loginAndRedirect = async (
   navigate,
 ) => {
   try {
-    await axios
-      .post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`, loginData)
-      .then((response) => {
-        const accessToken = response.data.accessToken;
-        localStorage.setItem('accessToken', accessToken);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    const response = await axios.post(
+      `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`,
+      loginData,
+    );
+
+    const accessToken = response.data.accessToken;
+    localStorage.setItem('accessToken', accessToken);
 
     navigate(`/my-habit/${nickname}`);
   } catch (error) {
+    console.error(error);
     throw new Error('로그인에 문제가 발생했습니다.');
   }
 };
