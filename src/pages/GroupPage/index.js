@@ -1,4 +1,7 @@
-import HabitList from '../../components/Habits/HabitList';
+// import { useParams } from 'react-router-dom';
+import HabitList from '../../components/habits/HabitList';
+// import { useDailyHabits } from '../../hooks/useDailyHabits';
+// import getCurrentDate from '../../utils/getCurrentDate';
 
 const mockResponseData = {
   status: 200,
@@ -29,7 +32,20 @@ const mockResponseData = {
 };
 
 function GroupPage() {
-  return <HabitList groupDailyHaibt={mockResponseData}></HabitList>;
+  // const { groupId } = useParams('groupId');
+  // const currentDate = getCurrentDate();
+  // const { dailyHabits, loading, error } = useDailyHabits(
+  //   `api/group/${groupId}/habitList?date=${currentDate}`,
+  // );
+
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
+      <HabitList dailyHabits={mockResponseData}></HabitList>
+    </div>
+  );
 }
 
 export default GroupPage;
