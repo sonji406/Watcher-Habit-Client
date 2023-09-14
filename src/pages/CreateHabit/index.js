@@ -298,7 +298,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
           <div className='mb-4 flex justify-between'>
             <button
               className={`py-2 px-4 border rounded ${
-                doDay.length === 7 ? 'bg-main-green' : ''
+                doDay.length === 7 ? 'bg-green-bg' : ''
               }`}
               onClick={toggleAllDays}
             >
@@ -310,7 +310,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
               <button
                 key={day}
                 className={`py-2 px-4 border rounded ${
-                  doDay.includes(day) ? 'bg-main-green' : ''
+                  doDay.includes(day) ? 'bg-green-bg' : ''
                 }`}
                 onClick={() => {
                   toggleDay(day);
