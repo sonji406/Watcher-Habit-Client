@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import HomePage from './pages/Home';
+import HomePage from './pages/HomePage';
 import CreateNicknamePage from './pages/CreateNickName';
 import CreateHabitPage from './pages/CreateHabit';
 import MyHabitPage from './pages/MyHabitPage';
