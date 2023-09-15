@@ -169,7 +169,12 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             <ValidationForm validationMessage={validationMessage} />
 
             <div className='flex justify-between mt-6'>
-              <SubmitButton isEdit={isEdit} isLoading={isSubmitting} />
+              <SubmitButton
+                isEdit={isEdit}
+                isLoading={isSubmitting}
+                handleSubmit={handleSubmit}
+              />
+
               <CancelButton />
             </div>
           </form>
