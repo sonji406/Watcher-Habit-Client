@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
@@ -18,6 +19,7 @@ import {
   convertTimeToMinutes,
   formatTimeFromMinutes,
 } from '../../utils/timeUtils';
+import { getUserInfo } from '../../services/api/userGet';
 
 const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
@@ -38,6 +40,24 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { validationMessage, validateForm } = useValidation();
   const { groupOptions } = useGroups(userId);
+  const [message, setMessage] = useState(null);
+  const [messageType, setMessageType] = useState(null);
+  const [nickname, setNickname] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = getUserIdFromToken(localStorage.getItem('accessToken'));
+        const userInfo = await getUserInfo(userId);
+        setNickname(userInfo.nickname);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -98,11 +118,25 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
       if (response.status === 200 || response.status === 201) {
         console.log('Success:', response.data);
+        setMessage('습관이 성공적으로 저장되었습니다.');
+        setMessageType('success');
+        setTimeout(() => {
+          navigate(`/my-habit/${nickname}`);
+        }, 3000);
       } else {
         console.log('Error:', response.data);
+        setMessage('오류가 발생했습니다.');
+        setMessageType('error');
       }
     } catch (error) {
-      console.error('API Error:', error);
+      if (error.response && error.response.data) {
+        const errorMsg =
+          error.response.data.error || 'API 오류가 발생했습니다.';
+        setMessage(errorMsg);
+      } else {
+        setMessage('API 오류가 발생했습니다.');
+        setMessageType('error');
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -158,6 +192,16 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             />
 
             <ValidationForm validationMessage={validationMessage} />
+
+            {message && (
+              <div
+                className={`message ${
+                  messageType === 'success' ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {message}
+              </div>
+            )}
 
             <div className='flex justify-between mt-6'>
               <SubmitButton
