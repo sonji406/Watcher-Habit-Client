@@ -20,7 +20,7 @@ export const useHandleSubmit = (
       return;
     }
 
-    setMessage('습관이 성공적으로 저장되었습니다.');
+    setMessage('습관 생성이 완료되었습니다. 나의 습관 관리 페이지로 이동합니다.');
     setMessageType('success');
 
     setTimeout(() => {
