@@ -42,7 +42,7 @@ export const useSubmitHabit = (habitData, isFormValid, isEdit, submitFlag) => {
         let response;
         if (isEdit) {
           response = await axios.patch(
-            `/api/habit/${habitData.habitId}`,
+            `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitData.habitId}`,
             newHabitData,
           );
         } else {

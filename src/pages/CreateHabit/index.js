@@ -98,11 +98,14 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       let response;
       if (isEdit) {
         response = await axios.patch(
-          `/api/habit/${habitData.habitId}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitData.habitId}`,
           habitData,
         );
       } else {
-        response = await axios.post('/api/habit', habitData);
+        response = await axios.post(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
+          habitData,
+        );
       }
 
       if (response.status === 200 || response.status === 201) {
