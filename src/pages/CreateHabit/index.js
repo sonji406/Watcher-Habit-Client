@@ -66,7 +66,10 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   };
 
   return (
-    <div className='min-h-screen flex flex-col text-black bg-main-bg custom-scrollbar overflow-y-auto'>
+    <div
+      className='min-h-screen flex flex-col text-black bg-main-bg custom-scrollbar overflow-y-auto'
+      style={{ fontFamily: 'NotoSansKR' }}
+    >
       <Header />
       <div className='container mx-auto flex justify-center items-start h-full overflow-y-auto m-20'>
         <div className='w-full max-w-3xl p-8 m-4 bg-white rounded shadow-md overflow-y-auto'>
