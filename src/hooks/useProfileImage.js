@@ -6,13 +6,11 @@ export const useProfileImage = () => {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [error, setError] = useState(null);
 
-  const accessToken = localStorage.getItem('accessToken');
-
   const fetchData = async () => {
     let userId = null;
 
     try {
-      userId = getUserIdFromToken(accessToken);
+      userId = getUserIdFromToken();
     } catch (decodeError) {
       console.error('Error decoding JWT:', decodeError);
       setError(decodeError);
@@ -29,7 +27,7 @@ export const useProfileImage = () => {
 
   useEffect(() => {
     fetchData();
-  }, [accessToken]);
+  }, []);
 
   return { profileImageUrl, error };
 };
