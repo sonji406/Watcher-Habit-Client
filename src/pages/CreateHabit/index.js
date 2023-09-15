@@ -1,51 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
+import { useValidation } from '../../hooks/useValidationForm';
+import { useGroups } from '../../hooks/useGroups';
+import { useSubmitHabit } from '../../hooks/useSubmitHabit';
+import decodeJwtResponse from '../../utils/decodeJwtResponse';
 
-const mockCreateHabitAPI = (data) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        status: 201,
-        data: {
-          message: '습관이 성공적으로 생성되었습니다.',
-          habitId: 'mock-habit-id-12345',
-          ...data,
-        },
-      });
-    }, 1000);
-  });
+const getUserIdFromToken = () => {
+  const accessToken = localStorage.getItem('accessToken');
+
+  try {
+    const decoded = decodeJwtResponse(accessToken);
+    return decoded.userId;
+  } catch (decodeError) {
+    console.error('Error decoding JWT:', decodeError);
+    return null;
+  }
 };
 
-const mockEditHabitAPI = (data) => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        status: 200,
-        data: {
-          message: '습관이 성공적으로 수정되었습니다.',
-          habitId: 'mock-habit-id-12345',
-          ...data,
-        },
-      });
-    }, 1000);
-  });
-};
+const userId = getUserIdFromToken();
 
-const mockGetGroupsAPI = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        status: 200,
-        data: [
-          { groupId: 'group1', groupName: 'Group 1' },
-          { groupId: 'group2', groupName: 'Group 2' },
-          { groupId: 'group3', groupName: 'Group 3' },
-        ],
-      });
-    }, 500);
-  });
-};
+console.log(userId);
 
 const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 const minuteOptions = ['00', '15', '30', '45'];
@@ -62,67 +37,11 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [timePeriod, setTimePeriod] = useState('AM');
   const [penalty, setPenalty] = useState('');
   const [minApprovalCount, setMinApprovalCount] = useState(0);
-  // const [creator, setCreator] = useState('');
   const [sharedGroup, setSharedGroup] = useState(null);
-  const [groupOptions, setGroupOptions] = useState([]);
   const [submitFlag, setSubmitFlag] = useState(false);
-  const [validationMessage, setValidationMessage] = useState('');
+  const { validationMessage, validateForm } = useValidation();
 
   const navigate = useNavigate();
-
-  const validateForm = () => {
-    if (!habitTitle) {
-      setValidationMessage('습관 제목을 입력해 주세요.');
-      return false;
-    }
-
-    if (habitTitle.length < 2 || habitTitle.length > 10) {
-      setValidationMessage('습관 제목은 2자 이상 10자 이내로 입력해 주세요.');
-      return false;
-    }
-
-    if (!habitStartDate) {
-      setValidationMessage('시작일을 선택해 주세요.');
-      return false;
-    }
-
-    if (!habitEndDate) {
-      setValidationMessage('종료일을 선택해 주세요.');
-      return false;
-    }
-
-    if (new Date(habitEndDate) < new Date(habitStartDate)) {
-      setValidationMessage('종료일은 시작일 이후로 설정해 주세요.');
-      return false;
-    }
-
-    if (!doDay.length) {
-      setValidationMessage('반복 주기를 선택해 주세요.');
-      return false;
-    }
-
-    if (!startTime) {
-      setValidationMessage('습관 시작 시간을 선택해 주세요.');
-      return false;
-    }
-
-    if (duration === 0) {
-      setValidationMessage('습관 진행 시간을 선택해 주세요.');
-      return false;
-    }
-
-    if (sharedGroup) {
-      if (minApprovalCount <= 0) {
-        setValidationMessage(
-          '그룹 공유 시 최소 승인 인원은 1명 이상이어야 합니다.',
-        );
-        return false;
-      }
-    }
-
-    setValidationMessage('');
-    return true;
-  };
 
   const hourOptions =
     timePeriod === 'AM'
@@ -131,95 +50,34 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
   const durationOptions = Array.from({ length: 13 }, (_, i) => i);
 
-  const isFormValid = habitTitle && habitStartDate && habitEndDate;
+  const isFormValid =
+    habitTitle &&
+    habitContent &&
+    habitStartDate &&
+    habitEndDate &&
+    doDay.length &&
+    startTime &&
+    duration;
 
-  useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await mockGetGroupsAPI();
-        if (response.status === 200) {
-          setGroupOptions(response.data);
-        }
-      } catch (error) {
-        console.error('Could not fetch groups:', error);
-      }
-    };
-
-    fetchGroups();
-  }, []);
+  const { groupOptions } = useGroups();
 
   const handleSubmit = () => {
-    const isValid = validateForm();
+    const isValid = validateForm({
+      habitTitle,
+      habitContent,
+      habitStartDate,
+      habitEndDate,
+      doDay,
+      startTime,
+      duration,
+      minApprovalCount,
+      sharedGroup,
+    });
+
     if (!isValid) return;
 
     setSubmitFlag(!submitFlag);
   };
-
-  useEffect(() => {
-    const submitHabit = async () => {
-      if (!isFormValid) return;
-
-      let calculatedStartTime;
-      let calculatedEndTime;
-
-      if (startTime && timePeriod) {
-        let [inputHour, inputMinute] = startTime.split(':').map(Number);
-
-        if (timePeriod === 'PM' && inputHour < 12) inputHour += 12;
-        if (timePeriod === 'AM' && inputHour === 12) inputHour = 0;
-
-        calculatedStartTime = `${String(inputHour).padStart(2, '0')}:${String(
-          inputMinute,
-        ).padStart(2, '0')}`;
-
-        const endDateTime = new Date();
-        endDateTime.setHours(inputHour, inputMinute);
-        endDateTime.setMinutes(endDateTime.getMinutes() + duration);
-
-        const endHour = endDateTime.getHours();
-        const endMinute = endDateTime.getMinutes();
-
-        calculatedEndTime = `${String(endHour).padStart(2, '0')}:${String(
-          endMinute,
-        ).padStart(2, '0')}`;
-      }
-
-      const habitData = {
-        habitTitle,
-        habitContent,
-        habitStartDate,
-        habitEndDate,
-        doDay,
-        startTime: calculatedStartTime,
-        endTime: calculatedEndTime,
-        penalty,
-        // creator,
-        sharedGroup,
-        minApprovalCount,
-      };
-
-      try {
-        let response;
-        if (isEdit) {
-          response = await mockEditHabitAPI(habitData);
-        } else {
-          response = await mockCreateHabitAPI(habitData);
-        }
-
-        if (response.status === 200 || response.status === 201) {
-          console.log('Success:', response.data);
-        } else {
-          console.log('Error:', response.data);
-        }
-      } catch (error) {
-        console.error('API Error:', error);
-      }
-    };
-
-    if (isFormValid) {
-      submitHabit();
-    }
-  }, [submitFlag]);
 
   const toggleDay = (day) => {
     setDoDay((prevDoDay) => {
@@ -238,6 +96,23 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       setDoDay(daysOfWeek);
     }
   };
+
+  const habitData = {
+    habitTitle,
+    habitContent,
+    habitStartDate,
+    habitEndDate,
+    doDay,
+    startTime,
+    timePeriod,
+    duration,
+    penalty,
+    minApprovalCount,
+    sharedGroup,
+    creator: userId,
+  };
+
+  useSubmitHabit(habitData, isFormValid, isEdit, submitFlag);
 
   return (
     <div className='min-h-screen flex flex-col text-black bg-main-bg custom-scrollbar overflow-y-auto'>
