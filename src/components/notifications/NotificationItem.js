@@ -1,5 +1,5 @@
 import React from 'react';
-import getButtonText from '../../utils/getButtonText';
+import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
 
 const commonButtonClass =
