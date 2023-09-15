@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from './Tooltip';
+import Tooltip from '../utils/Tooltip';
 
 const GroupForm = ({ sharedGroup, setSharedGroup, groupOptions }) => {
   const tooltipText = (

@@ -8,16 +8,16 @@ import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import { useHandleSubmit } from '../../hooks/useHandleSubmit';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
-import HabitInfoForm from './HabitInfoForm';
-import DateForm from './DateForm';
-import RepeatForm from './RepeatForm';
-import TimeForm from './TimeForm';
-import GroupForm from './GroupForm';
-import PenaltyForm from './PenaltyForm';
-import MinApprovalForm from './MinApprovalForm';
-import ValidationForm from './ValidationForm';
-import SubmitButton from './SubmitButton';
-import CancelButton from './CancelButton';
+import HabitInfoForm from './forms/HabitInfoForm';
+import DateForm from './forms/DateForm';
+import RepeatForm from './forms/RepeatForm';
+import TimeForm from './forms/TimeForm';
+import GroupForm from './forms/GroupForm';
+import PenaltyForm from './forms/PenaltyForm';
+import MinApprovalForm from './forms/MinApprovalForm';
+import ValidationForm from './forms/ValidationForm';
+import SubmitButton from './utils/SubmitButton';
+import CancelButton from './utils/CancelButton';
 
 const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
