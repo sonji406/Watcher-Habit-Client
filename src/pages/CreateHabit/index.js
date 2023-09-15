@@ -60,6 +60,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       duration,
       minApprovalCount,
       sharedGroup,
+      penalty,
     });
 
     if (!isValid) return;

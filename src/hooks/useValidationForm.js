@@ -13,6 +13,7 @@ export const useValidation = () => {
     duration,
     minApprovalCount,
     sharedGroup,
+    penalty,
   }) => {
     if (!habitTitle) {
       setValidationMessage('습관 제목을 입력해 주세요.');
@@ -61,6 +62,16 @@ export const useValidation = () => {
 
     if (duration === 0) {
       setValidationMessage('습관 진행 시간을 선택해 주세요.');
+      return false;
+    }
+
+    if (!penalty) {
+      setValidationMessage('패널티를 입력해 주세요.');
+      return false;
+    }
+
+    if (penalty.length < 2 || penalty.length > 50) {
+      setValidationMessage('패널티는 2자 이상 50자 이내로 입력해 주세요.');
       return false;
     }
 
