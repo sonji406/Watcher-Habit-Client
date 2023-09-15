@@ -31,7 +31,7 @@ const mockResponseData = {
   },
 };
 
-function GroupPage() {
+function Group() {
   // const { groupId } = useParams('groupId');
   // const currentDate = getCurrentDate();
   // const { dailyHabits, loading, error } = useDailyHabits(
@@ -48,4 +48,4 @@ function GroupPage() {
   );
 }
 
-export default GroupPage;
+export default Group;
