@@ -1,6 +1,15 @@
 import React from 'react';
 
-const MinApprovalForm = ({ minApprovalCount, setMinApprovalCount }) => {
+const MinApprovalForm = ({
+  minApprovalCount,
+  setMinApprovalCount,
+  sharedGroup,
+}) => {
+  if (!sharedGroup) {
+    minApprovalCount = 0;
+    return null;
+  }
+
   return (
     <>
       <label>최소 승인 인원</label>

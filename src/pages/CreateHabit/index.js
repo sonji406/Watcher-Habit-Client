@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
-import { useSubmitHabit } from '../../hooks/useSubmitHabit';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
 import HabitInfoForm from './HabitInfoForm';
 import DateForm from './DateForm';
@@ -14,6 +13,7 @@ import MinApprovalForm from './MinApprovalForm';
 import ValidationForm from './ValidationForm';
 import SubmitButton from './SubmitButton';
 import CancelButton from './CancelButton';
+import axios from 'axios';
 
 const getUserIdFromToken = () => {
   const accessToken = localStorage.getItem('accessToken');
@@ -42,21 +42,12 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [penalty, setPenalty] = useState('');
   const [minApprovalCount, setMinApprovalCount] = useState(0);
   const [sharedGroup, setSharedGroup] = useState(null);
-  const [submitFlag, setSubmitFlag] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { validationMessage, validateForm } = useValidation();
-
-  const isFormValid =
-    habitTitle &&
-    habitContent &&
-    habitStartDate &&
-    habitEndDate &&
-    doDay.length &&
-    startTime &&
-    duration;
 
   const { groupOptions } = useGroups();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const isValid = validateForm({
@@ -73,25 +64,45 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
     if (!isValid) return;
 
-    setSubmitFlag(!submitFlag);
-  };
+    setIsSubmitting(true);
 
-  const habitData = {
-    habitTitle,
-    habitContent,
-    habitStartDate,
-    habitEndDate,
-    doDay,
-    startTime,
-    timePeriod,
-    duration,
-    penalty,
-    minApprovalCount,
-    sharedGroup,
-    creator: userId,
-  };
+    const habitData = {
+      habitTitle,
+      habitContent,
+      habitStartDate,
+      habitEndDate,
+      doDay,
+      startTime,
+      timePeriod,
+      duration,
+      penalty,
+      minApprovalCount,
+      sharedGroup,
+      creator: userId,
+    };
 
-  useSubmitHabit(habitData, isFormValid, isEdit, submitFlag);
+    try {
+      let response;
+      if (isEdit) {
+        response = await axios.patch(
+          `/api/habit/${habitData.habitId}`,
+          habitData,
+        );
+      } else {
+        response = await axios.post('/api/habit', habitData);
+      }
+
+      if (response.status === 200 || response.status === 201) {
+        console.log('Success:', response.data);
+      } else {
+        console.log('Error:', response.data);
+      }
+    } catch (error) {
+      console.error('API Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className='min-h-screen flex flex-col text-black bg-main-bg custom-scrollbar overflow-y-auto'>
@@ -139,12 +150,13 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             <MinApprovalForm
               minApprovalCount={minApprovalCount}
               setMinApprovalCount={setMinApprovalCount}
+              sharedGroup={sharedGroup}
             />
 
             <ValidationForm validationMessage={validationMessage} />
 
             <div className='flex justify-between mt-6'>
-              <SubmitButton isEdit={isEdit} handleSubmit={handleSubmit} />
+              <SubmitButton isEdit={isEdit} isLoading={isSubmitting} />
               <CancelButton />
             </div>
           </form>
