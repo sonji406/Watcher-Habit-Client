@@ -14,6 +14,10 @@ import ValidationForm from './ValidationForm';
 import SubmitButton from './SubmitButton';
 import CancelButton from './CancelButton';
 import axios from 'axios';
+import {
+  convertTimeToMinutes,
+  formatTimeFromMinutes,
+} from '../../utils/timeUtils';
 
 const getUserIdFromToken = () => {
   const accessToken = localStorage.getItem('accessToken');
@@ -67,28 +71,22 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
     setIsSubmitting(true);
 
-    const startTimeParts = startTime.split(':');
-    const startTimeInMinutes =
-      parseInt(startTimeParts[0]) * 60 + parseInt(startTimeParts[1]);
+    const startTimeInMinutes = convertTimeToMinutes(startTime, timePeriod);
     const endTimeInMinutes = startTimeInMinutes + duration;
-    const endTime = `${Math.floor(endTimeInMinutes / 60)
-      .toString()
-      .padStart(2, '0')}:${(endTimeInMinutes % 60)
-      .toString()
-      .padStart(2, '0')}`;
+
+    const newStartTime = formatTimeFromMinutes(startTimeInMinutes);
+    const endTime = formatTimeFromMinutes(endTimeInMinutes);
 
     const habitData = {
       creator: userId,
       doDay,
-      startTime,
+      startTime: newStartTime,
       endTime,
       habitStartDate,
       habitEndDate,
       minApprovalCount,
-
       habitTitle,
       habitContent,
-
       penalty,
     };
 
