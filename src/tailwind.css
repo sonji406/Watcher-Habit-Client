@@ -8,7 +8,7 @@
 }
 
 @font-face {
-  font-family: 'NotoSans';
+  font-family: 'NotoSansKR';
   src: url('/public/fonts/NotoSansKR-VariableFont_wght.ttf') format('opentype');
 }
 
@@ -52,3 +52,14 @@
 body {
   background-color: #27313c;
 }
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(38, 163, 79, 0.4);
+  border-radius: 8px;
+}
+

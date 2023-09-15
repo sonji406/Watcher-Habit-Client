@@ -7,6 +7,10 @@ module.exports = {
         'main-bg': '#27313C',
         'gray-bg': '#BCC2C4',
         'green-bg': '#26A34F',
+        'dark-blue-bg': '#1C2532',
+      },
+      textColor: {
+        'green-txt': '#26A34F',
       },
       backgroundImage: {
         vignette:
@@ -14,10 +18,7 @@ module.exports = {
       },
       fontFamily: {
         sinoreta: ['Sinoreta', 'sans-serif'],
-      },
-      color: {
-        'custom-dark-gray': '#727C86',
-        'custom-green': '#26A34F',
+        sans: ['NotoSansKR', 'sans-serif'],
       },
     },
   },
