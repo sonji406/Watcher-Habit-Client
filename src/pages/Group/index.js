@@ -35,7 +35,7 @@ function Group() {
   const { groupId } = useParams('groupId');
   const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(
-    `api/group/${groupId}/habitList?date=${currentDate}`,
+    `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/habitList?date=${currentDate}`,
   );
 
   if (loading) return <div>Loading...</div>;
