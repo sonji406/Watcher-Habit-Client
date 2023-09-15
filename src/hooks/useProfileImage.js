@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getUserProfileImage } from '../services/api/userGet';
-import decodeJwtResponse from '../utils/decodeJwtResponse';
+import getUserIdFromToken from '../utils/getUserIdFromToken';
 
 export const useProfileImage = () => {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
@@ -12,8 +12,7 @@ export const useProfileImage = () => {
     let userId = null;
 
     try {
-      const decoded = decodeJwtResponse(accessToken);
-      userId = decoded.userId;
+      userId = getUserIdFromToken(accessToken);
     } catch (decodeError) {
       console.error('Error decoding JWT:', decodeError);
       setError(decodeError);

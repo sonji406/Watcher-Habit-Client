@@ -8,25 +8,6 @@ const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 const NotificationList = ({ notifications, setNotifications }) => {
   const navigate = useNavigate();
 
-  const closeAllNotifications = () => {
-    setNotifications(
-      notifications.map((notification) => ({
-        ...notification,
-        isVisible: false,
-      })),
-    );
-  };
-
-  const setIsVisible = (id, value) => {
-    setNotifications(
-      notifications.map((notification) =>
-        notification._id === id
-          ? { ...notification, isVisible: value }
-          : notification,
-      ),
-    );
-  };
-
   const handleLogout = async () => {
     try {
       await logoutAPI();
@@ -46,12 +27,6 @@ const NotificationList = ({ notifications, setNotifications }) => {
           <img src={bellIcon} alt='bell icon' className='h-4 w-4 mr-2' />
           <p className='text-green-txt font-bold'>알림</p>
         </div>
-        <button
-          className='text-sm text-gray-400'
-          onClick={closeAllNotifications}
-        >
-          전체 알림 닫기
-        </button>
       </div>
 
       <div className='overflow-y-auto flex-grow custom-scrollbar'>
@@ -61,8 +36,6 @@ const NotificationList = ({ notifications, setNotifications }) => {
             content={notification.content}
             date={notification.createdAt}
             status={notification.status}
-            isVisible={notification.isNeedToSend}
-            setIsVisible={(value) => setIsVisible(notification._id, value)}
           />
         ))}
       </div>

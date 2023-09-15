@@ -1,63 +1,26 @@
 import React from 'react';
+import getButtonText from '../../lib/notification/getButtonText';
+import formatDate from '../../utils/formatDate';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
 
-const handleCloseClick = (setIsVisible) => {
-  setIsVisible(false);
-};
-
-const NotificationItem = ({
-  content,
-  date,
-  time,
-  status,
-  isVisible,
-  setIsVisible,
-}) => {
+const NotificationItem = ({ content, date, status }) => {
+  const { date: formattedDate, time: formattedTime } = formatDate(date);
   const renderButton = () => {
-    let buttonText = '확인하러 가기';
-    switch (status) {
-      case 'success':
-        buttonText = '확인하러 가기';
-        break;
-      case 'failure':
-        buttonText = '확인하러 가기';
-        break;
-      case 'verificationRequest':
-        buttonText = '인증하러 가기';
-        break;
-      case 'approveRequest':
-        buttonText = '승인하러 가기';
-        break;
-      case 'invite':
-        buttonText = '수락하기';
-        break;
-      default:
-        buttonText = '확인하러 가기';
-        break;
-    }
-
+    const buttonText = getButtonText(status);
     return <button className={commonButtonClass}>{buttonText}</button>;
   };
 
   return (
-    isVisible && (
-      <div className='py-2 px-4 flex flex-col items-center justify-center rounded-lg bg-main-bg m-4 relative'>
-        <div className='absolute top-0 right-3 flex space-x-1'>
-          <p className='text-sm text-gray-600'>{date}</p>
-          <p className='text-sm text-gray-600'>{time}</p>
-          <button
-            onClick={() => handleCloseClick(setIsVisible)}
-            className='text-blue-500 text-xs'
-          >
-            닫기
-          </button>
-        </div>
-        <p className='text-center mt-5'>{content}</p>
-        {renderButton()}
+    <div className='py-2 px-4 flex flex-col items-center justify-center rounded-lg bg-main-bg m-4 relative'>
+      <div className='absolute top-0 right-3 flex space-x-1'>
+        <p className='text-sm text-gray-600'>{formattedDate}</p>
+        <p className='text-sm text-gray-600'>{formattedTime}</p>
       </div>
-    )
+      <p className='text-center mt-5'>{content}</p>
+      {renderButton()}
+    </div>
   );
 };
 

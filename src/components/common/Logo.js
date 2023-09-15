@@ -1,17 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-const handleLogoClick = (navigate) => {
-  navigate('/my-habit/:nickname');
-};
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import { getUserInfo } from '../../services/api/userGet';
 
 const Logo = () => {
   const navigate = useNavigate();
+  const [nickname, setNickname] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const userId = getUserIdFromToken(localStorage.getItem('accessToken'));
+        const userInfo = await getUserInfo(userId);
+        setNickname(userInfo.nickname);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleLogoClick = () => {
+    if (nickname) {
+      navigate(`/my-habit/${nickname}`);
+    }
+  };
 
   return (
     <div className='absolute inset-x-0 top-0 flex justify-center'>
       <button
-        onClick={() => handleLogoClick(navigate)}
+        onClick={handleLogoClick}
         className='relative flex justify-center items-center rounded-full w-[250px] h-[50px]'
       >
         <div className='absolute bg-black rounded-full transform w-[250px] h-[150px] top-[-100px]'></div>
