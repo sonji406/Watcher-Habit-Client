@@ -7,7 +7,7 @@ const Group = ({ groupId, pathGroupId, groupName }) => {
         <li
           className={`hover:font-bold hover:text-customDarkGray py-2 w-36 text-center ${
             pathGroupId === groupId
-              ? 'bg-dark-green-bg rounded-full text-customGreen'
+              ? 'bg-dark-green-bg rounded-full text-customGreen font-bold'
               : ''
           }`}
         >
