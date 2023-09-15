@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import { useHandleSubmit } from '../../hooks/useHandleSubmit';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+
 import HabitInfoForm from './HabitInfoForm';
 import DateForm from './DateForm';
 import RepeatForm from './RepeatForm';

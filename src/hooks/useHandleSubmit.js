@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-import {
-  convertTimeToMinutes,
-  formatTimeFromMinutes,
-} from '../utils/timeUtils';
+import { createHabitData } from '../lib/createHabit/createHabitData';
 
 export const useHandleSubmit = (
   validateForm,
@@ -38,43 +35,7 @@ export const useHandleSubmit = (
 
     setIsSubmitting(true);
 
-    const {
-      habitTitle,
-      habitContent,
-      habitStartDate,
-      habitEndDate,
-      doDay,
-      startTime,
-      duration,
-      minApprovalCount,
-      sharedGroup,
-      penalty,
-      timePeriod,
-    } = formData;
-
-    const startTimeInMinutes = convertTimeToMinutes(startTime, timePeriod);
-    const endTimeInMinutes = startTimeInMinutes + duration;
-
-    const newStartTime = formatTimeFromMinutes(startTimeInMinutes);
-    const endTime = formatTimeFromMinutes(endTimeInMinutes);
-
-    const habitData = {
-      creator: userId,
-      doDay,
-      startTime: newStartTime,
-      endTime,
-      habitStartDate,
-      habitEndDate,
-      minApprovalCount,
-      habitTitle,
-      habitContent,
-      penalty,
-    };
-
-    if (sharedGroup) {
-      habitData.sharedGroup = sharedGroup;
-    }
-
+    const habitData = createHabitData(formData, userId);
     try {
       let response;
 
@@ -84,6 +45,7 @@ export const useHandleSubmit = (
           habitData,
         );
         handleResponse(response);
+
         return;
       }
 
