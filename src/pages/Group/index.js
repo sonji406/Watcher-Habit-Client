@@ -1,7 +1,7 @@
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
-// import { useDailyHabits } from '../../hooks/useDailyHabits';
-// import getCurrentDate from '../../utils/getCurrentDate';
+import { useDailyHabits } from '../../hooks/useDailyHabits';
+import getCurrentDate from '../../utils/getCurrentDate';
 
 const mockResponseData = {
   status: 200,
@@ -32,18 +32,18 @@ const mockResponseData = {
 };
 
 function Group() {
-  // const { groupId } = useParams('groupId');
-  // const currentDate = getCurrentDate();
-  // const { dailyHabits, loading, error } = useDailyHabits(
-  //   `api/group/${groupId}/habitList?date=${currentDate}`,
-  // );
+  const { groupId } = useParams('groupId');
+  const currentDate = getCurrentDate();
+  const { dailyHabits, loading, error } = useDailyHabits(
+    `api/group/${groupId}/habitList?date=${currentDate}`,
+  );
 
-  // if (loading) return <div>Loading...</div>;
-  // if (error) return <div>Error: {error.message}</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
-      <HabitList dailyHabits={mockResponseData}></HabitList>
+      <HabitList dailyHabits={dailyHabits}></HabitList>
     </div>
   );
 }
