@@ -1,10 +1,21 @@
 import axios from 'axios';
 
-export const getUserInfo = async (userId) => {
+export const getUserInfo = async (
+  userId,
+  include = '',
+  withUserData = true,
+) => {
   try {
     const response = await axios.get(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
+      {
+        params: {
+          include,
+          withUserData,
+        },
+      },
     );
+
     return response.data;
   } catch (error) {
     throw error;
@@ -14,8 +25,11 @@ export const getUserInfo = async (userId) => {
 export const getUserProfileImage = async (userId) => {
   try {
     const user = await getUserInfo(userId);
+
     return user.profileImageUrl;
   } catch (error) {
     throw error;
   }
 };
+
+export default getUserInfo;
