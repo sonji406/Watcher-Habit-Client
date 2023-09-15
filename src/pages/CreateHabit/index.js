@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
+import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import HabitInfoForm from './HabitInfoForm';
 import DateForm from './DateForm';
@@ -19,7 +20,6 @@ import {
   convertTimeToMinutes,
   formatTimeFromMinutes,
 } from '../../utils/timeUtils';
-import { getUserInfo } from '../../services/api/userGet';
 
 const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
@@ -42,22 +42,9 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const { groupOptions } = useGroups(userId);
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState(null);
-  const [nickname, setNickname] = useState(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userId = getUserIdFromToken(localStorage.getItem('accessToken'));
-        const userInfo = await getUserInfo(userId);
-        setNickname(userInfo.nickname);
-      } catch (error) {
-        console.error('An error occurred:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  const nickname = useFetchUserInfo(userId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
