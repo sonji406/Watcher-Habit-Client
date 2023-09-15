@@ -9,6 +9,7 @@ import MyHabit from './pages/MyHabit';
 import Group from './pages/Group';
 import AwsS3Test from './pages/AwsS3Test';
 import Sidebar from './components/Sidebar/Sidebar';
+import Header from './components/common/Header';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             element={
               <div className='flex'>
                 <Sidebar />
+                <Header />
                 <div className='flex-1'>
                   <Routes>
                     <Route
