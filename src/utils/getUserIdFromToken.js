@@ -1,15 +1,14 @@
 import decodeJwtResponse from './decodeJwtResponse';
 
-const getUserIdFromToken = (token) => {
-  let userId = null;
-  try {
-    const decoded = decodeJwtResponse(token);
-    userId = decoded.userId;
-  } catch (error) {
-    console.error('Error decoding JWT:', error);
-    throw error;
+const getUserIdFromToken = () => {
+  const accessToken = localStorage.getItem('accessToken');
+
+  if (!accessToken) {
+    throw new Error('accessToken을 확인해주세요.');
   }
-  return userId;
+
+  const decoded = decodeJwtResponse(accessToken);
+  return decoded.userId;
 };
 
 export default getUserIdFromToken;
