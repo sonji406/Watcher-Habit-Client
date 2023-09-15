@@ -84,13 +84,16 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       habitStartDate,
       habitEndDate,
       minApprovalCount,
-      sharedGroup,
 
       habitTitle,
       habitContent,
 
       penalty,
     };
+
+    if (sharedGroup) {
+      habitData.sharedGroup = sharedGroup;
+    }
 
     console.log(habitData);
 
