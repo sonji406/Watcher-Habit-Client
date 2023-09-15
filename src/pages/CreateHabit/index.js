@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
-import decodeJwtResponse from '../../utils/decodeJwtResponse';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import HabitInfoForm from './HabitInfoForm';
 import DateForm from './DateForm';
 import RepeatForm from './RepeatForm';
@@ -19,19 +19,8 @@ import {
   formatTimeFromMinutes,
 } from '../../utils/timeUtils';
 
-const getUserIdFromToken = () => {
-  const accessToken = localStorage.getItem('accessToken');
-
-  try {
-    const decoded = decodeJwtResponse(accessToken);
-    return decoded.userId;
-  } catch (decodeError) {
-    console.error('Error decoding JWT:', decodeError);
-    return null;
-  }
-};
-
-const userId = getUserIdFromToken();
+const token = localStorage.getItem('accessToken');
+const userId = getUserIdFromToken(token);
 
 const CreateOrEditHabit = ({ isEdit = false }) => {
   const today = new Date().toISOString().split('T')[0];
