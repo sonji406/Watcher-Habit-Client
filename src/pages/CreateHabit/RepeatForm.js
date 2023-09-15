@@ -3,24 +3,6 @@ import React from 'react';
 const RepeatForm = ({ doDay, setDoDay }) => {
   const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
-  const toggleDay = (day) => {
-    setDoDay((prevDoDay) => {
-      if (prevDoDay.includes(day)) {
-        return prevDoDay.filter((d) => d !== day);
-      } else {
-        return [...prevDoDay, day];
-      }
-    });
-  };
-
-  const toggleAllDays = () => {
-    if (doDay.length === 7) {
-      setDoDay([]);
-    } else {
-      setDoDay(daysOfWeek);
-    }
-  };
-
   return (
     <div>
       <label>반복 주기</label>
@@ -29,7 +11,13 @@ const RepeatForm = ({ doDay, setDoDay }) => {
           className={`py-2 px-4 border rounded ${
             doDay.length === 7 ? 'bg-green-bg' : ''
           }`}
-          onClick={toggleAllDays}
+          onClick={() => {
+            if (doDay.length === 7) {
+              setDoDay([]);
+            } else {
+              setDoDay(daysOfWeek);
+            }
+          }}
         >
           매일
         </button>
@@ -42,7 +30,13 @@ const RepeatForm = ({ doDay, setDoDay }) => {
               doDay.includes(day) ? 'bg-green-bg' : ''
             }`}
             onClick={() => {
-              toggleDay(day);
+              setDoDay((prevDoDay) => {
+                if (prevDoDay.includes(day)) {
+                  return prevDoDay.filter((d) => d !== day);
+                } else {
+                  return [...prevDoDay, day];
+                }
+              });
             }}
           >
             {day}

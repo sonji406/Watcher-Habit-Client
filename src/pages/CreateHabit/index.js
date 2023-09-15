@@ -5,7 +5,7 @@ import { useGroups } from '../../hooks/useGroups';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
 import HabitInfoForm from './HabitInfoForm';
 import DateForm from './DateForm';
-import RepeatForm from './RefeatForm';
+import RepeatForm from './RepeatForm';
 import TimeForm from './TimeForm';
 import GroupForm from './GroupForm';
 import PenaltyForm from './PenaltyForm';
