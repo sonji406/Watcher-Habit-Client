@@ -10,7 +10,6 @@ const mockNotifications = [
     createdAt: '2023-09-12T14:30:00',
     status: 'success',
     isNeedToSend: true,
-    isVisible: true,
   },
   {
     _id: '2',
@@ -49,7 +48,7 @@ const Profile = () => {
   const [notifications, setNotifications] = useState(mockNotifications);
   const { profileImageUrl, error } = useProfileImage();
 
-  const visibleCount = notifications.filter((n) => n.isVisible).length;
+  const visibleCount = notifications.length;
 
   const toggleNotifications = () => {
     setShowNotifications((prevState) => !prevState);
