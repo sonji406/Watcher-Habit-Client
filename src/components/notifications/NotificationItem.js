@@ -1,19 +1,9 @@
 import React from 'react';
 import getButtonText from '../../utils/getButtonText';
+import formatDate from '../../utils/formatDate';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
-
-const formatDate = (isoString) => {
-  const dateObj = new Date(isoString);
-  const date = `${dateObj.getFullYear()}-${String(
-    dateObj.getMonth() + 1,
-  ).padStart(2, '0')}-${String(dateObj.getDate()).padStart(2, '0')}`;
-  const time = `${String(dateObj.getHours()).padStart(2, '0')}:${String(
-    dateObj.getMinutes(),
-  ).padStart(2, '0')}`;
-  return { date, time };
-};
 
 const NotificationItem = ({ content, date, status }) => {
   const { date: formattedDate, time: formattedTime } = formatDate(date);
