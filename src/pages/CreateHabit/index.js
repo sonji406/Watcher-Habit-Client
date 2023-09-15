@@ -48,8 +48,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [sharedGroup, setSharedGroup] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { validationMessage, validateForm } = useValidation();
-
-  const { groupOptions } = useGroups();
+  const { groupOptions } = useGroups(userId);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,8 +92,6 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
     if (sharedGroup) {
       habitData.sharedGroup = sharedGroup;
     }
-
-    console.log(habitData);
 
     try {
       let response;

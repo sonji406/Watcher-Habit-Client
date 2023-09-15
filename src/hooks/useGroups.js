@@ -1,37 +1,25 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-const mockGetGroupsAPI = () => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        status: 200,
-        data: [
-          { groupId: 'group1', groupName: 'Group 1' },
-          { groupId: 'group2', groupName: 'Group 2' },
-          { groupId: 'group3', groupName: 'Group 3' },
-        ],
-      });
-    }, 500);
-  });
-};
-
-export const useGroups = () => {
+export const useGroups = (userId) => {
   const [groupOptions, setGroupOptions] = useState([]);
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await mockGetGroupsAPI();
-        if (response.status === 200) {
-          setGroupOptions(response.data);
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
+        );
+        if (response.status === 200 && response.data.groups) {
+          setGroupOptions(response.data.groups);
         }
       } catch (error) {
-        console.error(error);
+        console.error('Error fetching groups:', error);
       }
     };
 
     fetchGroups();
-  }, []);
+  }, [userId]);
 
   return { groupOptions };
 };
