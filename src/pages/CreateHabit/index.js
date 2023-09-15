@@ -4,6 +4,7 @@ import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
+import { useHandleSubmit } from '../../hooks/useHandleSubmit';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import HabitInfoForm from './HabitInfoForm';
 import DateForm from './DateForm';
@@ -15,11 +16,6 @@ import MinApprovalForm from './MinApprovalForm';
 import ValidationForm from './ValidationForm';
 import SubmitButton from './SubmitButton';
 import CancelButton from './CancelButton';
-import axios from 'axios';
-import {
-  convertTimeToMinutes,
-  formatTimeFromMinutes,
-} from '../../utils/timeUtils';
 
 const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
@@ -37,19 +33,22 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [penalty, setPenalty] = useState('');
   const [minApprovalCount, setMinApprovalCount] = useState(0);
   const [sharedGroup, setSharedGroup] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { validationMessage, validateForm } = useValidation();
   const { groupOptions } = useGroups(userId);
-  const [message, setMessage] = useState(null);
-  const [messageType, setMessageType] = useState(null);
   const navigate = useNavigate();
-
   const nickname = useFetchUserInfo(userId);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const { handleSubmit, isSubmitting, message, messageType } = useHandleSubmit(
+    validateForm,
+    userId,
+    navigate,
+    nickname,
+    isEdit,
+  );
 
-    const isValid = validateForm({
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit({
       habitTitle,
       habitContent,
       habitStartDate,
@@ -60,73 +59,8 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       minApprovalCount,
       sharedGroup,
       penalty,
+      timePeriod,
     });
-
-    if (!isValid) return;
-
-    setIsSubmitting(true);
-
-    const startTimeInMinutes = convertTimeToMinutes(startTime, timePeriod);
-    const endTimeInMinutes = startTimeInMinutes + duration;
-
-    const newStartTime = formatTimeFromMinutes(startTimeInMinutes);
-    const endTime = formatTimeFromMinutes(endTimeInMinutes);
-
-    const habitData = {
-      creator: userId,
-      doDay,
-      startTime: newStartTime,
-      endTime,
-      habitStartDate,
-      habitEndDate,
-      minApprovalCount,
-      habitTitle,
-      habitContent,
-      penalty,
-    };
-
-    if (sharedGroup) {
-      habitData.sharedGroup = sharedGroup;
-    }
-
-    try {
-      let response;
-      if (isEdit) {
-        response = await axios.patch(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitData.habitId}`,
-          habitData,
-        );
-      } else {
-        response = await axios.post(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
-          habitData,
-        );
-      }
-
-      if (response.status === 200 || response.status === 201) {
-        console.log('Success:', response.data);
-        setMessage('습관이 성공적으로 저장되었습니다.');
-        setMessageType('success');
-        setTimeout(() => {
-          navigate(`/my-habit/${nickname}`);
-        }, 3000);
-      } else {
-        console.log('Error:', response.data);
-        setMessage('오류가 발생했습니다.');
-        setMessageType('error');
-      }
-    } catch (error) {
-      if (error.response && error.response.data) {
-        const errorMsg =
-          error.response.data.error || 'API 오류가 발생했습니다.';
-        setMessage(errorMsg);
-      } else {
-        setMessage('API 오류가 발생했습니다.');
-        setMessageType('error');
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -138,7 +72,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             {isEdit ? '습관 수정하기' : '습관 생성하기'}
           </h1>
 
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleFormSubmit}>
             <HabitInfoForm
               habitTitle={habitTitle}
               setHabitTitle={setHabitTitle}
@@ -180,15 +114,13 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
             <ValidationForm validationMessage={validationMessage} />
 
-            {message && (
-              <div
-                className={`message ${
-                  messageType === 'success' ? 'text-green-500' : 'text-red-500'
-                }`}
-              >
-                {message}
-              </div>
-            )}
+            <div
+              className={`message text-${
+                messageType === 'success' ? 'green-500' : 'red-500'
+              }`}
+            >
+              {message}
+            </div>
 
             <div className='flex justify-between mt-6'>
               <SubmitButton

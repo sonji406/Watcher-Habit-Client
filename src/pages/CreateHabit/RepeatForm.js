@@ -8,18 +8,16 @@ const RepeatForm = ({ doDay, setDoDay }) => {
     setDoDay((prevDoDay) => {
       if (prevDoDay.includes(day)) {
         return prevDoDay.filter((d) => d !== day);
-      } else {
-        return [...prevDoDay, day];
       }
+      return [...prevDoDay, day];
     });
   };
 
   const toggleAllDays = () => {
     if (doDay.length === 7) {
-      setDoDay([]);
-    } else {
-      setDoDay(daysOfWeek);
+      return setDoDay([]);
     }
+    setDoDay(daysOfWeek);
   };
 
   return (
