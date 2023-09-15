@@ -8,6 +8,30 @@ const TimeForm = ({
   duration,
   setDuration,
 }) => {
+  const handleTimePeriodChange = (e) => {
+    setTimePeriod(e.target.value);
+  };
+
+  const handleHourChange = (e) => {
+    const newHour = e.target.value;
+    const newMinute = startTime.split(':')[1];
+    setStartTime(`${newHour}:${newMinute}`);
+  };
+
+  const handleMinuteChange = (e) => {
+    const newHour = startTime.split(':')[0];
+    const newMinute = e.target.value;
+    setStartTime(`${newHour}:${newMinute}`);
+  };
+
+  const handleDurationHourChange = (e) => {
+    setDuration(e.target.value * 60);
+  };
+
+  const handleDurationMinuteChange = (e) => {
+    setDuration(Math.floor(duration / 60) * 60 + Number(e.target.value));
+  };
+
   const hourOptions =
     timePeriod === 'AM'
       ? Array.from({ length: 12 }, (_, i) => i + 1)
@@ -24,7 +48,7 @@ const TimeForm = ({
           <select
             className='p-2 border rounded'
             value={timePeriod}
-            onChange={(e) => setTimePeriod(e.target.value)}
+            onChange={handleTimePeriodChange}
           >
             <option value='AM'>AM</option>
             <option value='PM'>PM</option>
@@ -32,11 +56,7 @@ const TimeForm = ({
           <select
             className='p-2 border rounded'
             value={startTime.split(':')[0]}
-            onChange={(e) => {
-              const newHour = e.target.value;
-              const newMinute = startTime.split(':')[1];
-              setStartTime(`${newHour}:${newMinute}`);
-            }}
+            onChange={handleHourChange}
           >
             {hourOptions.map((hour) => (
               <option key={hour} value={hour}>
@@ -49,11 +69,7 @@ const TimeForm = ({
           <select
             className='p-2 border rounded'
             value={startTime.split(':')[1]}
-            onChange={(e) => {
-              const newHour = startTime.split(':')[0];
-              const newMinute = e.target.value;
-              setStartTime(`${newHour}:${newMinute}`);
-            }}
+            onChange={handleMinuteChange}
           >
             {minuteOptions.map((min) => (
               <option key={min} value={min}>
@@ -68,7 +84,7 @@ const TimeForm = ({
           <select
             className='p-2 border rounded'
             value={Math.floor(duration / 60)}
-            onChange={(e) => setDuration(e.target.value * 60)}
+            onChange={handleDurationHourChange}
           >
             {durationOptions.map((hour) => (
               <option key={hour} value={hour}>
@@ -81,11 +97,7 @@ const TimeForm = ({
           <select
             className='p-2 border rounded'
             value={duration % 60}
-            onChange={(e) =>
-              setDuration(
-                Math.floor(duration / 60) * 60 + Number(e.target.value),
-              )
-            }
+            onChange={handleDurationMinuteChange}
           >
             {minuteOptions.map((min) => (
               <option key={min} value={min}>

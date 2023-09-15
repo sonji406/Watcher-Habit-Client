@@ -24,6 +24,10 @@ const GroupForm = ({ sharedGroup, setSharedGroup, groupOptions }) => {
     </>
   );
 
+  const handleSharedGroupChange = (e) => {
+    setSharedGroup(e.target.value);
+  };
+
   return (
     <div>
       <label className='relative'>
@@ -38,7 +42,7 @@ const GroupForm = ({ sharedGroup, setSharedGroup, groupOptions }) => {
         <select
           className='w-full p-2 border rounded'
           value={sharedGroup || ''}
-          onChange={(e) => setSharedGroup(e.target.value)}
+          onChange={handleSharedGroupChange}
         >
           <option value=''>
             초대된 그룹만 선택 가능합니다(미선택 시 비공개 처리됩니다)

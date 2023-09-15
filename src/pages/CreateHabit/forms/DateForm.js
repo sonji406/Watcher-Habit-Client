@@ -8,6 +8,14 @@ const DateForm = ({
 }) => {
   const today = new Date().toISOString().split('T')[0];
 
+  const handleStartDateChange = (e) => {
+    setHabitStartDate(e.target.value);
+  };
+
+  const handleEndDateChange = (e) => {
+    setHabitEndDate(e.target.value);
+  };
+
   return (
     <div>
       <label>기한</label>
@@ -17,7 +25,7 @@ const DateForm = ({
           type='date'
           value={habitStartDate}
           min={today}
-          onChange={(e) => setHabitStartDate(e.target.value)}
+          onChange={handleStartDateChange}
           placeholder='Start Date'
         />
         <input
@@ -25,7 +33,7 @@ const DateForm = ({
           type='date'
           value={habitEndDate}
           min={habitStartDate}
-          onChange={(e) => setHabitEndDate(e.target.value)}
+          onChange={handleEndDateChange}
           placeholder='End Date'
         />
       </div>

@@ -2,6 +2,10 @@ import React from 'react';
 import Tooltip from '../utils/Tooltip';
 
 const PenaltyForm = ({ penalty, setPenalty }) => {
+  const handlePenaltyChange = (e) => {
+    setPenalty(e.target.value);
+  };
+
   return (
     <div>
       <label className='relative'>
@@ -17,7 +21,7 @@ const PenaltyForm = ({ penalty, setPenalty }) => {
           className='w-full p-2 border rounded'
           type='text'
           value={penalty}
-          onChange={(e) => setPenalty(e.target.value)}
+          onChange={handlePenaltyChange}
           placeholder='패널티 내용을 입력하세요(최대 50자)'
           minLength={2}
           maxLength={50}
