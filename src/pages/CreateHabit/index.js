@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
 import { useSubmitHabit } from '../../hooks/useSubmitHabit';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
+import HabitInfoForm from './HabitInfoForm';
+import DateForm from './DateForm';
+import RepeatForm from './RefeatForm';
+import TimeForm from './TimeForm';
+import GroupForm from './GroupForm';
+import PenaltyForm from './PenaltyForm';
+import MinApprovalForm from './MinApprovalForm';
+import ValidationForm from './ValidationForm';
+import SubmitButton from './SubmitButton';
+import CancelButton from './CancelButton';
 
 const getUserIdFromToken = () => {
   const accessToken = localStorage.getItem('accessToken');
@@ -19,9 +28,6 @@ const getUserIdFromToken = () => {
 };
 
 const userId = getUserIdFromToken();
-
-const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
-const minuteOptions = ['00', '15', '30', '45'];
 
 const CreateOrEditHabit = ({ isEdit = false }) => {
   const today = new Date().toISOString().split('T')[0];
@@ -39,15 +45,6 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [submitFlag, setSubmitFlag] = useState(false);
   const { validationMessage, validateForm } = useValidation();
 
-  const navigate = useNavigate();
-
-  const hourOptions =
-    timePeriod === 'AM'
-      ? Array.from({ length: 12 }, (_, i) => i + 1)
-      : Array.from({ length: 12 }, (_, i) => i + 1);
-
-  const durationOptions = Array.from({ length: 13 }, (_, i) => i);
-
   const isFormValid =
     habitTitle &&
     habitContent &&
@@ -59,7 +56,9 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
   const { groupOptions } = useGroups();
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
     const isValid = validateForm({
       habitTitle,
       habitContent,
@@ -75,24 +74,6 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
     if (!isValid) return;
 
     setSubmitFlag(!submitFlag);
-  };
-
-  const toggleDay = (day) => {
-    setDoDay((prevDoDay) => {
-      if (prevDoDay.includes(day)) {
-        return prevDoDay.filter((d) => d !== day);
-      } else {
-        return [...prevDoDay, day];
-      }
-    });
-  };
-
-  const toggleAllDays = () => {
-    if (doDay.length === 7) {
-      setDoDay([]);
-    } else {
-      setDoDay(daysOfWeek);
-    }
   };
 
   const habitData = {
@@ -121,264 +102,52 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             {isEdit ? '습관 수정하기' : '습관 생성하기'}
           </h1>
 
-          <label>습관 제목</label>
-          <div className='mb-4'>
-            <input
-              className='w-full p-2 border rounded'
-              type='text'
-              value={habitTitle}
-              onChange={(e) => setHabitTitle(e.target.value)}
-              placeholder='습관 제목을 입력하세요(최대 10자)'
-              minLength={2}
-              maxLength={10}
-            />
-          </div>
-
-          <label>습관 내용</label>
-          <div className='mb-4'>
-            <textarea
-              className='w-full p-2 border rounded'
-              value={habitContent}
-              onChange={(e) => setHabitContent(e.target.value)}
-              placeholder='습관 내용을 입력하세요(최대 100자)'
-              minLength={2}
-              maxLength={100}
-            />
-          </div>
-
-          <label>기한</label>
-          <div className='grid grid-cols-2 gap-4 mb-4'>
-            <input
-              className='p-2 border rounded'
-              type='date'
-              value={habitStartDate}
-              min={today}
-              onChange={(e) => setHabitStartDate(e.target.value)}
-              placeholder='Start Date'
+          <form onSubmit={handleSubmit}>
+            <HabitInfoForm
+              habitTitle={habitTitle}
+              setHabitTitle={setHabitTitle}
+              habitContent={habitContent}
+              setHabitContent={setHabitContent}
             />
 
-            <input
-              className='p-2 border rounded'
-              type='date'
-              value={habitEndDate}
-              min={habitStartDate}
-              onChange={(e) => setHabitEndDate(e.target.value)}
-              placeholder='End Date'
+            <DateForm
+              habitStartDate={habitStartDate}
+              setHabitStartDate={setHabitStartDate}
+              habitEndDate={habitEndDate}
+              setHabitEndDate={setHabitEndDate}
             />
-          </div>
 
-          <label>반복 주기</label>
-          <div className='mb-4 flex justify-between'>
-            <button
-              className={`py-2 px-4 border rounded ${
-                doDay.length === 7 ? 'bg-green-bg' : ''
-              }`}
-              onClick={toggleAllDays}
-            >
-              매일
-            </button>
+            <RepeatForm doDay={doDay} setDoDay={setDoDay} />
 
-            <span>매주</span>
-            {daysOfWeek.map((day) => (
-              <button
-                key={day}
-                className={`py-2 px-4 border rounded ${
-                  doDay.includes(day) ? 'bg-green-bg' : ''
-                }`}
-                onClick={() => {
-                  toggleDay(day);
-                }}
-              >
-                {day}
-              </button>
-            ))}
-          </div>
+            <TimeForm
+              startTime={startTime}
+              setStartTime={setStartTime}
+              timePeriod={timePeriod}
+              setTimePeriod={setTimePeriod}
+              duration={duration}
+              setDuration={setDuration}
+            />
 
-          <div className='grid grid-cols-2 gap-4 mb-4'>
-            <div className='flex items-center space-x-2'>
-              <span>시작시간 </span>
-              <select
-                className='p-2 border rounded'
-                value={timePeriod}
-                onChange={(e) => setTimePeriod(e.target.value)}
-              >
-                <option value='AM'>AM</option>
-                <option value='PM'>PM</option>
-              </select>
-              <select
-                className='p-2 border rounded'
-                value={startTime.split(':')[0]}
-                onChange={(e) => {
-                  const newHour = e.target.value;
-                  const newMinute = startTime.split(':')[1];
-                  setStartTime(`${newHour}:${newMinute}`);
-                }}
-              >
-                {hourOptions.map((hour) => (
-                  <option key={hour} value={hour}>
-                    {hour}
-                  </option>
-                ))}
-              </select>
-              <span>시</span>
+            <GroupForm
+              sharedGroup={sharedGroup}
+              setSharedGroup={setSharedGroup}
+              groupOptions={groupOptions}
+            />
 
-              <select
-                className='p-2 border rounded'
-                value={startTime.split(':')[1]}
-                onChange={(e) => {
-                  const newHour = startTime.split(':')[0];
-                  const newMinute = e.target.value;
-                  setStartTime(`${newHour}:${newMinute}`);
-                }}
-              >
-                {minuteOptions.map((min) => (
-                  <option key={min} value={min}>
-                    {min}
-                  </option>
-                ))}
-              </select>
-              <span>분 부터</span>
+            <PenaltyForm penalty={penalty} setPenalty={setPenalty} />
+
+            <MinApprovalForm
+              minApprovalCount={minApprovalCount}
+              setMinApprovalCount={setMinApprovalCount}
+            />
+
+            <ValidationForm validationMessage={validationMessage} />
+
+            <div className='flex justify-between mt-6'>
+              <SubmitButton isEdit={isEdit} handleSubmit={handleSubmit} />
+              <CancelButton />
             </div>
-
-            <div className='flex space-x-2'>
-              <select
-                className='p-2 border rounded'
-                value={Math.floor(duration / 60)}
-                onChange={(e) => setDuration(e.target.value * 60)}
-              >
-                {durationOptions.map((hour) => (
-                  <option key={hour} value={hour}>
-                    {hour}
-                  </option>
-                ))}
-              </select>
-              <span>시간</span>
-
-              <select
-                className='p-2 border rounded'
-                value={duration % 60}
-                onChange={(e) =>
-                  setDuration(
-                    Math.floor(duration / 60) * 60 + Number(e.target.value),
-                  )
-                }
-              >
-                {minuteOptions.map((min) => (
-                  <option key={min} value={min}>
-                    {min}
-                  </option>
-                ))}
-              </select>
-              <span>분 동안</span>
-            </div>
-          </div>
-
-          <label className='relative'>
-            그룹 선택
-            <span className='ml-2 inline-block group cursor-pointer'>
-              <span className='bg-gray-200 rounded-full pr-2 pl-2'>?</span>
-              <span
-                className='absolute invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity p-4 rounded border text-sm'
-                style={{
-                  left: '100%',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  zIndex: 10,
-                  minWidth: '300px',
-                  backgroundColor: '#f2f2f2',
-                }}
-              >
-                <p className='mb-2'>
-                  <span className='text-black'>그룹 선택이란?</span>
-                </p>
-                <p className='mb-2'>
-                  <span className='text-green-500'>그룹 미선택 시</span>
-                  <p>
-                    비공개 처리 되며, 나의 습관 관리 페이지에서 본인만 확인
-                    가능한 습관이 생성됩니다.
-                  </p>
-                </p>
-                <p>
-                  <span className='text-blue-500'>그룹 선택 시</span>
-                  <p>
-                    해당 그룹 페이지에 공유 되며, 나의 습관 관리 페이지에서도
-                    확인 가능한 습관이 생성됩니다.
-                  </p>
-                </p>
-              </span>
-            </span>
-          </label>
-          <div className='mb-4'>
-            <select
-              className='w-full p-2 border rounded'
-              value={sharedGroup || ''}
-              onChange={(e) => setSharedGroup(e.target.value)}
-            >
-              <option value=''>
-                초대된 그룹만 선택 가능합니다(미선택 시 비공개 처리됩니다)
-              </option>
-              {groupOptions.map((group) => (
-                <option key={group.groupId} value={group.groupId}>
-                  {group.groupName}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <label>패널티 내용</label>
-          <div className='mb-4'>
-            <textarea
-              className='w-full p-2 border rounded'
-              type='text'
-              value={penalty}
-              onChange={(e) => setPenalty(e.target.value)}
-              placeholder='(선택사항) 패널티 내용을 입력하세요(최대 50자)'
-              minLength={2}
-              maxLength={50}
-            />
-          </div>
-
-          {sharedGroup && (
-            <>
-              <label>최소 승인 인원</label>
-              <div className='mb-4 flex items-center'>
-                <button
-                  className='bg-gray-300 hover:bg-gray-400 text-black font-bold py-1 px-2 rounded'
-                  onClick={() =>
-                    setMinApprovalCount(Math.max(minApprovalCount - 1, 0))
-                  }
-                >
-                  -
-                </button>
-                <span className='px-4'>{minApprovalCount}</span>
-                <button
-                  className='bg-gray-300 hover:bg-gray-400 text-black font-bold py-1 px-2 rounded'
-                  onClick={() => setMinApprovalCount(minApprovalCount + 1)}
-                >
-                  +
-                </button>
-              </div>
-            </>
-          )}
-          {validationMessage && (
-            <div className='text-red-500'>{validationMessage}</div>
-          )}
-          <div className='flex justify-between mt-6'>
-            <button
-              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-              onClick={handleSubmit}
-            >
-              {isEdit ? 'Edit' : 'Create'}
-            </button>
-            <button
-              className='bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded'
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              Cancel
-            </button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
