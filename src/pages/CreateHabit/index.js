@@ -66,20 +66,33 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
     setIsSubmitting(true);
 
+    const startTimeParts = startTime.split(':');
+    const startTimeInMinutes =
+      parseInt(startTimeParts[0]) * 60 + parseInt(startTimeParts[1]);
+    const endTimeInMinutes = startTimeInMinutes + duration;
+    const endTime = `${Math.floor(endTimeInMinutes / 60)
+      .toString()
+      .padStart(2, '0')}:${(endTimeInMinutes % 60)
+      .toString()
+      .padStart(2, '0')}`;
+
     const habitData = {
-      habitTitle,
-      habitContent,
-      habitStartDate,
-      habitEndDate,
+      creator: userId,
       doDay,
       startTime,
-      timePeriod,
-      duration,
-      penalty,
+      endTime,
+      habitStartDate,
+      habitEndDate,
       minApprovalCount,
       sharedGroup,
-      creator: userId,
+
+      habitTitle,
+      habitContent,
+
+      penalty,
     };
+
+    console.log(habitData);
 
     try {
       let response;
