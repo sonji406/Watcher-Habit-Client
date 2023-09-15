@@ -1,7 +1,8 @@
 import React from 'react';
 
 const RepeatForm = ({ doDay, setDoDay }) => {
-  const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+  const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+  const daysOfWeekKR = ['일', '월', '화', '수', '목', '금', '토'];
 
   const toggleDay = (day) => {
     setDoDay((prevDoDay) => {
@@ -36,7 +37,7 @@ const RepeatForm = ({ doDay, setDoDay }) => {
         </button>
 
         <span>매주</span>
-        {daysOfWeek.map((day) => (
+        {daysOfWeek.map((day, index) => (
           <button
             type='button'
             key={day}
@@ -47,7 +48,7 @@ const RepeatForm = ({ doDay, setDoDay }) => {
               toggleDay(day);
             }}
           >
-            {day}
+            {daysOfWeekKR[index]}
           </button>
         ))}
       </div>
