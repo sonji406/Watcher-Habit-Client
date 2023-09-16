@@ -10,7 +10,7 @@ const Logo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userId = getUserIdFromToken(localStorage.getItem('accessToken'));
+        const userId = getUserIdFromToken();
         const userInfo = await getUserInfo(userId);
         setNickname(userInfo.nickname);
       } catch (error) {

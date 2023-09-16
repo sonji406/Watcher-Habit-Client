@@ -8,6 +8,7 @@ module.exports = {
         'gray-bg': '#BCC2C4',
         'green-bg': '#26A34F',
         'dark-blue-bg': '#1C2532',
+        'dark-green-bg': '#2C464B',
       },
       textColor: {
         'green-txt': '#26A34F',
@@ -19,6 +20,11 @@ module.exports = {
       fontFamily: {
         sinoreta: ['Sinoreta', 'sans-serif'],
         sans: ['NotoSansKR', 'sans-serif'],
+      },
+      colors: {
+        customGray: '#BCC2C4',
+        customDarkGray: '#727C86',
+        customGreen: '#26A34F',
       },
     },
   },
