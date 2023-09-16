@@ -4,116 +4,6 @@ import { useParams } from 'react-router-dom';
 import getCurrentDate from '../../utils/getCurrentDate';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 
-const mockResponseData = {
-  status: 200,
-  data: {
-    시환: [
-      {
-        _id: '603f650b1f32123d20b5372b',
-        habitTitle: 'Morning Run',
-        startTime: '06:00',
-        endTime: '07:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-      {
-        _id: '603f650b1f32123d20b5372c',
-        habitTitle: 'Reading',
-        startTime: '21:00',
-        endTime: '22:00',
-      },
-    ],
-  },
-};
-
 function MyHabit() {
   const { nickname } = useParams('nickname');
   const currentDate = getCurrentDate();
@@ -126,9 +16,15 @@ function MyHabit() {
 
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
-      <div className='w-full h-4/5 flex'>
-        <HabitList dailyHabits={dailyHabits}></HabitList>
-        <HabitDetail></HabitDetail>
+      <div className='flex-1 flex justify-center items-center ml-[100px] mr-[100px]'>
+        <div className='flex'>
+          <div className='w-[400px] mr-4'>
+            <HabitList dailyHabits={dailyHabits}></HabitList>
+          </div>
+          <div className='w-[600px] ml-4'>
+            <HabitDetail></HabitDetail>
+          </div>
+        </div>
       </div>
     </div>
   );

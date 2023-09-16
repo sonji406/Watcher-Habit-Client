@@ -1,5 +1,5 @@
 const HabitDetail = () => {
-  return <div className='w-7/10 bg-main-dark-blue'>habitDetail</div>;
+  return <div className='h-[50vh] bg-main-dark-blue'>habitDetail</div>;
 };
 
 export default HabitDetail;
