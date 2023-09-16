@@ -1,7 +1,7 @@
-import { useLocation } from 'react-router-dom';
-import GroupInviteButton from './GroupInviteButton';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import HabitItem from './HabitItem';
+import GroupInviteButton from './GroupInviteButton';
 import HabbitCreateButton from './HabitCreateButton';
 
 function HabitList({ dailyHabits }) {
@@ -16,7 +16,7 @@ function HabitList({ dailyHabits }) {
 
   return (
     <div className='relative bg-main-dark-blue'>
-      <div className='h-[50vh] absolute top-0 left-0 right-0 bg-green-bg text-white p-4 rounded-t-2xl text-center z-0'>
+      <div className='h-[70px] absolute top-0 left-0 right-0 bg-green-bg text-white p-4 rounded-t-2xl text-center z-0'>
         <div style={{ transform: 'translateY(-10px)' }}>
           {currentPage === 'my-habit' && (
             <p className='text-2xl'>My Daily Habits</p>
@@ -40,7 +40,7 @@ function HabitList({ dailyHabits }) {
           )}
         </div>
       </div>
-      <div className='h-[50vh] overflow-y-auto top-12 bg-dark-blue-bg rounded-3xl z-10 relative custom-scrollbar'>
+      <div className='h-[70vh] overflow-y-auto top-12 bg-dark-blue-bg rounded-3xl z-10 relative custom-scrollbar'>
         {habits.map((habit) => {
           return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;
         })}

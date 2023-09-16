@@ -10,6 +10,7 @@ const HabitItem = ({ habitInfo }) => {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
       );
+
       dispatch(setHabitDetail(response.data));
     } catch (error) {
       console.error(error);
