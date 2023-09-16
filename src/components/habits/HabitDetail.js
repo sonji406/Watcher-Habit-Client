@@ -118,7 +118,40 @@ const HabitDetail = () => {
         </div>
 
         <div className='bg-main-bg p-4 rounded-lg'>
-          <p className='mb-4'>왓쳐 공간</p>
+          <p className='mb-4'>왓쳐 구현 영역 - 미완성</p>
+          <div className='flex flex-wrap'>
+            <div className='m-2'>
+              <button
+                className='rounded-full border border-gray-300 text-3xl w-12 h-12 flex items-center justify-center'
+                onClick={() => {
+                  // 왓쳐 추가 api 로직 >> 외부로 빼기
+                }}
+              >
+                +
+              </button>
+            </div>
+            <div className='m-2'>
+              <button
+                className='rounded-full border border-gray-300 text-3xl w-12 h-12 flex items-center justify-center'
+                onClick={() => {
+                  // 왓쳐 해제 api 로직 >> 외부로 빼기
+                }}
+              >
+                -
+              </button>
+            </div>
+
+            {Array.isArray(habitDetail.approvals) &&
+              habitDetail.approvals.map((approval, index) => (
+                <div className='m-2' key={index}>
+                  <img
+                    className='rounded-full border border-gray-300 w-12 h-12 object-cover'
+                    src={approval.userId.profileImageUrl}
+                    alt='Watcher profile'
+                  />
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </div>
