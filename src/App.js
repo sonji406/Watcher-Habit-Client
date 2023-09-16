@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Home from './pages/Home';
-import CreateNickname from './pages/CreateNickname';
-import CreateHabit from './pages/CreateHabit';
-import MyHabit from './pages/MyHabit';
 import Group from './pages/Group';
+import MyHabit from './pages/MyHabit';
 import AwsS3Test from './pages/AwsS3Test';
-import Sidebar from './components/Sidebar/Sidebar';
 import Header from './components/common/Header';
+import Sidebar from './components/Sidebar/Sidebar';
+import CreateNickname from './pages/CreateNickname';
+
+const CreateHabit = React.lazy(() => import('./pages/CreateHabit'));
 
 function App() {
   return (
