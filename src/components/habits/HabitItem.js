@@ -1,6 +1,19 @@
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setHabitInfo } from '../../redux/habitSlice';
+
 const HabitItem = ({ habitInfo }) => {
-  const onClickHandler = () => {
-    // 습관 조회 api 호출해서 데이터 가져오고 redux 상태관리에 저장
+  const dispatch = useDispatch();
+
+  const onClickHandler = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
+      );
+      dispatch(setHabitInfo(response.data));
+    } catch (error) {
+      console.error('습관 조회에 실패했습니다.');
+    }
   };
   return (
     <div>

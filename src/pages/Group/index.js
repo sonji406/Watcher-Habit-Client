@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
+import HabitDetail from '../../components/habits/HabitDetail';
 
 const mockResponseData = {
   status: 200,
@@ -43,7 +44,8 @@ function Group() {
 
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
-      <HabitList dailyHabits={dailyHabits}></HabitList>
+      <HabitList dailyHabits={mockResponseData}></HabitList>
+      <HabitDetail></HabitDetail>
     </div>
   );
 }
