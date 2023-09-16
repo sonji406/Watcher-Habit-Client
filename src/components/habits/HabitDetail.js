@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import ClockArcs from './ClockArcs';
 
 const isEmptyObject = (obj) => {
   return Object.keys(obj).length === 0 && obj.constructor === Object;
@@ -32,6 +33,9 @@ const HabitDetail = () => {
   const [endHour, endMinute] = habitDetail.endTime.split(':').map(Number);
   let durationHours = endHour - startHour;
   let durationMinutes = endMinute - startMinute;
+
+  const startMinutes = startHour * 60 + startMinute;
+  const endMinutes = endHour * 60 + endMinute;
 
   let timeDisplay = '';
   if (durationHours > 0 && durationMinutes > 0) {
@@ -88,6 +92,10 @@ const HabitDetail = () => {
               <div className='text-center text-xl mb-2'>
                 하루에 {timeDisplay}
               </div>
+            </div>
+
+            <div className='w-1/2 flex justify-center mt-4'>
+              <ClockArcs startMinutes={startMinutes} endMinutes={endMinutes} />
             </div>
           </div>
         </div>
