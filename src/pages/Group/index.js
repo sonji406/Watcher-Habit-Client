@@ -16,7 +16,7 @@ function Group() {
 
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
-      <HabitList dailyHabits={mockResponseData}></HabitList>
+      <HabitList dailyHabits={dailyHabits}></HabitList>
       <HabitDetail></HabitDetail>
     </div>
   );

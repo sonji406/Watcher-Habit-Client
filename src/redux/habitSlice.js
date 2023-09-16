@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+  habitDetail: {},
+};
+
 const habitSlice = createSlice({
-  name: 'habit',
-  initialState: {},
+  name: 'habitDetail',
+  initialState,
   reducers: {
     setHabitDetail: (state, action) => {
       state.habitDetail = action.payload;
@@ -10,5 +14,5 @@ const habitSlice = createSlice({
   },
 });
 
-export const { setHabitInfo } = habitSlice.actions;
+export const { setHabitDetail } = habitSlice.actions;
 export default habitSlice.reducer;

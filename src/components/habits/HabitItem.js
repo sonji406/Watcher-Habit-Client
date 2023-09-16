@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setHabitInfo } from '../../redux/habitSlice';
+import { setHabitDetail } from '../../redux/habitSlice';
 
 const HabitItem = ({ habitInfo }) => {
   const dispatch = useDispatch();
@@ -10,9 +10,9 @@ const HabitItem = ({ habitInfo }) => {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
       );
-      dispatch(setHabitInfo(response.data));
+      dispatch(setHabitDetail(response.data));
     } catch (error) {
-      console.error('습관 조회에 실패했습니다.');
+      console.error(error);
     }
   };
 
