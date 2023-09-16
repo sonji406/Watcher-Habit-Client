@@ -52,7 +52,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className='h-screen sticky top-0 bg-[#2D3C4A] shadow-md duration-100 z-20 w-20 hover:w-64'
+      className='h-screen sticky top-0 bg-light-blue-bg shadow-md duration-100 z-20 w-20 hover:w-64'
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
