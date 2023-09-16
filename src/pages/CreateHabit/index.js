@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Header from '../../components/common/Header';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useGroups } from '../../hooks/useGroups';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
@@ -70,7 +69,6 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       className='min-h-screen flex flex-col text-black bg-main-bg custom-scrollbar overflow-y-auto bg-vignette'
       style={{ fontFamily: 'NotoSansKR' }}
     >
-      <Header />
       <div className='container mx-auto flex justify-center items-start h-full overflow-y-auto m-20'>
         <div className='w-full max-w-3xl p-8 m-4 bg-white rounded shadow-md overflow-y-auto'>
           <h1 className='block w-full text-center text-grey-darkest mb-6 text-2xl font-semibold'>
