@@ -14,32 +14,34 @@ function HabitList({ dailyHabits }) {
   const habits = dailyHabits.data[selectedMemberNickname];
 
   return (
-    <div className='w-3/10 bg-main-dark-blue'>
-      <div>
-        {currentPage === 'my-habit' && <p>My Daily Habits</p>}
-        {currentPage === 'group' && (
-          <>
-            <select
-              value={selectedMemberNickname}
-              onChange={(e) => setSelectedMemberNickname(e.target.value)}
-            >
-              {members.map((member) => (
-                <option key={member} value={member}>
-                  {member}
-                </option>
-              ))}
-            </select>
-            <GroupInviteButton></GroupInviteButton>
-          </>
-        )}
-      </div>
-      <div className='h-72 overflow-y-auto'>
+    <div className='relative bg-main-dark-blue'>
+      <div className='h-[50vh] overflow-y-auto top-12 bg-dark-blue-bg rounded-lg z-10 relative custom-scrollbar'>
         {habits.map((habit) => {
           return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;
         })}
-        {currentPage === 'my-habit' && (
-          <HabbitCreateButton></HabbitCreateButton>
-        )}
+      </div>
+      {currentPage === 'my-habit' && <HabbitCreateButton></HabbitCreateButton>}
+      <div className='absolute top-0 left-0 right-0 bg-green-bg text-white p-4 rounded-t-lg text-center z-0'>
+        <div style={{ transform: 'translateY(-10px)' }}>
+          {currentPage === 'my-habit' && (
+            <p className='text-2xl'>My Daily Habits</p>
+          )}
+          {currentPage === 'group' && (
+            <>
+              <select
+                value={selectedMemberNickname}
+                onChange={(e) => setSelectedMemberNickname(e.target.value)}
+              >
+                {members.map((member) => (
+                  <option key={member} value={member}>
+                    {member}
+                  </option>
+                ))}
+              </select>
+              <GroupInviteButton></GroupInviteButton>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
