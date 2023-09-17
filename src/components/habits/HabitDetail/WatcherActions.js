@@ -70,7 +70,7 @@ const WatcherActions = ({ habitDetail }) => {
       {isGroupShared ? (
         <>
           {hasNoWatchers ? (
-            <p className='text-center mb-4'>
+            <p className='text-center mb-4 text-dark-gray-txt'>
               내 습관을 구독한 <br />
               Watcher가 없습니다
             </p>
@@ -113,7 +113,7 @@ const WatcherActions = ({ habitDetail }) => {
           )}
         </>
       ) : (
-        <p className='text-center mb-4'>
+        <p className='text-center mb-4 text-dark-gray-txt'>
           비공개 습관이므로
           <br />
           Watcher가 없습니다
