@@ -1,5 +1,5 @@
 import HabitList from '../../components/habits/HabitList';
-import HabitDetail from '../../components/habits/HabitDetail';
+import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
 import { useParams } from 'react-router-dom';
 import getCurrentDate from '../../utils/getCurrentDate';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
