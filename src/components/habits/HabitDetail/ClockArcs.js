@@ -67,7 +67,7 @@ const ClockArcs = ({ startMinutes, endMinutes }) => {
         d={d}
         fill={fillColor}
         stroke={strokeColor}
-        stroke-width='1'
+        strokeWidth='1'
         key={i}
       />,
     );
@@ -80,20 +80,20 @@ const ClockArcs = ({ startMinutes, endMinutes }) => {
         <text
           x='50'
           y='55'
-          font-size='15'
+          fontSize='15'
           fill='white'
-          text-anchor='middle'
+          textAnchor='middle'
         ></text>
-        <text x='50' y='7' font-size='10' fill='white' text-anchor='middle'>
+        <text x='50' y='7' fontSize='10' fill='white' textAnchor='middle'>
           12
         </text>
-        <text x='95' y='50' font-size='10' fill='white' text-anchor='middle'>
+        <text x='95' y='50' fontSize='10' fill='white' textAnchor='middle'>
           3
         </text>
-        <text x='50' y='100' font-size='10' fill='white' text-anchor='middle'>
+        <text x='50' y='100' fontSize='10' fill='white' textAnchor='middle'>
           6
         </text>
-        <text x='5' y='50' font-size='10' fill='white' text-anchor='middle'>
+        <text x='5' y='50' fontSize='10' fill='white' textAnchor='middle'>
           9
         </text>
       </>
