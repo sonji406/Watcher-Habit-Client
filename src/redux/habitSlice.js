@@ -11,8 +11,11 @@ const habitSlice = createSlice({
     setHabitDetail: (state, action) => {
       state.habitDetail = action.payload;
     },
+    updateWatcherList: (state, action) => {
+      state.habitDetail.approvals = action.payload;
+    },
   },
 });
 
-export const { setHabitDetail } = habitSlice.actions;
+export const { setHabitDetail, updateWatcherList } = habitSlice.actions;
 export default habitSlice.reducer;
