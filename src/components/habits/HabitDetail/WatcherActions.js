@@ -77,7 +77,7 @@ const WatcherActions = ({ habitDetail }) => {
           ) : (
             <div className='flex flex-wrap mb-4'>
               {!isCurrentUserWatcher && !isCurrentUserCreator && (
-                <div className='m-2'>
+                <div className='w-1/5 p-1 m-2'>
                   <button
                     className='rounded-full border border-gray-300 text-3xl bg-green-bg w-12 h-12 flex items-center justify-center'
                     onClick={handleSubscribe}
@@ -89,7 +89,7 @@ const WatcherActions = ({ habitDetail }) => {
               {Array.isArray(sortedApprovals) &&
                 sortedApprovals.map((approval, index) => (
                   <div
-                    className='m-2 relative'
+                    className='w-1/5 p-1 relative m-2'
                     key={index}
                     onMouseEnter={() => handleMouseEnter(approval._id)}
                     onMouseLeave={handleMouseLeave}
