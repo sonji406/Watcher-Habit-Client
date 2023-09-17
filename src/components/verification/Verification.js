@@ -13,15 +13,15 @@ const Verification = () => {
     habitEndDate: '2023-09-30',
     doDay: 'mon',
     startTime: '06:00',
-    endTime: '07:00',
+    endTime: '13:46',
     penalty: 'Missed run = Donate $10',
     creator: {
       _id: '6503f18912b32c5a11945425',
       nickname: 'xhrrl003',
     },
     sharedGroup: '6503cc62c7ffdf4851bb27d7',
-    habitImage:
-      'https://watcher-habit.s3.ap-northeast-2.amazonaws.com/1694809849024-KakaoTalk_Photo_2023-08-29-16-13-54-3.jpeg',
+    habitImage: '',
+    // 'https://watcher-habit.s3.ap-northeast-2.amazonaws.com/1694809849024-KakaoTalk_Photo_2023-08-29-16-13-54-3.jpeg',
     minApprovalCount: 2,
     approvals: [
       {
@@ -30,13 +30,21 @@ const Verification = () => {
           profileImageUrl:
             'https://lh3.googleusercontent.com/a/ACg8ocLX6SUyJF4Rg33r42HgO34BBwPJ5INmL_XWySlxDUAEyGkw=s96-c',
         },
-        status: 'approved',
+        status: 'undecided',
       },
       {
         userId: {
           _id: '65040785e0f213a1de54a184',
           profileImageUrl:
             'https://lh3.googleusercontent.com/a/ACg8ocLfLpyhOwcQcbCFtEDCYAEOMnoSdGZD2eQF3UHDCU456tg=s96-c',
+        },
+        status: 'approved',
+      },
+      {
+        userId: {
+          _id: '6503f1898834dd2d0726fb63',
+          profileImageUrl:
+            'https://lh3.googleusercontent.com/a/ACg8ocIVfvshvLgaDn6HoKsLXVQ62HogKTZSAzxdJPSH5v6t=s96-c',
         },
         status: 'rejected',
       },
@@ -55,8 +63,10 @@ const Verification = () => {
 
   const status = habit.status;
   const statusMessage = statusMessages[status];
-  const approvals = habit.creator.approvals;
+  const approvals = habit.approvals;
   const habitImage = habit.habitImage;
+  const creator = habit.creator;
+  const endTime = habit.endTime;
 
   return (
     <div className='mt-12'>
@@ -65,8 +75,13 @@ const Verification = () => {
       </div>
       <div className='flex w-[550px] h-[50vh] mx-auto bg-main-bg rounded-xl custom-scrollbar'>
         <div className='grid grid-cols-2 gap-x-4 mx-auto pt-4 h-[320px]'>
-          <UploadImage imageUrl={habitImage} status={status} />
-          <ApprovalsList approvals={approvals} />
+          <UploadImage
+            habitImage={habitImage}
+            status={status}
+            creator={creator}
+            endTime={endTime}
+          />
+          <ApprovalsList status={status} approvals={approvals} />
         </div>
       </div>
     </div>

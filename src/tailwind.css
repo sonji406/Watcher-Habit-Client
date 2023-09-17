@@ -62,3 +62,15 @@ body {
   background: rgba(38, 163, 79, 0.4);
   border-radius: 8px;
 }
+
+.transparent-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.transparent-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.transparent-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0);
+}
