@@ -20,13 +20,11 @@ const habitSlice = createSlice({
 
       state.habitDetail.approvals.push(transformedPayload);
     },
-
     unSubscribeWatcherList: (state, action) => {
       state.habitDetail.approvals = state.habitDetail.approvals.filter(
         (approval) => approval._id !== action.payload._id,
       );
     },
-
     clearHabitDetail: (state) => {
       state.habitDetail = {};
     },
@@ -39,4 +37,5 @@ export const {
   unSubscribeWatcherList,
   clearHabitDetail,
 } = habitSlice.actions;
+
 export default habitSlice.reducer;
