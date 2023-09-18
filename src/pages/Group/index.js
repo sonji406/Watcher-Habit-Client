@@ -1,11 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
-import HabitDetail from '../../components/habits/HabitDetail';
+import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
+import { clearHabitDetail } from '../../redux/habitSlice';
 
 function Group() {
+  const dispatch = useDispatch();
   const { groupId } = useParams('groupId');
+
+  useEffect(() => {
+    dispatch(clearHabitDetail());
+  }, [groupId, dispatch]);
+
   const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/habitList?date=${currentDate}`,
@@ -21,8 +30,36 @@ function Group() {
           <div className='w-[400px] mr-4'>
             <HabitList dailyHabits={dailyHabits}></HabitList>
           </div>
-          <div className='w-[600px] ml-4'>
-            <HabitDetail></HabitDetail>
+          <div className='w-[600px] ml-4 relative'>
+            <div className='h-[70vh] bg-main-dark-blue rounded-t-2xl z-0'>
+              <div className='flex h-full'>
+                <div
+                  style={{ width: '50%' }}
+                  className='bg-green-bg text-center rounded-t-2xl'
+                >
+                  <p
+                    className='text-2xl'
+                    style={{ transform: 'translateY(10px)' }}
+                  >
+                    상세 페이지
+                  </p>
+                </div>
+                <div
+                  style={{ width: '50%' }}
+                  className='bg-black text-center rounded-t-2xl'
+                >
+                  <p
+                    className='text-2xl'
+                    style={{ transform: 'translateY(10px)' }}
+                  >
+                    인증 페이지
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className='h-[70vh] overflow-y-auto absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10'>
+              <HabitDetail />
+            </div>
           </div>
         </div>
       </div>
