@@ -39,6 +39,7 @@ const WatcherActions = ({ habitDetail }) => {
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
       const response = await subscribeWatcher(habitId, watcherId);
+      console.log('Subscribe response:', response);
       dispatch(updateWatcherList(response.updatedWatchers));
     } catch (error) {
       console.error('Failed to subscribe:', error);
@@ -50,6 +51,7 @@ const WatcherActions = ({ habitDetail }) => {
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
       const response = await unsubscribeWatcher(habitId, watcherId);
+      console.log('Unsubscribe response:', response);
       dispatch(updateWatcherList(response.updatedWatchers));
     } catch (error) {
       console.error('Failed to unsubscribe:', error);
@@ -69,7 +71,16 @@ const WatcherActions = ({ habitDetail }) => {
       <span className='font-bold'>Watchers</span>
       {isGroupShared ? (
         <>
-          {hasNoWatchers ? (
+          {hasNoWatchers && !isCurrentUserCreator ? (
+            <div className='m-2'>
+              <button
+                className='rounded-full border border-gray-300 text-3xl bg-green-bg w-12 h-12 flex items-center justify-center'
+                onClick={handleSubscribe}
+              >
+                +
+              </button>
+            </div>
+          ) : hasNoWatchers && isCurrentUserCreator ? (
             <p className='text-center mb-4 text-dark-gray-txt'>
               내 습관을 구독한 <br />
               Watcher가 없습니다
@@ -77,7 +88,7 @@ const WatcherActions = ({ habitDetail }) => {
           ) : (
             <div className='flex flex-wrap mb-4'>
               {!isCurrentUserWatcher && !isCurrentUserCreator && (
-                <div className='w-1/5 p-1 m-2'>
+                <div className='m-2'>
                   <button
                     className='rounded-full border border-gray-300 text-3xl bg-green-bg w-12 h-12 flex items-center justify-center'
                     onClick={handleSubscribe}
@@ -89,7 +100,7 @@ const WatcherActions = ({ habitDetail }) => {
               {Array.isArray(sortedApprovals) &&
                 sortedApprovals.map((approval, index) => (
                   <div
-                    className='w-1/5 p-1 relative m-2'
+                    className='relative m-2'
                     key={index}
                     onMouseEnter={() => handleMouseEnter(approval._id)}
                     onMouseLeave={handleMouseLeave}
@@ -99,14 +110,16 @@ const WatcherActions = ({ habitDetail }) => {
                       src={approval._id.profileImageUrl}
                       alt='Watcher profile'
                     />
-                    {hoveredWatcher === approval._id && (
-                      <button
-                        className='absolute top-0 right-0 text-xl bg-red-500 rounded-full w-6 h-6 flex items-center justify-center text-white'
-                        onClick={handleUnsubscribe}
-                      >
-                        -
-                      </button>
-                    )}
+                    {hoveredWatcher === approval._id &&
+                      approval._id._id.toString() ===
+                        currentUserId.toString() && (
+                        <button
+                          className='absolute top-0 right-0 text-xl bg-red-500 rounded-full w-6 h-6 flex items-center justify-center text-white'
+                          onClick={handleUnsubscribe}
+                        >
+                          -
+                        </button>
+                      )}
                   </div>
                 ))}
             </div>
