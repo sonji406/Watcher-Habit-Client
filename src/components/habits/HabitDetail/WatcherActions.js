@@ -18,8 +18,6 @@ const WatcherActions = ({ habitDetail }) => {
   const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
 
-  let sortedApprovals = [];
-
   const isCurrentUserCreator = habitDetail.creator?._id === currentUserId;
 
   const isCurrentUserWatcher = habitDetail.approvals?.some((approval) => {
@@ -32,13 +30,13 @@ const WatcherActions = ({ habitDetail }) => {
   const hasNoWatchers =
     !habitDetail.approvals || habitDetail.approvals.length === 0;
 
-  if (habitDetail.approvals) {
-    sortedApprovals = [...habitDetail.approvals].sort((a, b) => {
-      if (a._id === currentUserId) return -1;
-      if (b._id === currentUserId) return 1;
-      return 0;
-    });
-  }
+  const sortedApprovals = habitDetail.approvals
+    ? [...habitDetail.approvals].sort((a, b) => {
+        if (a._id === currentUserId) return -1;
+        if (b._id === currentUserId) return 1;
+        return 0;
+      })
+    : [];
 
   useEffect(() => {
     setSubscriptionError(null);

@@ -4,19 +4,17 @@ import ClockArcs from './ClockArcs';
 const HabitTime = ({ startTime, endTime }) => {
   const [startHour, startMinute] = startTime.split(':').map(Number);
   const [endHour, endMinute] = endTime.split(':').map(Number);
-  let durationHours = endHour - startHour;
-  let durationMinutes = endMinute - startMinute;
+  const durationHours = endHour - startHour;
+  const durationMinutes = endMinute - startMinute;
   const startMinutes = startHour * 60 + startMinute;
   const endMinutes = endHour * 60 + endMinute;
 
-  let timeDisplay = '';
-  if (durationHours > 0 && durationMinutes > 0) {
-    timeDisplay = `${durationHours}시간 ${durationMinutes}분`;
-  } else if (durationHours > 0) {
-    timeDisplay = `${durationHours}시간`;
-  } else if (durationMinutes > 0) {
-    timeDisplay = `${durationMinutes}분`;
-  }
+  const timeDisplay = [
+    durationHours > 0 ? `${durationHours}시간` : '',
+    durationMinutes > 0 ? `${durationMinutes}분` : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return (
     <div className='bg-main-bg p-4 rounded-lg mb-4 w-2/3 ml-2 flex justify-between'>
