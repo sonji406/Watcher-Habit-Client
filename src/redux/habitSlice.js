@@ -13,10 +13,8 @@ const habitSlice = createSlice({
     },
     updateWatcherList: (state, action) => {
       const transformedPayload = {
-        _id: {
-          _id: action.payload._id,
-          profileImageUrl: action.payload.profileImageUrl,
-        },
+        _id: action.payload._id,
+        profileImageUrl: action.payload.profileImageUrl,
         status: action.payload.status,
       };
 
@@ -25,7 +23,7 @@ const habitSlice = createSlice({
 
     unSubscribeWatcherList: (state, action) => {
       state.habitDetail.approvals = state.habitDetail.approvals.filter(
-        (approval) => approval._id._id !== action.payload._id,
+        (approval) => approval._id !== action.payload._id,
       );
     },
 

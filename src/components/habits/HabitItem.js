@@ -10,6 +10,13 @@ const HabitItem = ({ habitInfo }) => {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
       );
+
+      response.data.approvals = response.data.approvals.map((approval) => ({
+        ...approval._id,
+        status: approval.status,
+        profileImageUrl: approval._id.profileImageUrl,
+      }));
+
       dispatch(setHabitDetail(response.data));
     } catch (error) {
       console.error(error);

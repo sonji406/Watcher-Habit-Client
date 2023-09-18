@@ -20,7 +20,7 @@ const WatcherActions = ({ habitDetail }) => {
   const isCurrentUserWatcher = habitDetail.approvals?.some((approval) => {
     console.log(habitDetail.approvals);
 
-    return approval._id._id === currentUserId;
+    return approval._id === currentUserId;
   });
 
   const isGroupShared =
@@ -30,8 +30,8 @@ const WatcherActions = ({ habitDetail }) => {
 
   if (habitDetail.approvals) {
     sortedApprovals = [...habitDetail.approvals].sort((a, b) => {
-      if (a._id._id === currentUserId) return -1;
-      if (b._id._id === currentUserId) return 1;
+      if (a._id === currentUserId) return -1;
+      if (b._id === currentUserId) return 1;
       return 0;
     });
   }
@@ -106,16 +106,16 @@ const WatcherActions = ({ habitDetail }) => {
                   <div
                     className='relative m-2'
                     key={index}
-                    onMouseEnter={() => handleMouseEnter(approval._id._id)}
+                    onMouseEnter={() => handleMouseEnter(approval._id)}
                     onMouseLeave={handleMouseLeave}
                   >
                     <img
                       className='rounded-full border border-gray-300 w-12 h-12 object-cover'
-                      src={approval._id.profileImageUrl}
+                      src={approval.profileImageUrl}
                       alt='Watcher profile'
                     />
-                    {hoveredWatcher === approval._id._id &&
-                      approval._id._id === currentUserId && (
+                    {hoveredWatcher === approval._id &&
+                      approval._id === currentUserId && (
                         <button
                           className='absolute top-0 right-0 text-xl bg-red-500 rounded-full w-6 h-6 flex items-center justify-center text-white'
                           onClick={handleUnsubscribe}
