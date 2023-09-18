@@ -10,7 +10,7 @@ const HabitDaysOfWeek = ({ doDay }) => {
       <div className='flex justify-center'>
         {daysOfWeek.map((day, index) => (
           <div
-            key={index}
+            key={day}
             className={`mr-1 ml-1 mb-4 flex text-center rounded-full pr-3 pl-3 pt-1 pb-1 ${
               doDay.includes(day) ? 'bg-green-500' : 'bg-gray-300'
             }`}
