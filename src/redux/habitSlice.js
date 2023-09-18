@@ -15,8 +15,12 @@ const habitSlice = createSlice({
       state.habitDetail.approvals.push(action.payload);
     },
     unSubscribeWatcherList: (state, action) => {
+      const approvalIdsFromPayload = action.payload.approvals.map(
+        (approval) => approval._id,
+      );
+
       state.habitDetail.approvals = state.habitDetail.approvals.filter(
-        (approval) => approval._id !== action.payload._id,
+        (approval) => approvalIdsFromPayload.includes(approval._id._id),
       );
     },
   },
