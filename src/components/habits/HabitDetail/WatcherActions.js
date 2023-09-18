@@ -9,10 +9,12 @@ import {
   updateWatcherList,
 } from '../../../redux/habitSlice';
 import getUserIdFromToken from '../../../utils/getUserIdFromToken';
+import ErrorMessage from './ErrorMessage';
+import WatcherList from './WatcherList';
+import WatcherButton from './WatcherButton';
 
 const WatcherActions = ({ habitDetail }) => {
   const dispatch = useDispatch();
-  const [hoveredWatcher, setHoveredWatcher] = useState(null);
   const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
 
@@ -68,29 +70,12 @@ const WatcherActions = ({ habitDetail }) => {
     }
   };
 
-  const handleMouseEnter = (watcherId) => {
-    setHoveredWatcher(watcherId);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredWatcher(null);
-  };
-
   return (
     <div className='bg-main-bg p-4 rounded-lg text-left'>
       <span className='font-bold'>Watchers</span>
       {isGroupShared ? (
-        <>
-          {hasNoWatchers && !isCurrentUserCreator ? (
-            <div className='m-2'>
-              <button
-                className='rounded-full border border-gray-300 text-3xl bg-green-bg w-12 h-12 flex items-center justify-center'
-                onClick={handleSubscribe}
-              >
-                +
-              </button>
-            </div>
-          ) : hasNoWatchers && isCurrentUserCreator ? (
+        <div>
+          {hasNoWatchers && isCurrentUserCreator ? (
             <p className='text-center mb-4 text-dark-gray-txt'>
               내 습관을 구독한 <br />
               Watcher가 없습니다
@@ -99,42 +84,21 @@ const WatcherActions = ({ habitDetail }) => {
             <div className='flex flex-wrap'>
               {!isCurrentUserWatcher && !isCurrentUserCreator && (
                 <div className='m-2'>
-                  <button
-                    className='rounded-full border border-gray-300 text-3xl bg-green-bg w-12 h-12 flex items-center justify-center'
-                    onClick={handleSubscribe}
-                  >
-                    +
-                  </button>
+                  <WatcherButton
+                    isSubscribe={true}
+                    handleAction={handleSubscribe}
+                    className='w-12 h-12'
+                  />
                 </div>
               )}
-
-              {Array.isArray(sortedApprovals) &&
-                sortedApprovals.map((approval, index) => (
-                  <div
-                    className='relative m-2'
-                    key={index}
-                    onMouseEnter={() => handleMouseEnter(approval._id)}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <img
-                      className='rounded-full border border-gray-300 w-12 h-12 object-cover'
-                      src={approval.profileImageUrl}
-                      alt='Watcher profile'
-                    />
-                    {hoveredWatcher === approval._id &&
-                      approval._id === currentUserId && (
-                        <button
-                          className='absolute top-0 right-0 text-xl bg-red-500 rounded-full w-6 h-6 flex items-center justify-center text-white'
-                          onClick={handleUnsubscribe}
-                        >
-                          -
-                        </button>
-                      )}
-                  </div>
-                ))}
+              <WatcherList
+                sortedApprovals={sortedApprovals}
+                currentUserId={currentUserId}
+                handleUnsubscribe={handleUnsubscribe}
+              />
             </div>
           )}
-        </>
+        </div>
       ) : (
         <p className='text-center mb-4 text-dark-gray-txt'>
           비공개 습관이므로
@@ -142,9 +106,7 @@ const WatcherActions = ({ habitDetail }) => {
           Watcher가 없습니다
         </p>
       )}
-      {subscriptionError && (
-        <p className='text-red-500 text-center'>{subscriptionError}</p>
-      )}
+      {subscriptionError && <ErrorMessage message={subscriptionError} />}
     </div>
   );
 };
