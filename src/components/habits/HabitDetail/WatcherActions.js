@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   subscribeWatcher,
@@ -11,9 +11,11 @@ import {
 import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 
 const WatcherActions = ({ habitDetail }) => {
+  const dispatch = useDispatch();
   const [hoveredWatcher, setHoveredWatcher] = useState(null);
   const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
+
   let sortedApprovals = [];
 
   const isCurrentUserCreator = habitDetail.creator?._id === currentUserId;
@@ -24,6 +26,7 @@ const WatcherActions = ({ habitDetail }) => {
 
   const isGroupShared =
     habitDetail.sharedGroup && habitDetail.sharedGroup.groupName;
+
   const hasNoWatchers =
     !habitDetail.approvals || habitDetail.approvals.length === 0;
 
@@ -35,7 +38,9 @@ const WatcherActions = ({ habitDetail }) => {
     });
   }
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    setSubscriptionError(null);
+  }, [habitDetail]);
 
   const handleSubscribe = async () => {
     try {
@@ -43,6 +48,7 @@ const WatcherActions = ({ habitDetail }) => {
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
       const response = await subscribeWatcher(habitId, watcherId);
+
       dispatch(updateWatcherList(response));
     } catch (error) {
       setSubscriptionError('구독할 수 없습니다.');
@@ -55,6 +61,7 @@ const WatcherActions = ({ habitDetail }) => {
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
       const response = await unsubscribeWatcher(habitId, watcherId);
+
       dispatch(unSubscribeWatcherList(response));
     } catch (error) {
       setSubscriptionError('구독을 해제할 수 없습니다.');
@@ -89,7 +96,7 @@ const WatcherActions = ({ habitDetail }) => {
               Watcher가 없습니다
             </p>
           ) : (
-            <div className='flex flex-wrap mb-4'>
+            <div className='flex flex-wrap'>
               {!isCurrentUserWatcher && !isCurrentUserCreator && (
                 <div className='m-2'>
                   <button
@@ -100,6 +107,7 @@ const WatcherActions = ({ habitDetail }) => {
                   </button>
                 </div>
               )}
+
               {Array.isArray(sortedApprovals) &&
                 sortedApprovals.map((approval, index) => (
                   <div
