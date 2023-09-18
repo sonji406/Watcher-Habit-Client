@@ -7,10 +7,7 @@ import HabitTime from './HabitTime';
 import HabitDaysOfWeek from './HabitDaysOfWeek';
 import HabitSection from './HabitSection';
 import EmptyHabitDetailState from './EmptyHabitDetailState';
-
-const isEmptyObject = (obj) => {
-  return Object.keys(obj).length === 0 && obj.constructor === Object;
-};
+import { isEmptyObject } from '../../../utils/objectUtils';
 
 const HabitDetail = () => {
   const habitDetail = useSelector((state) => state.habit.habitDetail);
