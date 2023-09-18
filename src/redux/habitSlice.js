@@ -12,20 +12,33 @@ const habitSlice = createSlice({
       state.habitDetail = action.payload;
     },
     updateWatcherList: (state, action) => {
-      state.habitDetail.approvals.push(action.payload);
-    },
-    unSubscribeWatcherList: (state, action) => {
-      const approvalIdsFromPayload = action.payload.approvals.map(
-        (approval) => approval._id,
-      );
+      const transformedPayload = {
+        _id: {
+          _id: action.payload._id,
+          profileImageUrl: action.payload.profileImageUrl,
+        },
+        status: action.payload.status,
+      };
 
+      state.habitDetail.approvals.push(transformedPayload);
+    },
+
+    unSubscribeWatcherList: (state, action) => {
       state.habitDetail.approvals = state.habitDetail.approvals.filter(
-        (approval) => approvalIdsFromPayload.includes(approval._id._id),
+        (approval) => approval._id._id !== action.payload._id,
       );
+    },
+
+    clearHabitDetail: (state) => {
+      state.habitDetail = {};
     },
   },
 });
 
-export const { setHabitDetail, updateWatcherList, unSubscribeWatcherList } =
-  habitSlice.actions;
+export const {
+  setHabitDetail,
+  updateWatcherList,
+  unSubscribeWatcherList,
+  clearHabitDetail,
+} = habitSlice.actions;
 export default habitSlice.reducer;

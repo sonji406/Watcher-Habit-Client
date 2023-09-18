@@ -1,11 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
-import { useParams } from 'react-router-dom';
 import getCurrentDate from '../../utils/getCurrentDate';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
+import { clearHabitDetail } from '../../redux/habitSlice';
 
 function MyHabit() {
+  const dispatch = useDispatch();
   const { nickname } = useParams('nickname');
+
+  useEffect(() => {
+    dispatch(clearHabitDetail());
+  }, [nickname, dispatch]);
+
   const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${nickname}/habitList?date=${currentDate}`,

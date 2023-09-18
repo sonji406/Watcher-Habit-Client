@@ -1,11 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
+import { clearHabitDetail } from '../../redux/habitSlice';
 
 function Group() {
+  const dispatch = useDispatch();
   const { groupId } = useParams('groupId');
+
+  useEffect(() => {
+    dispatch(clearHabitDetail());
+  }, [groupId, dispatch]);
+
   const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/habitList?date=${currentDate}`,
