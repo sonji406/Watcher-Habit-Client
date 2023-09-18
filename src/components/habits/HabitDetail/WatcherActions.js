@@ -4,7 +4,10 @@ import {
   subscribeWatcher,
   unsubscribeWatcher,
 } from '../../../services/api/watcher';
-import { updateWatcherList } from '../../../redux/habitSlice';
+import {
+  unSubscribeWatcherList,
+  updateWatcherList,
+} from '../../../redux/habitSlice';
 import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 
 const WatcherActions = ({ habitDetail }) => {
@@ -16,7 +19,7 @@ const WatcherActions = ({ habitDetail }) => {
     habitDetail.creator?._id?.toString() === currentUserId.toString();
 
   const isCurrentUserWatcher = habitDetail.approvals?.some((approval) => {
-    return approval._id._id.toString() === currentUserId.toString();
+    return approval._id.toString() === currentUserId.toString();
   });
 
   const isGroupShared =
@@ -26,8 +29,8 @@ const WatcherActions = ({ habitDetail }) => {
 
   if (habitDetail.approvals) {
     sortedApprovals = [...habitDetail.approvals].sort((a, b) => {
-      if (a._id._id.toString() === currentUserId.toString()) return -1;
-      if (b._id._id.toString() === currentUserId.toString()) return 1;
+      if (a._id === currentUserId) return -1;
+      if (b._id === currentUserId) return 1;
       return 0;
     });
   }
@@ -40,7 +43,7 @@ const WatcherActions = ({ habitDetail }) => {
       const watcherId = getUserIdFromToken();
       const response = await subscribeWatcher(habitId, watcherId);
       console.log('Subscribe response:', response);
-      dispatch(updateWatcherList(response.updatedWatchers));
+      dispatch(updateWatcherList(response));
     } catch (error) {
       console.error('Failed to subscribe:', error);
     }
@@ -52,7 +55,7 @@ const WatcherActions = ({ habitDetail }) => {
       const watcherId = getUserIdFromToken();
       const response = await unsubscribeWatcher(habitId, watcherId);
       console.log('Unsubscribe response:', response);
-      dispatch(updateWatcherList(response.updatedWatchers));
+      dispatch(unSubscribeWatcherList(response));
     } catch (error) {
       console.error('Failed to unsubscribe:', error);
     }
@@ -111,8 +114,7 @@ const WatcherActions = ({ habitDetail }) => {
                       alt='Watcher profile'
                     />
                     {hoveredWatcher === approval._id &&
-                      approval._id._id.toString() ===
-                        currentUserId.toString() && (
+                      approval._id.toString() === currentUserId.toString() && (
                         <button
                           className='absolute top-0 right-0 text-xl bg-red-500 rounded-full w-6 h-6 flex items-center justify-center text-white'
                           onClick={handleUnsubscribe}
