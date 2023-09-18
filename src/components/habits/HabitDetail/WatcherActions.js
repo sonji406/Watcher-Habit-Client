@@ -12,14 +12,13 @@ import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 
 const WatcherActions = ({ habitDetail }) => {
   const [hoveredWatcher, setHoveredWatcher] = useState(null);
+  const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
   let sortedApprovals = [];
 
   const isCurrentUserCreator = habitDetail.creator?._id === currentUserId;
 
   const isCurrentUserWatcher = habitDetail.approvals?.some((approval) => {
-    console.log(habitDetail.approvals);
-
     return approval._id === currentUserId;
   });
 
@@ -40,25 +39,25 @@ const WatcherActions = ({ habitDetail }) => {
 
   const handleSubscribe = async () => {
     try {
+      setSubscriptionError(null);
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
       const response = await subscribeWatcher(habitId, watcherId);
-      console.log('Subscribe response:', response);
       dispatch(updateWatcherList(response));
     } catch (error) {
-      console.error('Failed to subscribe:', error);
+      setSubscriptionError('구독할 수 없습니다.');
     }
   };
 
   const handleUnsubscribe = async () => {
     try {
+      setSubscriptionError(null);
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
       const response = await unsubscribeWatcher(habitId, watcherId);
-      console.log('Unsubscribe response:', response);
       dispatch(unSubscribeWatcherList(response));
     } catch (error) {
-      console.error('Failed to unsubscribe:', error);
+      setSubscriptionError('구독을 해제할 수 없습니다.');
     }
   };
 
@@ -71,7 +70,7 @@ const WatcherActions = ({ habitDetail }) => {
   };
 
   return (
-    <div className='bg-main-bg p-4 rounded-lg mb-4 text-left'>
+    <div className='bg-main-bg p-4 rounded-lg text-left'>
       <span className='font-bold'>Watchers</span>
       {isGroupShared ? (
         <>
@@ -134,6 +133,9 @@ const WatcherActions = ({ habitDetail }) => {
           <br />
           Watcher가 없습니다
         </p>
+      )}
+      {subscriptionError && (
+        <p className='text-red-500 text-center'>{subscriptionError}</p>
       )}
     </div>
   );
