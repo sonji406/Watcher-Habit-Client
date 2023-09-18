@@ -13,8 +13,6 @@ const isEmptyObject = (obj) => {
 const HabitDetail = () => {
   const habitDetail = useSelector((state) => state.habit.habitDetail);
 
-  console.log(habitDetail);
-
   if (!habitDetail || isEmptyObject(habitDetail)) {
     return (
       <div className='h-[70vh] text-dark-gray-txt flex justify-center items-center text-center'>
@@ -27,6 +25,7 @@ const HabitDetail = () => {
 
   const startDate = new Date(habitDetail.habitStartDate);
   const endDate = new Date(habitDetail.habitEndDate);
+
   const durationDays =
     Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
@@ -38,10 +37,12 @@ const HabitDetail = () => {
             {habitDetail.habitTitle}
           </h1>
         </div>
+
         <AuthorAndVisibility
           creator={habitDetail.creator}
           sharedGroup={habitDetail.sharedGroup}
         />
+
         <div className='bg-main-bg p-4 rounded-lg mb-4 text-center'>
           <p className='font-bold text-left'>내용</p>
           <p className='mb-4 text-2xl'>{habitDetail.habitContent}</p>
@@ -63,6 +64,7 @@ const HabitDetail = () => {
             endTime={habitDetail.endTime}
           />
         </div>
+
         <HabitDaysOfWeek doDay={habitDetail.doDay} />
 
         <WatcherActions habitDetail={habitDetail} />
