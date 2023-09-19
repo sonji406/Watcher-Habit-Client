@@ -28,6 +28,7 @@ module.exports = {
         customDarkGray: '#727C86',
         customLightGray: '#C0C0C3',
         customGreen: '#26A34F',
+        customRed: '#FF0000',
         darkGray: '#C0C0C3',
       },
     },
