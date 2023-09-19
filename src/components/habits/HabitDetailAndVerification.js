@@ -4,6 +4,8 @@ import TitleAndAuthorInfo from './TitleAndAuthorInfo';
 import HabitDetail from './HabitDetail/HabitDetail';
 import HabitVerfication from './verification/Verification';
 import Tabs from './Tabs';
+import { isEmptyObject } from '../../utils/objectUtils';
+import EmptyHabitDetailState from './HabitDetail/EmptyHabitDetailState';
 
 const HabitDetailAndVerification = () => {
   const [isDetail, setIsDetail] = useState(true);
@@ -24,8 +26,10 @@ const HabitDetailAndVerification = () => {
         handleViewDetail={handleViewDetail}
         handleViewVerfication={handleViewVerfication}
       />
-      <div className='h-[70vh] text-center absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10 overflow-hidden'>
-        {Object.keys(habit).length !== 0 ? (
+      <div className='h-[70vh] text-center absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10'>
+        {isEmptyObject(habit) ? (
+          <EmptyHabitDetailState />
+        ) : (
           <>
             <TitleAndAuthorInfo
               title={habit.habitTitle}
@@ -38,8 +42,6 @@ const HabitDetailAndVerification = () => {
               <HabitVerfication habit={habit} />
             )}
           </>
-        ) : (
-          <></>
         )}
       </div>
     </article>

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { clearHabitDetail } from '../../redux/habitSlice';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
-import HabitList from '../../components/habits/HabitList';
+import HabitList from '../../components/habits/habitList/HabitList';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
 
 function Group() {

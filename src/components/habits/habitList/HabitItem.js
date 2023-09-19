@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setHabitDetail } from '../../redux/habitSlice';
+import { setHabitDetail } from '../../../redux/habitSlice';
 
 const HabitItem = ({ habitInfo }) => {
   const dispatch = useDispatch();
