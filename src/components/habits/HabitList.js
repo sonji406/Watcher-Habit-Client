@@ -19,7 +19,7 @@ function HabitList({ dailyHabits }) {
   });
 
   return (
-    <div className='relative bg-main-dark-blue'>
+    <article className='w-[400px] mr-4 relative bg-main-dark-blue'>
       <div className='h-[70vh] absolute top-0 left-0 right-0 bg-green-bg text-white p-1 rounded-t-2xl text-center z-0'>
         {currentPage === 'my-habit' && (
           <p
@@ -59,7 +59,7 @@ function HabitList({ dailyHabits }) {
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 }
 

@@ -34,7 +34,7 @@ const STATUS_MESSAGES = {
   },
 };
 
-const Verification = () => {
+const HabitVerfication = () => {
   const habit = useSelector((state) => state.habit.habitDetail);
 
   const status = habit?.status || undefined;
@@ -65,4 +65,4 @@ const Verification = () => {
   );
 };
 
-export default Verification;
+export default HabitVerfication;

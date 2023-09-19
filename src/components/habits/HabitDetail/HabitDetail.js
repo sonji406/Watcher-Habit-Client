@@ -16,8 +16,8 @@ const HabitDetail = () => {
   }
 
   return (
-    <div className='h-full overflow-hidden bg-dark-blue-bg rounded-3xl z-10 relative p-3'>
-      <div className='h-full overflow-y-auto pt-4 pr-2 custom-scrollbar'>
+    <div className='bg-dark-blue-bg rounded-3xl z-10 relative px-3'>
+      <div className='h-full overflow-y-auto pr-2 custom-scrollbar'>
         <HabitSection title='내용' content={habitDetail.habitContent} />
         <HabitSection title='패널티' content={habitDetail.penalty} />
 
