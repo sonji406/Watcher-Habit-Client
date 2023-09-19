@@ -26,12 +26,7 @@ const ApprovalBox = () => {
       ) : (
         <div className='flex h-full'>
           {isWaitingVerification ? (
-            <WaitingVerification
-              creator={habit.creator._id}
-              habitId={habit._id}
-              endTime={habit.endTime}
-              uploadImageUrl={uploadImageUrl}
-            />
+            <WaitingVerification uploadImageUrl={uploadImageUrl} />
           ) : (
             <div className='grid grid-cols-2 gap-x-1 mx-auto font-semibold text-center '>
               <VerificationImage habitImage={habitImage} />

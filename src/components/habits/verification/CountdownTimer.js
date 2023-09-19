@@ -23,6 +23,7 @@ const CountdownTimer = ({ endTime }) => {
     };
 
     const intervalId = setInterval(checkTime, 1000);
+
     return () => clearInterval(intervalId);
   }, [endTime]);
 

@@ -24,7 +24,6 @@ const UploadImage = ({ habitId, endTime, uploadImageUrl }) => {
         },
       );
 
-      console.log('response', response);
       uploadImageUrl(response.data.imageUrl);
     } catch (error) {
       setError('업로드 실패');

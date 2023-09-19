@@ -5,8 +5,6 @@ import ApprovedIcon from '../icon/Approved';
 import RejectedIcon from '../icon/Rejected';
 import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
-import ApprovalStatusBox from './ApprovalStatusBox';
-import ProfileImage from './ProfileImage';
 import ApprovalButtons from './ApprovalButtons';
 
 const ApprovalItem = ({ status, watcher }) => {
@@ -39,6 +37,7 @@ const ApprovalItem = ({ status, watcher }) => {
         </>
       );
     }
+
     return (
       <p className='text-xm tracking-tight ml-2'>아직 승인 대기중 입니다.</p>
     );
@@ -63,12 +62,16 @@ const ApprovalItem = ({ status, watcher }) => {
 
   return (
     <div className='flex justify-center my-3'>
-      <ProfileImage src={watcher.profileImageUrl} />
-      <ApprovalStatusBox
-        status={status}
-        error={error}
-        message={approvalsMessage}
-      />
+      <div className='relative mr-[-25px] w-[40px] h-[40px] bg-light-gray-bg rounded-full flex'>
+        <img
+          src={watcher.profileImageUrl}
+          alt=''
+          className='object-cover rounded-full p-0.5'
+        />
+      </div>
+      <div className='w-[210px] h-[43px] my-2 bg-neutral-500 rounded-full font-bold text-center flex items-center justify-center'>
+        {error ? error : approvalsMessage}
+      </div>
     </div>
   );
 };
