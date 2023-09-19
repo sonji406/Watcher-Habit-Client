@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { useRef, useState } from 'react';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 const CreateGroupModal = ({ onClose }) => {
   const modalContentRef = useRef();
   const [groupName, setGroupName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+
+  useClickOutside(modalContentRef, onClose);
 
   const onChangeHandler = (e) => {
     setGroupName(e.target.value);
@@ -42,20 +45,8 @@ const CreateGroupModal = ({ onClose }) => {
     }
   };
 
-  const handleBackdropClick = (e) => {
-    if (
-      modalContentRef.current &&
-      !modalContentRef.current.contains(e.target)
-    ) {
-      onClose();
-    }
-  };
-
   return (
-    <div
-      className='fixed inset-0 w-full flex items-center justify-center z-10 bg-black bg-opacity-50'
-      onClick={handleBackdropClick}
-    >
+    <div className='fixed inset-0 w-full flex items-center justify-center z-10 bg-black bg-opacity-50'>
       <div
         className='bg-dark-blue-bg border border-customGreen rounded p-5 w-8000 text-white rounded-xl'
         ref={modalContentRef}
