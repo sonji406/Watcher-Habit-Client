@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ImageIcon from '../icon/ImageIcon';
+import ImageIcon from './icon/ImageIcon';
 import CountdownTimer from './CountdownTimer';
 
-const UploadImage = ({ habitId, endTime, setImageUrl }) => {
+const UploadImage = ({ habitId, endTime, uploadImageUrl }) => {
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
 
@@ -24,7 +24,8 @@ const UploadImage = ({ habitId, endTime, setImageUrl }) => {
         },
       );
 
-      setImageUrl(response.data.imageUrl);
+      console.log('response', response);
+      uploadImageUrl(response.data.imageUrl);
     } catch (error) {
       setError('업로드 실패');
     }
@@ -39,17 +40,15 @@ const UploadImage = ({ habitId, endTime, setImageUrl }) => {
   return (
     <>
       <label
-        className='flex items-center justify-center w-full m-2 rounded-xl text-[#F7F8FD] hover:bg-dark-gray-bg hover:text-[#F7F8FD]'
+        className='flex mt-16 items-center justify-center text-center font-bold'
         htmlFor='inputImage'
         style={{ cursor: 'pointer' }}
-        onChange={onFileChange}
       >
-        <div className='text-center font-bold'>
+        <div className='mx-auto'>
           <CountdownTimer endTime={endTime} />
-          <p>사진 업로드</p>
           <ImageIcon />
-          {error && <p>{error}</p>}
         </div>
+        {error && <p>{error}</p>}
       </label>
       <input
         id='inputImage'

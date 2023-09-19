@@ -32,9 +32,9 @@ const CountdownTimer = ({ endTime }) => {
   const seconds = secondsLeft % 60;
 
   return (
-    <div className='text-customDarkGray'>
+    <p className='text-customDarkGray'>
       제한 시간 : {minutes}:{seconds.toString().padStart(2, '0')}
-    </div>
+    </p>
   );
 };
 
