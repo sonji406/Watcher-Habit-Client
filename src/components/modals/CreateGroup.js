@@ -30,7 +30,7 @@ const CreateGroupModal = ({ onClose }) => {
 
       if (error.response) {
         if (error.response.status === 404) {
-          message = '그룹 아이디가 잘못 입력되었습니다.';
+          message = '그룹 이름은 15자 이하여야 합니다.';
         } else {
           message = error.response.data.error || message;
         }
@@ -55,20 +55,33 @@ const CreateGroupModal = ({ onClose }) => {
       className='fixed inset-0 w-full flex items-center justify-center z-10 bg-black bg-opacity-50'
       onClick={handleBackdropClick}
     >
-      <div className='bg-white rounded p-5 w-96' ref={modalContentRef}>
-        <p>그룹 생성하기</p>
+      <div
+        className='bg-dark-blue-bg border border-customGreen rounded p-5 w-8000 text-white rounded-xl'
+        ref={modalContentRef}
+      >
+        <p className='text-center font-extrabold'>그룹 생성하기</p>
         <input
+          className='w-full h-12 bg-gray-bg text-center text-black rounded-lg mt-4'
           type='text'
           placeholder='생성할 그룹명을 입력하세요(15자 제한)'
           onChange={onChangeHandler}
           value={groupName}
+          required
         />
-        {errorMsg && <p>{errorMsg}</p>}
-        <div>
-          <button onClick={onClickHandler} className='float-left'>
+        {errorMsg && (
+          <p className='text-center text-red-500 mt-4'>{errorMsg}</p>
+        )}
+        <div className='flex justify-center mt-4'>
+          <button
+            onClick={onClickHandler}
+            className='bg-green-bg text-white rounded-xl p-2 w-40 mx-7 font-extrabold'
+          >
             생성
           </button>
-          <button onClick={onClose} className='float-right'>
+          <button
+            onClick={onClose}
+            className='bg-dark-blue-bg text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold'
+          >
             취소
           </button>
         </div>
