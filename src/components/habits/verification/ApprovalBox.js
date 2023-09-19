@@ -1,6 +1,5 @@
 import ImageBox from './VerificationImage/ImageBox';
 import ApprovalsList from './VerificationList/ApprovalsList';
-import PreVerificationIcon from './icon/PreVerification';
 
 const ApprovalBox = ({ habit, loginUserIsCreator, isPreVerification }) => {
   const status = habit.status;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import AuthorAndVisibility from './AuthorAndVisibility';
 import WatcherActions from './WatcherActions';
 import HabitDuration from './HabitDuration';
 import HabitTime from './HabitTime';

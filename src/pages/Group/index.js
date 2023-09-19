@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
-import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
+// import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
 import { clearHabitDetail } from '../../redux/habitSlice';
 import HabitVerfication from '../../components/habits/verification/Verification';
 import AuthorAndVisibility from '../../components/habits/HabitDetail/AuthorAndVisibility';
+
 function Group() {
   const dispatch = useDispatch();
   const { groupId } = useParams('groupId');
