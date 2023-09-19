@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
-// import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
+import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
 import { clearHabitDetail } from '../../redux/habitSlice';
 import HabitVerfication from '../../components/habits/verification/Verification';
 import AuthorAndVisibility from '../../components/habits/HabitDetail/AuthorAndVisibility';
@@ -12,6 +12,7 @@ import AuthorAndVisibility from '../../components/habits/HabitDetail/AuthorAndVi
 function Group() {
   const dispatch = useDispatch();
   const { groupId } = useParams('groupId');
+  const [isDetail, setIsDetail] = useState(true);
 
   useEffect(() => {
     dispatch(clearHabitDetail());
@@ -23,6 +24,10 @@ function Group() {
   );
 
   const habit = useSelector((state) => state.habit.habitDetail);
+
+  const handleView = () => {
+    setIsDetail(!isDetail);
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -40,6 +45,7 @@ function Group() {
                 <div
                   style={{ width: '50%' }}
                   className='bg-green-bg text-center rounded-t-2xl'
+                  onClick={handleView}
                 >
                   <p
                     className='text-2xl'
@@ -51,6 +57,7 @@ function Group() {
                 <div
                   style={{ width: '50%' }}
                   className='bg-black text-center rounded-t-2xl'
+                  onClick={handleView}
                 >
                   <p
                     className='text-2xl'
@@ -73,8 +80,7 @@ function Group() {
                     creator={habit.creator}
                     sharedGroup={habit.sharedGroup}
                   />
-                  {/* <HabitDetail /> */}
-                  <HabitVerfication />
+                  {isDetail ? <HabitDetail /> : <HabitVerfication />}
                 </>
               ) : (
                 <></>
