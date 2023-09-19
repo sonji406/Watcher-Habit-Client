@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ApprovedIcon from '../icon/Approved';
 import RejectedIcon from '../icon/Rejected';
-import isLoginUser from '../../../lib/isLoginUser';
+import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
 
 const ApprovalItem = ({ status, watcher }) => {

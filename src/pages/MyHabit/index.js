@@ -6,6 +6,7 @@ import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
 import getCurrentDate from '../../utils/getCurrentDate';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import { clearHabitDetail } from '../../redux/habitSlice';
+import Verification from '../../components/habits/verification/Verification';
 
 function MyHabit() {
   const dispatch = useDispatch();
@@ -58,10 +59,10 @@ function MyHabit() {
               </div>
             </div>
             <div className='h-[70vh] overflow-y-auto absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10'>
-              <HabitDetail />
+              {/* <HabitDetail /> */}
+              <Verification />
             </div>
           </div>
-          {/* <HabitDetail /> */}
         </div>
       </div>
     </div>

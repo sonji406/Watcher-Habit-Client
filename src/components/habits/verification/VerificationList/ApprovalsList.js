@@ -1,4 +1,4 @@
-import getUserIdFromToken from '../../../utils/getUserIdFromToken';
+import getUserIdFromToken from '../../../../utils/getUserIdFromToken';
 import ApprovalItem from './ApprovalItem';
 
 const ApprovalsList = ({ status, approvals }) => {

@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitDetail from '../../components/habits/HabitDetail/HabitDetail';
 import { clearHabitDetail } from '../../redux/habitSlice';
-import HabitVerfication from '../../components/verification/Verification';
-
+import HabitVerfication from '../../components/habits/verification/Verification';
+import AuthorAndVisibility from '../../components/habits/HabitDetail/AuthorAndVisibility';
 function Group() {
   const dispatch = useDispatch();
   const { groupId } = useParams('groupId');
@@ -21,12 +21,14 @@ function Group() {
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/habitList?date=${currentDate}`,
   );
 
+  const habit = useSelector((state) => state.habit.habitDetail);
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
-      <div className='flex-1 flex justify-center items-center ml-[100px] mr-[100px]'>
+      <div className='flex-1 flex justify-center items-center mx-auto'>
         <div className='flex'>
           <div className='w-[400px] mr-4'>
             <HabitList dailyHabits={dailyHabits}></HabitList>
@@ -59,7 +61,23 @@ function Group() {
               </div>
             </div>
             <div className='h-[70vh] overflow-y-auto absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10'>
-              <HabitDetail />
+              {Object.keys(habit).length !== 0 ? (
+                <>
+                  <div className='p-4 rounded-lg flex justify-between items-end'>
+                    <h1 className='text-3xl text-center flex-1'>
+                      {habit.habitTitle}
+                    </h1>
+                  </div>
+                  <AuthorAndVisibility
+                    creator={habit.creator}
+                    sharedGroup={habit.sharedGroup}
+                  />
+                  {/* <HabitDetail /> */}
+                  <HabitVerfication />
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
         </div>
