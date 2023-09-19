@@ -10,25 +10,9 @@ import ProfileImage from './ProfileImage';
 import ApprovalButtons from './ApprovalButtons';
 
 const ApprovalItem = ({ status, watcher }) => {
-  const [approvalsMessage, setApprovalsMessage] = useState(() =>
-    getApprovalMessage(watcher.status),
-  );
   const [error, setError] = useState('');
 
   const habitId = useSelector((state) => state.habit.habitDetail);
-
-  const updateStatus = async (newStatus) => {
-    try {
-      await axios.patch(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId._id}/${watcher._id}`,
-        { status: newStatus },
-      );
-
-      setApprovalsMessage(getApprovalMessage(newStatus));
-    } catch (error) {
-      setError('다시 시도 해주시길 바랍니다.');
-    }
-  };
 
   const getApprovalMessage = (watcherStatus) => {
     if (watcherStatus === 'undecided' && isLoginUser(watcher._id)) {
@@ -58,6 +42,23 @@ const ApprovalItem = ({ status, watcher }) => {
     return (
       <p className='text-xm tracking-tight ml-2'>아직 승인 대기중 입니다.</p>
     );
+  };
+
+  const [approvalsMessage, setApprovalsMessage] = useState(() =>
+    getApprovalMessage(watcher.status),
+  );
+
+  const updateStatus = async (newStatus) => {
+    try {
+      await axios.patch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId._id}/${watcher._id}`,
+        { status: newStatus },
+      );
+
+      setApprovalsMessage(getApprovalMessage(newStatus));
+    } catch (error) {
+      setError('다시 시도 해주시길 바랍니다.');
+    }
   };
 
   return (
