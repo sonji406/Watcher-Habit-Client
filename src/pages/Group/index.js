@@ -3,6 +3,7 @@ import HabitList from '../../components/habits/HabitList';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitDetail from '../../components/habits/HabitDetail';
+import HabitVerfication from '../../components/verification/Verification';
 
 function Group() {
   const { groupId } = useParams('groupId');
@@ -21,9 +22,12 @@ function Group() {
           <div className='w-[400px] mr-4'>
             <HabitList dailyHabits={dailyHabits}></HabitList>
           </div>
-          <div className='w-[600px] ml-4'>
-            <HabitDetail></HabitDetail>
+          <div className='h-[70vh] w-[600px] overflow-y-auto top-12 bg-dark-blue-bg rounded-3xl z-10 relative custom-scrollbar'>
+            <HabitVerfication />
           </div>
+          {/* <div className='w-[600px] ml-4'>
+            <HabitDetail></HabitDetail>
+          </div> */}
         </div>
       </div>
     </div>

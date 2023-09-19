@@ -15,9 +15,6 @@ const MyHabit = () => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  console.log(dailyHabits, loading, error);
-  console.log(currentDate);
-
   return (
     <div className='min-h-screen flex flex-col bg-main-bg text-white bg-vignette'>
       <div className='flex-1 flex justify-center mx-auto mt-28'>
@@ -26,13 +23,9 @@ const MyHabit = () => {
             <HabitList dailyHabits={dailyHabits} />
           </div>
           <div className='h-[70vh] w-[600px] overflow-y-auto top-12 bg-dark-blue-bg rounded-3xl z-10 relative custom-scrollbar'>
-            <span>제목</span>
-            <span>작성자</span>
             <HabitVerfication />
           </div>
           {/* <HabitDetail /> */}
-          {/* <div className='w-[300px] h-[70px] bg-green-bg text-white p-4 rounded-t-2xl text-center z-0 mr-3'></div>
-          <div className='w-[300px] h-[70px] bg-green-bg text-white p-4 rounded-t-2xl text-center z-0'></div> */}
         </div>
       </div>
     </div>
