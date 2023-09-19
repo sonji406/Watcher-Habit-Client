@@ -14,6 +14,7 @@ module.exports = {
       },
       textColor: {
         'green-txt': '#26A34F',
+        'dark-gray-txt': '#727C86',
       },
       backgroundImage: {
         vignette:

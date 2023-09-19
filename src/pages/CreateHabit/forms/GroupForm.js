@@ -48,7 +48,7 @@ const GroupForm = ({ sharedGroup, setSharedGroup, groupOptions }) => {
             초대된 그룹만 선택 가능합니다(미선택 시 비공개 처리됩니다)
           </option>
           {groupOptions.map((group) => (
-            <option key={group.groupId} value={group._id}>
+            <option key={group.groupId} value={group.groupId}>
               {group.groupName}
             </option>
           ))}

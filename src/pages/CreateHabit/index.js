@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useValidation } from '../../hooks/useValidationForm';
-import { useGroups } from '../../hooks/useGroups';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import { useHandleSubmit } from '../../hooks/useHandleSubmit';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import userGetAPI from '../../services/api/userGet';
 
 import HabitInfoForm from './forms/HabitInfoForm';
 import DateForm from './forms/DateForm';
@@ -35,9 +35,29 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [minApprovalCount, setMinApprovalCount] = useState(0);
   const [sharedGroup, setSharedGroup] = useState(null);
   const { validationMessage, validateForm } = useValidation();
-  const { groupOptions } = useGroups(userId);
+  const [groupList, setGroupList] = useState([]);
   const navigate = useNavigate();
   const nickname = useFetchUserInfo(userId);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await userGetAPI(userId, 'group', true);
+        const groupOptions = response.groups.map((group) => {
+          return {
+            groupId: group._id,
+            groupName: group.groupName,
+          };
+        });
+
+        setGroupList(groupOptions);
+      } catch (error) {
+        throw new Error('사용자 정보 확인 중 문제가 발생했습니다.');
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const { handleSubmit, isSubmitting, message, messageType } = useHandleSubmit(
     validateForm,
@@ -104,7 +124,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             <GroupForm
               sharedGroup={sharedGroup}
               setSharedGroup={setSharedGroup}
-              groupOptions={groupOptions}
+              groupOptions={groupList}
             />
 
             <PenaltyForm penalty={penalty} setPenalty={setPenalty} />
