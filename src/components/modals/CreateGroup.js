@@ -25,6 +25,7 @@ const CreateGroupModal = ({ onClose }) => {
 
       setErrorMsg('');
       onClose();
+      window.location.reload();
     } catch (error) {
       let message = '알 수 없는 오류입니다.';
 
