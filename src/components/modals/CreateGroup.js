@@ -29,7 +29,7 @@ const CreateGroupModal = ({ onClose }) => {
       let message = '알 수 없는 오류입니다.';
 
       if (error.response) {
-        if (error.response.status === 404) {
+        if (error.response.status === 400 && error.response.data?.errors) {
           message = '그룹 이름은 15자 이하여야 합니다.';
         } else {
           message = error.response.data.error || message;
