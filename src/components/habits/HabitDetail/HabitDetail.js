@@ -8,34 +8,30 @@ import HabitSection from './HabitSection';
 import EmptyHabitDetailState from './EmptyHabitDetailState';
 import { isEmptyObject } from '../../../utils/objectUtils';
 
-const HabitDetail = () => {
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
-
+const HabitDetail = ({ habitDetail }) => {
   if (isEmptyObject(habitDetail)) {
     return <EmptyHabitDetailState />;
   }
 
   return (
-    <div className='bg-dark-blue-bg rounded-3xl z-10 relative px-3'>
-      <div className='h-full overflow-y-auto pr-2 custom-scrollbar'>
-        <HabitSection title='내용' content={habitDetail.habitContent} />
-        <HabitSection title='패널티' content={habitDetail.penalty} />
+    <div className='h-full overflow-y-auto custom-scrollbar z-10 relative ml-4 mr-1.5 pr-1.5'>
+      <HabitSection title='내용' content={habitDetail.habitContent} />
+      <HabitSection title='패널티' content={habitDetail.penalty} />
 
-        <div className='flex justify-between'>
-          <HabitDuration
-            startDate={habitDetail.habitStartDate}
-            endDate={habitDetail.habitEndDate}
-          />
-          <HabitTime
-            startTime={habitDetail.startTime}
-            endTime={habitDetail.endTime}
-          />
-        </div>
-
-        <HabitDaysOfWeek doDay={habitDetail.doDay} />
-
-        <WatcherActions habitDetail={habitDetail} />
+      <div className='flex justify-between'>
+        <HabitDuration
+          startDate={habitDetail.habitStartDate}
+          endDate={habitDetail.habitEndDate}
+        />
+        <HabitTime
+          startTime={habitDetail.startTime}
+          endTime={habitDetail.endTime}
+        />
       </div>
+
+      <HabitDaysOfWeek doDay={habitDetail.doDay} />
+
+      <WatcherActions habitDetail={habitDetail} />
     </div>
   );
 };

@@ -1,10 +1,14 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import TitleAndAuthorInfo from './TitleAndAuthorInfo';
 import HabitDetail from './HabitDetail/HabitDetail';
 import HabitVerfication from './verification/Verification';
+import Tabs from './Tabs';
 
-const HabitDetailAndVerification = ({ habit }) => {
+const HabitDetailAndVerification = () => {
   const [isDetail, setIsDetail] = useState(true);
+
+  const habit = useSelector((state) => state.habit.habitDetail);
 
   const handleViewDetail = () => {
     setIsDetail(true);
@@ -16,35 +20,23 @@ const HabitDetailAndVerification = ({ habit }) => {
 
   return (
     <article className='w-[600px] ml-4 relative'>
-      <div className='h-[100px] flex bg-main-dark-blue rounded-t-2xl z-0'>
-        <div
-          style={{ width: '50%' }}
-          className='bg-green-bg text-center rounded-t-2xl'
-          onClick={handleViewDetail}
-        >
-          <p className='text-2xl' style={{ transform: 'translateY(10px)' }}>
-            상세 페이지
-          </p>
-        </div>
-        <div
-          style={{ width: '50%' }}
-          className='bg-black text-center rounded-t-2xl'
-          onClick={handleViewVerfication}
-        >
-          <p className='text-2xl' style={{ transform: 'translateY(10px)' }}>
-            인증 페이지
-          </p>
-        </div>
-      </div>
-      <div className='h-[70vh] absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10 overflow-hidden'>
+      <Tabs
+        handleViewDetail={handleViewDetail}
+        handleViewVerfication={handleViewVerfication}
+      />
+      <div className='h-[70vh] text-center absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10 overflow-hidden'>
         {Object.keys(habit).length !== 0 ? (
           <>
             <TitleAndAuthorInfo
-              title={habit.title}
+              title={habit.habitTitle}
               groupName={habit.sharedGroup.groupName}
               creator={habit.creator}
             />
-            {isDetail ? <HabitDetail /> : <HabitVerfication />}
+            {isDetail ? (
+              <HabitDetail habitDetail={habit} />
+            ) : (
+              <HabitVerfication habit={habit} />
+            )}
           </>
         ) : (
           <></>
