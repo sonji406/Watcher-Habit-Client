@@ -51,7 +51,7 @@ const ApprovalItem = ({ watcher }) => {
     try {
       await axios.patch(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
-        { status: newStatus },
+        { approvalStatus: newStatus, approvalId: watcher._id },
       );
 
       setApprovalsMessage(getApprovalMessage(newStatus));
