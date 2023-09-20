@@ -7,10 +7,10 @@ import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
 import ApprovalButtons from './ApprovalButtons';
 
-const ApprovalItem = ({ status, watcher }) => {
+const ApprovalItem = ({ watcher }) => {
   const [error, setError] = useState('');
 
-  const habitId = useSelector((state) => state.habit.habitDetail);
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
 
   const getApprovalMessage = (watcherStatus) => {
     if (watcherStatus === 'undecided' && isLoginUser(watcher._id)) {
@@ -50,7 +50,7 @@ const ApprovalItem = ({ status, watcher }) => {
   const updateStatus = async (newStatus) => {
     try {
       await axios.patch(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId._id}/${watcher._id}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
         { status: newStatus },
       );
 
