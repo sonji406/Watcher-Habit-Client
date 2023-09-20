@@ -112,7 +112,7 @@ const WatcherActions = ({ habitDetail }) => {
       )}
       {!shouldRenderButtons && isGroupShared && (
         <p className='text-center mb-4 text-dark-gray-txt'>
-          인증 탭을 확인하세요
+          인증 페이지를 확인하세요
         </p>
       )}
       {subscriptionError && <ErrorMessage message={subscriptionError} />}
