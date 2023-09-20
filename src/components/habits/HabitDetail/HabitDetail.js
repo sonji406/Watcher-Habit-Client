@@ -4,8 +4,11 @@ import HabitDuration from './HabitDuration';
 import HabitTime from './HabitTime';
 import HabitDaysOfWeek from './HabitDaysOfWeek';
 import HabitSection from './HabitSection';
+import { useSelector } from 'react-redux';
 
-const HabitDetail = ({ habitDetail }) => {
+const HabitDetail = () => {
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
+
   return (
     <div className='h-[calc(70vh-130px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5'>
       <HabitSection title='내용' content={habitDetail.habitContent} />

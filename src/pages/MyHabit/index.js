@@ -11,8 +11,6 @@ function MyHabit() {
   const dispatch = useDispatch();
   const { nickname } = useParams('nickname');
 
-  const habit = useSelector((state) => state.habit.habitDetail);
-
   const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${nickname}/habitList?date=${currentDate}`,
@@ -29,7 +27,7 @@ function MyHabit() {
     <section className='flex flex-1 min-h-screen bg-main-bg text-white bg-vignette'>
       <article className='flex mt-28 mx-auto'>
         <HabitList dailyHabits={dailyHabits} />
-        <HabitDetailAndVerification habit={habit} />
+        <HabitDetailAndVerification />
       </article>
     </section>
   );
