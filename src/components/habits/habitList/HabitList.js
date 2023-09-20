@@ -7,6 +7,7 @@ import HabbitCreateButton from './HabitCreateButton';
 function HabitList({ dailyHabits }) {
   const currentUrl = useLocation().pathname;
   const currentPage = currentUrl.split('/')[1]; // 'my-habit' or 'group'
+  const groupId = currentPage === 'group' ? currentUrl.split('/')[2] : '';
   const members = Object.keys(dailyHabits.data);
   const [selectedMemberNickname, setSelectedMemberNickname] = useState(
     members[0],
@@ -30,24 +31,24 @@ function HabitList({ dailyHabits }) {
           </p>
         )}
         {currentPage === 'group' && (
-          <>
-            <select
-              value={selectedMemberNickname}
-              onChange={handleOnchange}
-              className='bg-green-bg'
-              style={{ transform: 'translateY(5px)' }}
-            >
-              {members.map((member) => (
-                <option key={member} value={member}>
-                  {member}
-                </option>
-              ))}
-            </select>
-            <GroupInviteButton></GroupInviteButton>
-          </>
+          <select
+            value={selectedMemberNickname}
+            onChange={handleOnchange}
+            className='bg-green-bg'
+            style={{ transform: 'translateY(5px)' }}
+          >
+            {members.map((member) => (
+              <option key={member} value={member}>
+                {member}
+              </option>
+            ))}
+          </select>
         )}
       </div>
-      <div className='h-[70vh] overflow-hidden top-12 bg-dark-blue-bg rounded-3xl z-10 relative p-3'>
+      <div className='h-[70vh] overflow-hidden top-12 bg-dark-blue-bg rounded-3xl z-20 relative p-3'>
+        {currentPage === 'group' && (
+          <GroupInviteButton groupId={groupId}></GroupInviteButton>
+        )}
         <div className='h-full overflow-y-auto pt-4 custom-scrollbar'>
           {sortedHabits.map((habit) => {
             return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;
