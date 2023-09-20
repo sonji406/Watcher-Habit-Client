@@ -82,7 +82,7 @@ const WatcherActions = ({ habitDetail }) => {
               Watcher가 없습니다
             </p>
           ) : (
-            <div className='flex flex-wrap'>
+            <div className='flex flex-wrap justify-center'>
               {shouldRenderButtons &&
                 !isCurrentUserWatcher &&
                 !isCurrentUserCreator && (
