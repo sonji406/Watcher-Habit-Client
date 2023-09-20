@@ -5,12 +5,13 @@ import HabitTime from './HabitTime';
 import HabitDaysOfWeek from './HabitDaysOfWeek';
 import HabitSection from './HabitSection';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 import axios from 'axios';
 
 const HabitDetail = () => {
   const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const location = useLocation();
 
   const currentUserId = getUserIdFromToken();
   const isCurrentUser = currentUserId === habitDetail.creator._id;
@@ -45,16 +46,23 @@ const HabitDetail = () => {
       <HabitDaysOfWeek doDay={habitDetail.doDay} />
 
       <WatcherActions habitDetail={habitDetail} />
-      {isCurrentUser && (
-        <div>
+      {location.pathname.startsWith('/my-habit') && isCurrentUser && (
+        <div className='flex justify-center mt-6 space-x-4'>
           <Link
             to={{
               pathname: `/edit-Habit/${habitDetail._id}`,
             }}
+            className='bg-green-bg w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-green-800 border-2'
           >
             수정
           </Link>
-          <button onClick={handleDelete}>삭제</button>
+
+          <button
+            onClick={handleDelete}
+            className='bg-transparent w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-red-500 border-2'
+          >
+            삭제
+          </button>
         </div>
       )}
     </div>
