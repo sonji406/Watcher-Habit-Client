@@ -1,6 +1,7 @@
 import ApprovalBox from './ApprovalBox';
 import isLoginUser from '../../../lib/isLoginUser';
 import PreVerificationIcon from './icon/PreVerification';
+import { useSelector } from 'react-redux';
 
 const STATUS_MESSAGES = {
   notTimeYet: {
@@ -33,10 +34,12 @@ const STATUS_MESSAGES = {
   },
 };
 
-const HabitVerfication = ({ habit }) => {
-  const isCreator = isLoginUser(habit?.creator?._id || undefined);
+const HabitVerification = () => {
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
+
+  const isCreator = isLoginUser(habitDetail?.creator?._id || undefined);
   const userType = isCreator ? 'creator' : 'member';
-  const status = habit?.status || undefined;
+  const status = habitDetail?.status || undefined;
   const statusMessage = STATUS_MESSAGES[status]?.[userType] || '';
 
   const isPreVerification = ['inProgress', 'notTimeYet'].includes(status);
@@ -51,4 +54,4 @@ const HabitVerfication = ({ habit }) => {
   );
 };
 
-export default HabitVerfication;
+export default HabitVerification;
