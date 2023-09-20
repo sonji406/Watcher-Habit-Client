@@ -91,24 +91,31 @@ const InviteGroupModal = ({ groupId, onClose }) => {
       >
         <p className='text-center font-extrabold'>{groupName}</p>
         <p className='text-center font-extrabold'>그룹에 멤버 초대하기</p>
-        <input
-          className='w-full h-12 bg-gray-bg text-center text-black rounded-lg mt-4'
-          type='email'
-          placeholder='초대할 멤버의 이메일을 입력하세요'
-          onChange={onChangeHandler}
-          value={inviteEmail}
-          minLength={3}
-          maxLength={50}
-          required
-        />
-        <button onClick={onClickGetUserByEmail}>검색</button>
+        <div className='flex items-center mt-4'>
+          <input
+            className='flex-grow h-12 bg-gray-bg text-center text-black rounded-lg mt-4'
+            type='email'
+            placeholder='초대할 멤버의 이메일을 입력하세요'
+            onChange={onChangeHandler}
+            value={inviteEmail}
+            minLength={3}
+            maxLength={50}
+            required
+          />
+          <button
+            className='w-16 h-12 bg-green-bg text-white text-center rounded-lg mt-4 ml-4 font-extrabold'
+            onClick={onClickGetUserByEmail}
+          >
+            검색
+          </button>
+        </div>
         {!errorMsg && searchClicked && (
           <>
-            <p>
+            <p className='text-center'>
               [{inviteEmail}]로 검색된 유저의 닉네임은 [{invitedUser.nickname}
               ]님입니다.
             </p>
-            <p>위의 유저를 그룹에 초대하시겠습니까?</p>
+            <p className='text-center'>위의 유저를 그룹에 초대하시겠습니까?</p>
           </>
         )}
         {errorMsg && (
