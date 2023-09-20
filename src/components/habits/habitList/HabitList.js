@@ -21,7 +21,7 @@ function HabitList({ dailyHabits }) {
 
   return (
     <article className='w-[400px] mr-4 relative bg-main-dark-blue'>
-      <div className='h-[70vh] absolute top-0 left-0 right-0 bg-green-bg text-white p-1 rounded-t-2xl text-center z-0'>
+      <div className='h-[70vh] absolute top-0 left-0 right-0 bg-green-bg text-white p-1 rounded-t-2xl text-center'>
         {currentPage === 'my-habit' && (
           <p
             className='text-2xl mt-3'
@@ -44,11 +44,11 @@ function HabitList({ dailyHabits }) {
             ))}
           </select>
         )}
-      </div>
-      <div className='h-[70vh] overflow-hidden top-12 bg-dark-blue-bg rounded-3xl z-20 relative p-3'>
         {currentPage === 'group' && (
           <GroupInviteButton groupId={groupId}></GroupInviteButton>
         )}
+      </div>
+      <div className='h-[70vh] overflow-hidden top-12 bg-dark-blue-bg rounded-3xl z-20 relative p-3'>
         <div className='h-full overflow-y-auto pt-4 custom-scrollbar'>
           {sortedHabits.map((habit) => {
             return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;

@@ -15,7 +15,7 @@ function GroupInviteButton({ groupId }) {
   return (
     <div>
       <button
-        className='bg-dark-blue-bg text-white text-3xl w-10 h-10 rounded-full hover:bg-green-700 absolute right-4 z-30'
+        className='bg-dark-blue-bg text-white text-3xl w-10 h-10 rounded-full hover:bg-green-700 absolute right-8 top-1 z-30'
         onClick={openModal}
       >
         +
