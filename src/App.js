@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -10,7 +10,7 @@ import Header from './components/common/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
 
-const CreateHabit = React.lazy(() => import('./pages/CreateHabit'));
+const CreateOrEditHabit = lazy(() => import('./pages/CreateHabit'));
 
 function App() {
   return (
@@ -29,7 +29,19 @@ function App() {
                   <Routes>
                     <Route
                       path='/my-habit/:nickname/new-habit'
-                      element={<CreateHabit />}
+                      element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <CreateOrEditHabit isEdit={false} />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path='/edit-habit/:habitId'
+                      element={
+                        <Suspense fallback={<div>Loading...</div>}>
+                          <CreateOrEditHabit isEdit={true} />
+                        </Suspense>
+                      }
                     />
                     <Route path='/my-habit/:nickname' element={<MyHabit />} />
                     <Route path='/group/:groupId' element={<Group />} />

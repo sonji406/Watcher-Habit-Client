@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import WatcherButton from './WatcherButton';
 
-const WatcherList = ({ sortedApprovals, currentUserId, handleUnsubscribe }) => {
+const WatcherList = ({
+  sortedApprovals,
+  currentUserId,
+  handleUnsubscribe,
+  shouldRenderButtons,
+}) => {
   const [hoveredWatcher, setHoveredWatcher] = useState(null);
 
   const handleMouseEnter = (watcherId) => {
@@ -27,7 +32,8 @@ const WatcherList = ({ sortedApprovals, currentUserId, handleUnsubscribe }) => {
               src={approval.profileImageUrl}
               alt='Watcher profile'
             />
-            {hoveredWatcher === approval._id &&
+            {shouldRenderButtons &&
+              hoveredWatcher === approval._id &&
               approval._id === currentUserId && (
                 <WatcherButton
                   isSubscribe={false}
