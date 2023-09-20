@@ -18,6 +18,9 @@ const WatcherActions = ({ habitDetail }) => {
   const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
 
+  const shouldRenderButtons =
+    habitDetail.status === 'notTimeYet' || habitDetail.status === 'inProgress';
+
   const isCurrentUserCreator = habitDetail.creator?._id === currentUserId;
 
   const isCurrentUserWatcher = habitDetail.approvals?.some((approval) => {
@@ -79,20 +82,23 @@ const WatcherActions = ({ habitDetail }) => {
               Watcher가 없습니다
             </p>
           ) : (
-            <div className='flex flex-wrap'>
-              {!isCurrentUserWatcher && !isCurrentUserCreator && (
-                <div className='m-2'>
-                  <WatcherButton
-                    isSubscribe={true}
-                    handleAction={handleSubscribe}
-                    className='w-12 h-12'
-                  />
-                </div>
-              )}
+            <div className='flex flex-wrap justify-center'>
+              {shouldRenderButtons &&
+                !isCurrentUserWatcher &&
+                !isCurrentUserCreator && (
+                  <div className='m-2'>
+                    <WatcherButton
+                      isSubscribe={true}
+                      handleAction={handleSubscribe}
+                      className='w-12 h-12'
+                    />
+                  </div>
+                )}
               <WatcherList
                 sortedApprovals={sortedApprovals}
                 currentUserId={currentUserId}
                 handleUnsubscribe={handleUnsubscribe}
+                shouldRenderButtons={shouldRenderButtons}
               />
             </div>
           )}
@@ -102,6 +108,11 @@ const WatcherActions = ({ habitDetail }) => {
           비공개 습관이므로
           <br />
           Watcher가 없습니다
+        </p>
+      )}
+      {!shouldRenderButtons && isGroupShared && (
+        <p className='text-center mb-4 text-dark-gray-txt'>
+          인증 페이지를 확인하세요
         </p>
       )}
       {subscriptionError && <ErrorMessage message={subscriptionError} />}

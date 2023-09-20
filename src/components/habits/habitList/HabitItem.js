@@ -2,11 +2,12 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
 
-const HabitItem = ({ habitInfo }) => {
+const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
   const dispatch = useDispatch();
 
   const onClickHandler = async () => {
     try {
+      onSelect();
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
       );
@@ -24,7 +25,11 @@ const HabitItem = ({ habitInfo }) => {
   };
 
   return (
-    <div className='bg-main-bg text-white p-4 m-2 rounded-lg hover:bg-dark-green-bg transform hover:scale-95 hover: transition duration-200 ease-in-out'>
+    <div
+      className={`bg-main-bg text-white p-4 m-2 rounded-lg hover:bg-dark-green-bg transform hover:scale-95 transition duration-200 ease-in-out ${
+        isSelected ? 'shadow-green' : ''
+      }`}
+    >
       <button className='w-full' onClick={onClickHandler}>
         <p className='text-sm text-left'>
           {habitInfo.startTime} ~ {habitInfo.endTime}

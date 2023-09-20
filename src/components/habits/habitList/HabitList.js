@@ -5,6 +5,7 @@ import GroupInviteButton from './GroupInviteButton';
 import HabbitCreateButton from './HabitCreateButton';
 
 function HabitList({ dailyHabits }) {
+  const [selectedHabitId, setSelectedHabitId] = useState(null);
   const currentUrl = useLocation().pathname;
   const currentPage = currentUrl.split('/')[1]; // 'my-habit' or 'group'
   const groupId = currentPage === 'group' ? currentUrl.split('/')[2] : '';
@@ -15,7 +16,7 @@ function HabitList({ dailyHabits }) {
   const habits = dailyHabits.data[selectedMemberNickname];
   const handleOnchange = (e) => setSelectedMemberNickname(e.target.value);
 
-  const sortedHabits = habits.sort((a, b) => {
+  const sortedHabits = habits?.sort((a, b) => {
     return a.startTime.localeCompare(b.startTime);
   });
 
@@ -37,7 +38,7 @@ function HabitList({ dailyHabits }) {
             className='bg-green-bg'
             style={{ transform: 'translateY(5px)' }}
           >
-            {members.map((member) => (
+            {members?.map((member) => (
               <option key={member} value={member}>
                 {member}
               </option>
@@ -50,8 +51,15 @@ function HabitList({ dailyHabits }) {
       </div>
       <div className='h-[70vh] overflow-hidden top-12 bg-dark-blue-bg rounded-3xl z-20 relative p-3'>
         <div className='h-full overflow-y-auto pt-4 custom-scrollbar'>
-          {sortedHabits.map((habit) => {
-            return <HabitItem key={habit._id} habitInfo={habit}></HabitItem>;
+          {sortedHabits?.map((habit) => {
+            return (
+              <HabitItem
+                key={habit._id}
+                habitInfo={habit}
+                isSelected={selectedHabitId === habit._id}
+                onSelect={() => setSelectedHabitId(habit._id)}
+              ></HabitItem>
+            );
           })}
         </div>
         {currentPage === 'my-habit' && (

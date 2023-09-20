@@ -8,6 +8,7 @@ export const useHandleSubmit = (
   navigate,
   nickname,
   isEdit = false,
+  habitId,
 ) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState(null);
@@ -20,7 +21,11 @@ export const useHandleSubmit = (
       return;
     }
 
-    setMessage('습관 생성이 완료되었습니다. 나의 습관 관리 페이지로 이동합니다.');
+    const successMessage = `습관 ${
+      isEdit ? '수정' : '생성'
+    }이 완료되었습니다. 나의 습관 관리 페이지로 이동합니다.`;
+
+    setMessage(successMessage);
     setMessageType('success');
 
     setTimeout(() => {
@@ -36,24 +41,24 @@ export const useHandleSubmit = (
     setIsSubmitting(true);
 
     const habitData = createHabitData(formData, userId);
+
     try {
       let response;
 
       if (isEdit) {
         response = await axios.patch(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitData.habitId}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
           habitData,
         );
         handleResponse(response);
 
         return;
+      } else {
+        response = await axios.post(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
+          habitData,
+        );
       }
-
-      response = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
-        habitData,
-      );
-
       handleResponse(response);
     } catch (error) {
       const errorMsg =
