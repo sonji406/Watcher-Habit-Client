@@ -9,6 +9,8 @@ module.exports = {
         'green-bg': '#26A34F',
         'dark-blue-bg': '#1C2532',
         'dark-green-bg': '#2C464B',
+        'dark-gray-bg': '#898989',
+        'light-gray-bg': '#d9d9d9',
       },
       textColor: {
         'green-txt': '#26A34F',
@@ -25,7 +27,10 @@ module.exports = {
       colors: {
         customGray: '#BCC2C4',
         customDarkGray: '#727C86',
+        customLightGray: '#C0C0C3',
         customGreen: '#26A34F',
+        customRed: '#FF0000',
+        darkGray: '#C0C0C3',
       },
     },
   },

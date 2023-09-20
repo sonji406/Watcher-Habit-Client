@@ -10,7 +10,7 @@ const GroupList = ({ groupList }) => {
   const groupIds = groupList.groupIds;
 
   return (
-    <ul className='border-l-2 border-customDarkGray border-solid py-0.5 ml-6 mt-6 pl-4 overflow-y-auto max-h-60'>
+    <ul className='border-l-2 border-customDarkGray border-solid py-0.5 ml-6 mt-6 pl-4 overflow-y-auto max-h-60 transparent-scrollbar'>
       {groupNames.map((groupName, index) => {
         const groupId = groupIds[index];
 

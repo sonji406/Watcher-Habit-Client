@@ -1,8 +1,8 @@
 const AuthorAndVisibility = ({ creator, sharedGroup }) => {
   return (
-    <div className='mb-4 text-right'>
-      작성자 {creator.nickname}
-      <div>{sharedGroup ? `그룹 ${sharedGroup.groupName}` : '비공개'}</div>
+    <div className='mb-4 mr-8 font-bold text-right'>
+      <p>{sharedGroup ? <>{sharedGroup.groupName}</> : '비공개'}</p>
+      <p>{creator.nickname}</p>
     </div>
   );
 };

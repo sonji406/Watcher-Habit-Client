@@ -7,7 +7,7 @@ import Group from './pages/Group';
 import MyHabit from './pages/MyHabit';
 import AwsS3Test from './pages/AwsS3Test';
 import Header from './components/common/Header';
-import Sidebar from './components/Sidebar/Sidebar';
+import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
 
 const CreateHabit = React.lazy(() => import('./pages/CreateHabit'));
