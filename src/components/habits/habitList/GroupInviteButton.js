@@ -1,8 +1,29 @@
-function GroupInviteButton() {
+import { useState } from 'react';
+import InviteGroupModal from '../../modals/InviteGroup';
+
+function GroupInviteButton({ groupId }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <button className='bg-dark-blue-bg text-white text-3xl w-10 h-10 rounded-full hover:bg-green-700 absolute right-4 z-20'>
-      +
-    </button>
+    <div>
+      <button
+        className='bg-dark-blue-bg text-white text-3xl w-10 h-10 rounded-full hover:bg-green-700 absolute right-4 z-30'
+        onClick={openModal}
+      >
+        +
+      </button>
+      {isModalOpen && (
+        <InviteGroupModal groupId={groupId} onClose={closeModal} />
+      )}
+    </div>
   );
 }
 
