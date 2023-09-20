@@ -5,7 +5,8 @@ import PreVerificationIcon from './icon/PreVerification';
 
 const WaitingVerification = ({ uploadImageUrl }) => {
   const habitDetail = useSelector((state) => state.habit.habitDetail);
-  const isCreator = isLoginUser(habitDetail.creator || undefined);
+  console.log('habitDetail', habitDetail.creator);
+  const isCreator = isLoginUser(habitDetail.creator._id || undefined);
 
   return (
     <>
