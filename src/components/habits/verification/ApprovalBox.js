@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SuccessOrFailure from './SuccessOrFailure';
 import VerificationImage from './VerificationImage';
