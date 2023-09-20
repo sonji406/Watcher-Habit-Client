@@ -7,7 +7,7 @@ import HabbitCreateButton from './HabitCreateButton';
 function HabitList({ dailyHabits }) {
   const [selectedHabitId, setSelectedHabitId] = useState(null);
   const currentUrl = useLocation().pathname;
-  const currentPage = currentUrl.split('/')[1];
+  const currentPage = currentUrl.split('/')[1]; // 'my-habit' or 'group'
   const members = Object.keys(dailyHabits.data);
   const [selectedMemberNickname, setSelectedMemberNickname] = useState(
     members[0],

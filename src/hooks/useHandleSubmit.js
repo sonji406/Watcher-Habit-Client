@@ -21,9 +21,9 @@ export const useHandleSubmit = (
       return;
     }
 
-    const successMessage = isEdit
-      ? '습관 수정이 완료되었습니다. 나의 습관 관리 페이지로 이동합니다.'
-      : '습관 생성이 완료되었습니다. 나의 습관 관리 페이지로 이동합니다.';
+    const successMessage = `습관 ${
+      isEdit ? '수정' : '생성'
+    }이 완료되었습니다. 나의 습관 관리 페이지로 이동합니다.`;
 
     setMessage(successMessage);
     setMessageType('success');

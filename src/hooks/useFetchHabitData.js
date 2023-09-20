@@ -8,6 +8,7 @@ export const useFetchHabitData = (habitId, isEdit) => {
     const fetchHabitData = async () => {
       try {
         const response = await habitGetAPI(habitId);
+
         setHabitData(response.data);
       } catch (error) {
         console.error('Error fetching habit:', error);

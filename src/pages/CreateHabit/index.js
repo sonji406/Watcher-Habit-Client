@@ -64,11 +64,8 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       setPenalty(habitData.penalty);
       setMinApprovalCount(habitData.minApprovalCount);
 
-      if (habitData.sharedGroup === null) {
-        setSharedGroup('');
-      } else {
-        setSharedGroup(habitData.sharedGroup._id);
-      }
+      const group = habitData.sharedGroup ? habitData.sharedGroup._id : '';
+      setSharedGroup(group);
     }
   }, [habitData]);
 

@@ -20,6 +20,7 @@ const HabitDetail = () => {
       await axios.delete(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
       );
+
       window.location.reload();
     } catch (error) {
       console.error('Habit deletion failed:', error);
