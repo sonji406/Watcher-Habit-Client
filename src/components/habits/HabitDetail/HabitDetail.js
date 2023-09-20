@@ -12,8 +12,6 @@ import axios from 'axios';
 const HabitDetail = () => {
   const habitDetail = useSelector((state) => state.habit.habitDetail);
 
-  console.log(habitDetail);
-
   const currentUserId = getUserIdFromToken();
   const isCurrentUser = currentUserId === habitDetail.creator._id;
 

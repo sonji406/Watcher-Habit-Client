@@ -95,10 +95,12 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
     navigate,
     nickname,
     isEdit,
+    habitId,
   );
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     handleSubmit({
       habitTitle,
       habitContent,
@@ -155,6 +157,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
               sharedGroup={sharedGroup}
               setSharedGroup={setSharedGroup}
               groupOptions={groupList}
+              isEdit={isEdit}
             />
 
             <PenaltyForm penalty={penalty} setPenalty={setPenalty} />
