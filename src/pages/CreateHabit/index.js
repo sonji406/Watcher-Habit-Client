@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useValidation } from '../../hooks/useValidationForm';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import { useHandleSubmit } from '../../hooks/useHandleSubmit';
+import { useFetchHabitData } from '../../hooks/useFetchHabitData';
+import { useFetchUserData } from '../../hooks/useFetchUserData';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import userGetAPI from '../../services/api/userGet';
 
 import HabitInfoForm from './forms/HabitInfoForm';
 import DateForm from './forms/DateForm';
@@ -17,12 +18,14 @@ import MinApprovalForm from './forms/MinApprovalForm';
 import ValidationForm from './forms/ValidationForm';
 import SubmitButton from './utils/SubmitButton';
 import CancelButton from './utils/CancelButton';
+import calculateTimeDetails from './utils/calculateTimeDetails';
 
 const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
 
 const CreateOrEditHabit = ({ isEdit = false }) => {
   const today = new Date().toISOString().split('T')[0];
+  const { habitId } = useParams();
   const [habitTitle, setHabitTitle] = useState('');
   const [habitContent, setHabitContent] = useState('');
   const [habitStartDate, setHabitStartDate] = useState(today);
@@ -39,25 +42,52 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const navigate = useNavigate();
   const nickname = useFetchUserInfo(userId);
 
+  const habitData = useFetchHabitData(habitId, isEdit);
+  const fetchedGroupList = useFetchUserData(userId);
+
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await userGetAPI(userId, 'group', true);
-        const groupOptions = response.groups.map((group) => {
-          return {
-            groupId: group._id,
-            groupName: group.groupName,
-          };
-        });
+    if (habitData) {
+      setHabitTitle(habitData.habitTitle);
+      setHabitContent(habitData.habitContent);
+      setHabitStartDate(habitData.habitStartDate);
+      setHabitEndDate(habitData.habitEndDate);
+      setDoDay(habitData.doDay);
 
-        setGroupList(groupOptions);
-      } catch (error) {
-        throw new Error('사용자 정보 확인 중 문제가 발생했습니다.');
-      }
-    };
+      const { timePeriod, hour, minute, duration } = calculateTimeDetails(
+        habitData.startTime,
+        habitData.endTime,
+      );
 
-    fetchUserData();
-  }, []);
+      setStartTime(`${hour}:${minute}`);
+      setTimePeriod(timePeriod);
+      setDuration(duration);
+
+      setPenalty(habitData.penalty);
+      setMinApprovalCount(habitData.minApprovalCount);
+      setSharedGroup(habitData.sharedGroup._id);
+    }
+  }, [habitData]);
+
+  useEffect(() => {
+    if (fetchedGroupList) {
+      setGroupList(fetchedGroupList);
+    }
+  }, [fetchedGroupList]);
+
+  useEffect(() => {
+    if (!isEdit) {
+      setHabitTitle('');
+      setHabitContent('');
+      setHabitStartDate(today);
+      setHabitEndDate('');
+      setDoDay([]);
+      setStartTime('01:00');
+      setDuration(0);
+      setPenalty('');
+      setMinApprovalCount(0);
+      setSharedGroup(null);
+    }
+  }, [isEdit, today]);
 
   const { handleSubmit, isSubmitting, message, messageType } = useHandleSubmit(
     validateForm,
