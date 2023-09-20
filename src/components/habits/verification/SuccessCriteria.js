@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 
 const SuccessCriteria = () => {
-  const habit = useSelector((state) => state.habit.habitDetail);
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
 
-  const minApprovalCount = habit.minApprovalCount;
-  const approvedCount = habit.approvals.filter(
+  const minApprovalCount = habitDetail.minApprovalCount;
+  const approvedCount = habitDetail.approvals.filter(
     (approval) => approval.status === 'approved',
   ).length;
 

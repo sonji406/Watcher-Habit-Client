@@ -3,9 +3,9 @@ import getUserIdFromToken from '../../../../utils/getUserIdFromToken';
 import ApprovalItem from './ApprovalItem';
 
 const ApprovalsList = () => {
-  const habit = useSelector((state) => state.habit.habitDetail);
-  const status = habit.status;
-  const approvals = habit.approvals;
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const status = habitDetail.status;
+  const approvals = habitDetail.approvals;
 
   const loginId = getUserIdFromToken();
   const myApproval = approvals?.filter((item) => item._id === loginId)[0];

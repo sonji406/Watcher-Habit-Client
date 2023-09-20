@@ -8,8 +8,8 @@ import ApprovalsList from './approvalsList/ApprovalsList';
 const ApprovalBox = () => {
   const [habitImage, setHabitImage] = useState('');
 
-  const habit = useSelector((state) => state.habit.habitDetail);
-  const status = habit.status;
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const status = habitDetail.status;
 
   const isWaitingVerification = status === 'awaitingVerification';
   const isSuccess = status === 'approvalSuccess';
@@ -22,7 +22,7 @@ const ApprovalBox = () => {
   return (
     <div className='mx-auto'>
       {isSuccess || isFailure ? (
-        <SuccessOrFailure habitImage={habit.habitImage} />
+        <SuccessOrFailure habitImage={habitDetail.habitImage} />
       ) : (
         <div className='flex h-full'>
           {isWaitingVerification ? (

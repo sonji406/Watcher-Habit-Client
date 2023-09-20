@@ -4,15 +4,15 @@ import UploadImage from './UploadImage';
 import PreVerificationIcon from './icon/PreVerification';
 
 const WaitingVerification = ({ uploadImageUrl }) => {
-  const habit = useSelector((state) => state.habit.habitDetail);
-  const isCreator = isLoginUser(habit.creator || undefined);
+  const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const isCreator = isLoginUser(habitDetail.creator || undefined);
 
   return (
     <>
       {isCreator ? (
         <UploadImage
-          habitId={habit._id}
-          endTime={habit.endTime}
+          habitId={habitDetail._id}
+          endTime={habitDetail.endTime}
           uploadImageUrl={uploadImageUrl}
         />
       ) : (
