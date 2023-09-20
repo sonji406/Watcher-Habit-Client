@@ -53,13 +53,12 @@ export const useHandleSubmit = (
         handleResponse(response);
 
         return;
+      } else {
+        response = await axios.post(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
+          habitData,
+        );
       }
-
-      response = await axios.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
-        habitData,
-      );
-
       handleResponse(response);
     } catch (error) {
       const errorMsg =

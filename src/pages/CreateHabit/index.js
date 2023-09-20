@@ -24,6 +24,7 @@ const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
 
 const CreateOrEditHabit = ({ isEdit = false }) => {
+  const navigate = useNavigate();
   const today = new Date().toISOString().split('T')[0];
   const { habitId } = useParams();
   const [habitTitle, setHabitTitle] = useState('');
@@ -39,9 +40,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [sharedGroup, setSharedGroup] = useState(null);
   const { validationMessage, validateForm } = useValidation();
   const [groupList, setGroupList] = useState([]);
-  const navigate = useNavigate();
   const nickname = useFetchUserInfo(userId);
-
   const habitData = useFetchHabitData(habitId, isEdit);
   const fetchedGroupList = useFetchUserData(userId);
 
