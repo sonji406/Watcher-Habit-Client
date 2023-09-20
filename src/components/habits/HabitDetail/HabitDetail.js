@@ -6,15 +6,14 @@ import HabitDaysOfWeek from './HabitDaysOfWeek';
 import HabitSection from './HabitSection';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import getUserIdFromToken from '../../../utils/getUserIdFromToken';
+import isLoginUser from '../../../lib/isLoginUser';
 import axios from 'axios';
 
 const HabitDetail = () => {
   const habitDetail = useSelector((state) => state.habit.habitDetail);
   const location = useLocation();
 
-  const currentUserId = getUserIdFromToken();
-  const isCurrentUser = currentUserId === habitDetail.creator._id;
+  const isCurrentUser = isLoginUser(habitDetail.creator._id);
 
   const handleDelete = async () => {
     try {
