@@ -34,7 +34,7 @@ const CreateGroupModal = ({ onClose }) => {
 
       if (error.response) {
         if (error.response.status === 400 && error.response.data?.errors) {
-          message = '그룹 이름은 15자 이하여야 합니다.';
+          message = '그룹 이름은 2자 이상이여야 합니다.';
         } else {
           message = error.response.data.error || message;
         }
@@ -58,6 +58,8 @@ const CreateGroupModal = ({ onClose }) => {
           placeholder='생성할 그룹명을 입력하세요(15자 제한)'
           onChange={onChangeHandler}
           value={groupName}
+          minLength={2}
+          maxLength={15}
           required
         />
         {errorMsg && (
