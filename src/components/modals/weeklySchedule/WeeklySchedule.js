@@ -1,5 +1,6 @@
 import React from 'react';
 import getStartAndEndOfWeek from '../../../utils/getStartAndEndOfWeek';
+import WeeklyHabitList from './WeeklyHabitList';
 
 const getDatesOfWeek = (startDate, endDate) => {
   const dates = [];
@@ -34,8 +35,7 @@ const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
       className='bg-dark-blue-bg border h-[70vh] border-customGreen relative rounded p-5 w-3/5 text-white rounded-xl overflow-hidden'
       ref={modalContentRef}
     >
-      <h1 className='text-center font-extrabold mb-4'>주간계획표</h1>
-
+      <header className='text-center font-extrabold mb-4'>주간계획표</header>
       <button
         onClick={handleClose}
         className='absolute top-3 right-5 text-2xl text-white hover:text-red-600 transition duration-200 ease-in-out'
@@ -43,49 +43,69 @@ const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
         ×
       </button>
 
-      <nav className='grid grid-cols-7 gap-2 '>
-        {datesOfWeek.map((date, day) => (
+      <section className='flex'>
+        <div className='bg-green-bg p-1 ml-1 mr-1 rounded-t-md text-center w-1/4 font-semibold'>
+          이번주 습관 목록
+        </div>
+        {datesOfWeek.slice(0, 3).map((date) => (
           <div
-            className='bg-green-bg p-1 h-8 rounded-t-md text-center font-semibold'
-            key={day}
+            key={date}
+            className='bg-green-bg p-1 ml-1 mr-1 rounded-t-md text-center w-1/4 font-semibold'
           >
             {daysInKorean[date.getDay()]} ({date.getMonth() + 1}/
             {date.getDate()})
           </div>
         ))}
-      </nav>
+      </section>
 
-      <main className='grid grid-cols-7 gap-2 h-[50vh] overflow-y-auto custom-scrollbar'>
-        {daysInKorean.map((day, dayIdx) => (
+      <section className='flex mb-4'>
+        <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
+          {weeklySchedule
+            .sort((a, b) => a.startTime.localeCompare(b.startTime))
+            .map((habit) => (
+              <div
+                key={habit.habitTitle}
+                className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
+              >
+                <p className='text-center text-base'>{habit.habitTitle}</p>
+              </div>
+            ))}
+        </div>
+
+        {datesOfWeek.slice(0, 3).map((date) => (
+          <WeeklyHabitList
+            key={date}
+            habits={weeklySchedule}
+            daysMapping={daysMapping}
+            daysInKorean={daysInKorean}
+            date={date}
+          />
+        ))}
+      </section>
+
+      <section className='flex'>
+        {datesOfWeek.slice(3).map((date) => (
           <div
-            className='bg-gray-700 p-3 rounded-b-md overflow-y-auto h-full custom-scrollbar'
-            key={dayIdx}
+            key={date}
+            className='bg-green-bg p-1 ml-1 mr-1 rounded-t-md text-center w-1/4 font-semibold'
           >
-            <ul>
-              {weeklySchedule
-                .filter((habit) =>
-                  habit.doDay.includes(
-                    Object.keys(daysMapping).find(
-                      (key) => daysMapping[key] === day,
-                    ),
-                  ),
-                )
-                .map((habit, idx) => (
-                  <li key={idx} className='mb-2'>
-                    <div className='bg-main-bg text-white p-2 m-1 rounded-lg hover:bg-dark-green-bg transform hover:scale-95 transition duration-200 ease-in-out'>
-                      <button className='w-full'>
-                        <p className='text-xs text-left'>
-                          {habit.startTime} ~ {habit.endTime}
-                        </p>
-                        <p className='text-xl'>{habit.habitTitle}</p>
-                      </button>
-                    </div>
-                  </li>
-                ))}
-            </ul>
+            {daysInKorean[date.getDay()]} ({date.getMonth() + 1}/
+            {date.getDate()})
           </div>
         ))}
-      </main>
+      </section>
+
+      <section className='flex mb-4'>
+        {datesOfWeek.slice(3).map((date) => (
+          <WeeklyHabitList
+            key={date}
+            habits={weeklySchedule}
+            daysMapping={daysMapping}
+            daysInKorean={daysInKorean}
+            date={date}
+          />
+        ))}
+      </section>
     </article>
   );
 };
