@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WeeklyScheduleModal from '../modals/WeeklyScheduleModal';
+import WeeklyScheduleModal from '../modals/weeklySchedule/WeeklyScheduleModal';
 import WeeklyHabitsListIcon from './icon/WeeklyHabitsList';
 
 const WeeklyScheduleButton = ({ isHovered }) => {
