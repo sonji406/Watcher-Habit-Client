@@ -1,6 +1,22 @@
 import React from 'react';
+import getStartAndEndOfWeek from '../../../utils/getStartAndEndOfWeek';
+
+const getDatesOfWeek = (startDate, endDate) => {
+  const dates = [];
+  let currentDate = startDate;
+
+  while (currentDate <= endDate) {
+    dates.push(new Date(currentDate));
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+};
 
 const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
+  const [startOfWeek, endOfWeek] = getStartAndEndOfWeek(new Date());
+  const datesOfWeek = getDatesOfWeek(startOfWeek, endOfWeek);
+
   const daysMapping = {
     sun: '일',
     mon: '월',
@@ -28,12 +44,13 @@ const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
       </button>
 
       <nav className='grid grid-cols-7 gap-2 '>
-        {['일', '월', '화', '수', '목', '금', '토'].map((day) => (
+        {datesOfWeek.map((date, day) => (
           <div
             className='bg-green-bg p-1 h-8 rounded-t-md text-center font-semibold'
             key={day}
           >
-            {day}
+            {daysInKorean[date.getDay()]} ({date.getMonth() + 1}/
+            {date.getDate()})
           </div>
         ))}
       </nav>
