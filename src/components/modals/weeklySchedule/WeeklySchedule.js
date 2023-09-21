@@ -7,13 +7,12 @@ import SquareArrowRightIcon from './icon/SquareArrowRight';
 
 const getDatesOfWeek = (startDate, endDate) => {
   const dates = [];
-  let currentDate = startDate;
+  let currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
-
   return dates;
 };
 
