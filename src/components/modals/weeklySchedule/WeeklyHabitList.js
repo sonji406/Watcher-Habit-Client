@@ -18,10 +18,6 @@ const WeeklyHabitList = ({ habits, daysMapping, daysInKorean, date }) => {
     }, [])
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-  const dayMessage = `${
-    daysInKorean[date.getDay()]
-  }요일엔 등록된 습관이 없습니다`;
-
   return (
     <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
       {relevantHabits.length > 0 ? (
@@ -38,7 +34,7 @@ const WeeklyHabitList = ({ habits, daysMapping, daysInKorean, date }) => {
         ))
       ) : (
         <p className='text-center text-dark-gray-txt text-sm mt-2'>
-          {dayMessage}
+          등록된 습관이 없습니다
         </p>
       )}
     </div>
