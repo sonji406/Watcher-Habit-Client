@@ -30,14 +30,16 @@ const NotificationList = ({ notifications, setNotifications }) => {
       </div>
 
       <div className='overflow-y-auto flex-grow custom-scrollbar'>
-        {notifications.map((notification) => (
-          <NotificationItem
-            key={notification._id}
-            content={notification.content}
-            date={notification.createdAt}
-            status={notification.status}
-          />
-        ))}
+        {notifications.length !== 0 ? (
+          notifications.map((notification) => (
+            <NotificationItem
+              key={notification._id}
+              notification={notification}
+            />
+          ))
+        ) : (
+          <p className='text-center text-white'>알림이 없습니다</p>
+        )}
       </div>
 
       <div className='flex-shrink-0'>

@@ -1,15 +1,44 @@
 import React from 'react';
 import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
+import axios from 'axios';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
 
-const NotificationItem = ({ content, date, status }) => {
+const NotificationItem = ({ notification }) => {
+  const {
+    content,
+    createdAt: date,
+    status,
+    to: userId,
+    groupId,
+  } = notification;
+  const getButtonHandler = (status) => {
+    const buttonHandlerMap = {
+      success: '확인하러 가기',
+      failure: '확인하러 가기',
+      verificationRequest: '인증하러 가기',
+      approveRequest: '승인하러 가기',
+      invite: () => {
+        const body = { userId };
+        axios.patch(
+          `${process.env.REACT_APP_SERVER_DOMAIN}api/group/${groupId}/invite`,
+          body,
+        );
+      },
+    };
+    return buttonHandlerMap[status];
+  };
+
   const { date: formattedDate, time: formattedTime } = formatDate(date);
   const renderButton = () => {
     const buttonText = getButtonText(status);
-    return <button className={commonButtonClass}>{buttonText}</button>;
+    return (
+      <button className={commonButtonClass} onClick={getButtonHandler}>
+        {buttonText}
+      </button>
+    );
   };
 
   return (

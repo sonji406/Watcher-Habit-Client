@@ -1,52 +1,33 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import NotificationList from '../notifications/NotificationList';
 import { useProfileImage } from '../../hooks/useProfileImage';
 import { useClickOutside } from '../../hooks/useClickOutside';
-
-const mockNotifications = [
-  {
-    _id: '1',
-    content: 'ㅇㅇㅇ님이 습관 성공',
-    createdAt: '2023-09-12T14:30:00',
-    status: 'success',
-    isNeedToSend: true,
-  },
-  {
-    _id: '2',
-    content: 'ㅇㅇㅇ님이 습관 실패',
-    createdAt: '2023-09-12T14:30:00',
-    status: 'failure',
-    isNeedToSend: true,
-  },
-  {
-    _id: '3',
-    content: 'ㅇㅇㅇ님이 인증 요청',
-    createdAt: '2023-09-12T14:30:00',
-    status: 'verificationRequest',
-    isNeedToSend: true,
-  },
-  {
-    _id: '4',
-    content: 'ㅇㅇㅇ님이 승인 완료',
-    createdAt: '2023-09-12T14:30:00',
-    status: 'approveRequest',
-    isNeedToSend: true,
-  },
-  {
-    _id: '5',
-    content: 'ㅇㅇㅇ님이 초대',
-    createdAt: '2023-09-12T14:30:00',
-    status: 'invite',
-    isNeedToSend: true,
-  },
-];
+import axios from 'axios';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
 const Profile = () => {
   const containerRef = useRef(null);
 
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState(mockNotifications);
+  const [notifications, setNotifications] = useState([]);
   const { profileImageUrl, error } = useProfileImage();
+  const userId = getUserIdFromToken();
+  console.log('notifications');
+  console.log(notifications);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/notification/${userId}`,
+        );
+        setNotifications(response.data.notifications);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const visibleCount = notifications.length;
 
