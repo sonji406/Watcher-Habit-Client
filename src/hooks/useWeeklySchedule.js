@@ -6,6 +6,7 @@ import axios from 'axios';
 const useWeeklySchedule = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [weeklySchedule, setWeeklySchedule] = useState([]);
+  const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
 
   useEffect(() => {
     const fetchWeeklySchedule = async () => {
@@ -13,7 +14,7 @@ const useWeeklySchedule = () => {
 
       try {
         const userId = getUserIdFromToken();
-        const [startDate, endDate] = getStartAndEndOfWeek(new Date());
+        const [startDate, endDate] = getStartAndEndOfWeek(currentWeekStart);
 
         const habitsResponse = await axios.get(
           `${
@@ -32,9 +33,9 @@ const useWeeklySchedule = () => {
     };
 
     fetchWeeklySchedule();
-  }, []);
+  }, [currentWeekStart]);
 
-  return { isLoading, weeklySchedule };
+  return { isLoading, weeklySchedule, setCurrentWeekStart, currentWeekStart };
 };
 
 export default useWeeklySchedule;

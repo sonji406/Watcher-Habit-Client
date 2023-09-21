@@ -5,8 +5,25 @@ import { useClickOutside } from '../../../hooks/useClickOutside';
 import useWeeklySchedule from '../../../hooks/useWeeklySchedule';
 
 const WeeklyScheduleModal = ({ onClose }) => {
-  const { isLoading, weeklySchedule } = useWeeklySchedule();
   const modalContentRef = useRef();
+  const { isLoading, weeklySchedule, setCurrentWeekStart, currentWeekStart } =
+    useWeeklySchedule();
+
+  const goToCurrentWeek = () => {
+    setCurrentWeekStart(new Date());
+  };
+
+  const goToPreviousWeek = () => {
+    const prevStartDate = new Date(currentWeekStart);
+    prevStartDate.setDate(prevStartDate.getDate() - 7);
+    setCurrentWeekStart(prevStartDate);
+  };
+
+  const goToNextWeek = () => {
+    const nextStartDate = new Date(currentWeekStart);
+    nextStartDate.setDate(nextStartDate.getDate() + 7);
+    setCurrentWeekStart(nextStartDate);
+  };
 
   const handleClose = () => {
     document.body.style.overflow = '';
@@ -24,6 +41,10 @@ const WeeklyScheduleModal = ({ onClose }) => {
           weeklySchedule={weeklySchedule}
           modalContentRef={modalContentRef}
           handleClose={handleClose}
+          goToPreviousWeek={goToPreviousWeek}
+          goToNextWeek={goToNextWeek}
+          goToCurrentWeek={goToCurrentWeek}
+          currentWeekStart={currentWeekStart}
         />
       )}
     </div>

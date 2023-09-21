@@ -1,6 +1,9 @@
 import React from 'react';
 import getStartAndEndOfWeek from '../../../utils/getStartAndEndOfWeek';
 import WeeklyHabitList from './WeeklyHabitList';
+import DoubleCircleIcon from './icon/DoubleCircle';
+import SquareArrowLeftIcon from './icon/SquareArrowLeft';
+import SquareArrowRightIcon from './icon/SquareArrowRight';
 
 const getDatesOfWeek = (startDate, endDate) => {
   const dates = [];
@@ -14,8 +17,17 @@ const getDatesOfWeek = (startDate, endDate) => {
   return dates;
 };
 
-const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
-  const [startOfWeek, endOfWeek] = getStartAndEndOfWeek(new Date());
+const WeeklySchedule = ({
+  weeklySchedule,
+  modalContentRef,
+  handleClose,
+  goToPreviousWeek,
+  goToNextWeek,
+  goToCurrentWeek,
+  currentWeekStart,
+}) => {
+  const [startOfWeek, endOfWeek] = getStartAndEndOfWeek(currentWeekStart);
+
   const datesOfWeek = getDatesOfWeek(startOfWeek, endOfWeek);
 
   const daysMapping = {
@@ -36,6 +48,27 @@ const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
       ref={modalContentRef}
     >
       <header className='text-center font-extrabold mb-4'>주간계획표</header>
+      <div className='flex justify-center space-x-3 my-2'>
+        <button
+          onClick={goToPreviousWeek}
+          className='hover:text-green-500 transition duration-150 ease-in-out'
+        >
+          <SquareArrowLeftIcon />
+        </button>
+        <button
+          onClick={goToCurrentWeek}
+          className='hover:text-blue-500 transition duration-150 ease-in-out'
+        >
+          <DoubleCircleIcon />
+        </button>
+        <button
+          onClick={goToNextWeek}
+          className='hover:text-red-500 transition duration-150 ease-in-out'
+        >
+          <SquareArrowRightIcon />
+        </button>
+      </div>
+
       <button
         onClick={handleClose}
         className='absolute top-3 right-5 text-2xl text-white hover:text-red-600 transition duration-200 ease-in-out'
@@ -45,7 +78,7 @@ const WeeklySchedule = ({ weeklySchedule, modalContentRef, handleClose }) => {
 
       <section className='flex'>
         <div className='bg-green-bg p-1 ml-1 mr-1 rounded-t-md text-center w-1/4 font-semibold'>
-          이번주 습관 목록
+          Weekly List
         </div>
         {datesOfWeek.slice(0, 3).map((date) => (
           <div
