@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Loading from './Loading';
+import Loading from '../../../lib/loading/Loading';
 import WeeklySchedule from './WeeklySchedule';
 import { useClickOutside } from '../../../hooks/useClickOutside';
 import useWeeklySchedule from '../../../hooks/useWeeklySchedule';
