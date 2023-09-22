@@ -31,12 +31,12 @@ const WeeklyHabitList = ({ habits, date }) => {
         relevantHabits.map((habit) => (
           <ul
             key={habit.habitTitle}
-            className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
+            className='mb-1 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
           >
-            <p className='text-center text-xs'>
+            <p className='text-center text-xs text-dark-gray-txt'>
               {habit.startTime} ~ {habit.endTime}
             </p>
-            <p className='text-center text-base'>{habit.habitTitle}</p>
+            <p className='text-center text-sm'>{habit.habitTitle}</p>
           </ul>
         ))
       ) : (

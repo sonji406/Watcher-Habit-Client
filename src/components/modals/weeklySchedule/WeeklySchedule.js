@@ -64,16 +64,14 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
 
   return (
     <article
-      className='bg-dark-blue-bg border h-[70vh] border-customGreen relative rounded p-5 w-3/5 text-white rounded-xl overflow-hidden'
+      className='bg-dark-blue-bg border h-[75vh] border-customGreen relative rounded p-5 w-3/5 text-white rounded-xl overflow-hidden'
       ref={modalContentRef}
     >
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          <header className='text-center font-extrabold mb-4'>
-            주간계획표
-          </header>
+          <header className='text-center font-extrabold'>주간계획표</header>
           <div className='flex justify-center space-x-3 my-2'>
             <button
               onClick={goToPreviousWeek}
@@ -125,7 +123,7 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
                     key={habitTitle}
                     className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
                   >
-                    <p className='text-center text-base'>{habitTitle}</p>
+                    <p className='text-center text-sm'>{habitTitle}</p>
                   </div>
                 ))
               ) : (
