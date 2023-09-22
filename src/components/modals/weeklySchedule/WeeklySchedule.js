@@ -4,18 +4,7 @@ import WeeklyHabitList from './WeeklyHabitList';
 import DoubleCircleIcon from './icon/DoubleCircle';
 import SquareArrowLeftIcon from './icon/SquareArrowLeft';
 import SquareArrowRightIcon from './icon/SquareArrowRight';
-
-const getDatesOfWeek = (startDate, endDate) => {
-  const dates = [];
-  const currentDate = new Date(startDate);
-
-  while (currentDate <= endDate) {
-    dates.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-
-  return dates;
-};
+import getDatesOfPeriod from '../../../utils/dateUtils';
 
 const WeeklySchedule = ({
   weeklySchedule,
@@ -28,7 +17,7 @@ const WeeklySchedule = ({
 }) => {
   const [startOfWeek, endOfWeek] = getStartAndEndOfWeek(currentWeekStart);
 
-  const datesOfWeek = getDatesOfWeek(startOfWeek, endOfWeek);
+  const datesOfWeek = getDatesOfPeriod(startOfWeek, endOfWeek);
 
   const daysMapping = {
     sun: '일',
