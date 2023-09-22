@@ -1,0 +1,43 @@
+import { useState, useEffect } from 'react';
+import getUserIdFromToken from '../utils/getUserIdFromToken';
+import getStartAndEndOfWeek from '../utils/getStartAndEndOfWeek';
+import axios from 'axios';
+
+const useWeeklySchedule = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [weeklySchedule, setWeeklySchedule] = useState([]);
+  const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
+
+  useEffect(() => {
+    const fetchWeeklySchedule = async () => {
+      setIsLoading(true);
+
+      try {
+        const userId = getUserIdFromToken();
+        const [startDate, endDate] = getStartAndEndOfWeek(currentWeekStart);
+
+        const habitsResponse = await axios.get(
+          `${
+            process.env.REACT_APP_SERVER_DOMAIN
+          }/api/habit/periodic/${userId}?startDate=${
+            startDate.toISOString().split('T')[0]
+          }&endDate=${endDate.toISOString().split('T')[0]}`,
+        );
+
+        const habitsData = habitsResponse.data || [];
+
+        setWeeklySchedule(habitsData);
+      } catch (error) {
+        console.error('Failed to fetch weekly schedule', error);
+      }
+
+      setIsLoading(false);
+    };
+
+    fetchWeeklySchedule();
+  }, [currentWeekStart]);
+
+  return { isLoading, weeklySchedule, setCurrentWeekStart, currentWeekStart };
+};
+
+export default useWeeklySchedule;
