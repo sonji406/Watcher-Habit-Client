@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import NotificationItem from './NotificationItem';
 import { useNavigate } from 'react-router-dom';
 import logoutAPI from '../../services/api/logout';
+import VerifyHabitModal from '../modals/VerifyHabit';
 
 const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 
 const NotificationList = ({ notifications }) => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [hiddenNotifications, setHiddenNotifications] = useState(new Set());
   const visibleNotifications = notifications.filter(
     (notification) => !hiddenNotifications.has(notification._id),
@@ -19,6 +21,10 @@ const NotificationList = ({ notifications }) => {
     } catch (error) {
       console.error('Error during logout:', error);
     }
+  };
+
+  const onClose = () => {
+    setIsModalOpen(false);
   };
 
   const hideNotification = (id) => {
@@ -44,12 +50,15 @@ const NotificationList = ({ notifications }) => {
               key={notification._id}
               notification={notification}
               hideNotification={() => hideNotification(notification._id)}
+              setIsModalOpen={setIsModalOpen}
             />
           ))
         ) : (
           <p className='text-center text-white'>알림이 없습니다</p>
         )}
       </div>
+
+      {isModalOpen && <VerifyHabitModal onClose={onClose} />}
 
       <div className='flex-shrink-0'>
         <button

@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
 import axios from 'axios';
-import VerifyHabitModal from '../modals/VerifyHabit';
+import { useDispatch } from 'react-redux';
+import { setHabitDetail } from '../../redux/habitSlice';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
 
-const NotificationItem = ({ notification, hideNotification }) => {
+const NotificationItem = ({
+  notification,
+  hideNotification,
+  setIsModalOpen,
+}) => {
   const {
     content,
     createdAt: date,
     status,
     to: userId,
     groupId,
+    habitId,
   } = notification;
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleInvite = async () => {
     try {
@@ -34,10 +40,6 @@ const NotificationItem = ({ notification, hideNotification }) => {
     setIsModalOpen(true);
   };
 
-  const onClose = () => {
-    setIsModalOpen(false);
-  };
-
   const getButtonHandler = (status) => {
     const buttonHandlerMap = {
       success: openHabitVerificationModal,
@@ -50,6 +52,23 @@ const NotificationItem = ({ notification, hideNotification }) => {
   };
 
   const handleOnClick = async () => {
+    console.log('handleOnClick');
+    // 습관 아이디로 습관 정보 조회해서 상태관리
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
+      );
+
+      response.data.approvals = response.data.approvals.map((approval) => ({
+        ...approval._id,
+        status: approval.status,
+        profileImageUrl: approval._id.profileImageUrl,
+      }));
+
+      dispatch(setHabitDetail(response.data));
+    } catch (error) {
+      console.error(error);
+    }
     hideNotification();
     await getButtonHandler(status)();
   };
@@ -72,7 +91,6 @@ const NotificationItem = ({ notification, hideNotification }) => {
       </div>
       <p className='text-center text-white mt-5'>{content}</p>
       {renderButton()}
-      {isModalOpen && <VerifyHabitModal onClose={onClose} />}
     </div>
   );
 };

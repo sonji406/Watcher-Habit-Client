@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import HabitVerification from '../habits/verification/HabitVerification';
+import HabitDetailAndVerification from '../habits/HabitDetailAndVerification';
 
 const VerifyHabitModal = ({ onClose }) => {
   const modalContentRef = useRef();
@@ -13,7 +13,7 @@ const VerifyHabitModal = ({ onClose }) => {
         className='bg-dark-blue-bg border border-customGreen rounded p-5 w-8000 text-white rounded-xl'
         ref={modalContentRef}
       >
-        <HabitVerification></HabitVerification>
+        <HabitDetailAndVerification></HabitDetailAndVerification>
       </div>
     </div>
   );
