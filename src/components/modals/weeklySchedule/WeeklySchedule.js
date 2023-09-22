@@ -51,7 +51,7 @@ const WeeklySchedule = ({
       <div className='flex justify-center space-x-3 my-2'>
         <button
           onClick={goToPreviousWeek}
-          className='hover:text-green-500 transition duration-150 ease-in-out'
+          className='hover:text-green-txt transition duration-150 ease-in-out'
         >
           <SquareArrowLeftIcon />
         </button>
@@ -63,7 +63,7 @@ const WeeklySchedule = ({
         </button>
         <button
           onClick={goToNextWeek}
-          className='hover:text-red-500 transition duration-150 ease-in-out'
+          className='hover:text-green-txt transition duration-150 ease-in-out'
         >
           <SquareArrowRightIcon />
         </button>
