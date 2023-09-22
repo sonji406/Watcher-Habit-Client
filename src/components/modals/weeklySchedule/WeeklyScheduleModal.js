@@ -10,7 +10,7 @@ const WeeklyScheduleModal = ({ onClose }) => {
     useWeeklySchedule();
 
   const goToCurrentWeek = () => {
-    setCurrentWeekStart(new Date(currentWeekStart));
+    setCurrentWeekStart(new Date());
   };
 
   const goToPreviousWeek = () => {
