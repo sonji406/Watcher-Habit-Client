@@ -12,8 +12,6 @@ const Profile = () => {
   const [notifications, setNotifications] = useState([]);
   const { profileImageUrl, error } = useProfileImage();
   const userId = getUserIdFromToken();
-  console.log('notifications');
-  console.log(notifications);
 
   useEffect(() => {
     const fetchData = async () => {
