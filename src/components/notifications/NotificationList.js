@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NotificationItem from './NotificationItem';
 import { useNavigate } from 'react-router-dom';
 import logoutAPI from '../../services/api/logout';
 
 const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 
-const NotificationList = ({ notifications, setNotifications }) => {
+const NotificationList = ({ notifications }) => {
   const navigate = useNavigate();
+  const [hiddenNotifications, setHiddenNotifications] = useState(new Set());
+  const visibleNotifications = notifications.filter(
+    (notification) => !hiddenNotifications.has(notification._id),
+  );
 
   const handleLogout = async () => {
     try {
@@ -15,6 +19,10 @@ const NotificationList = ({ notifications, setNotifications }) => {
     } catch (error) {
       console.error('Error during logout:', error);
     }
+  };
+
+  const hideNotification = (id) => {
+    setHiddenNotifications((prev) => new Set(prev).add(id));
   };
 
   return (
@@ -30,11 +38,12 @@ const NotificationList = ({ notifications, setNotifications }) => {
       </div>
 
       <div className='overflow-y-auto flex-grow custom-scrollbar'>
-        {notifications.length !== 0 ? (
-          notifications.map((notification) => (
+        {visibleNotifications.length !== 0 ? (
+          visibleNotifications.map((notification) => (
             <NotificationItem
               key={notification._id}
               notification={notification}
+              hideNotification={() => hideNotification(notification._id)}
             />
           ))
         ) : (
