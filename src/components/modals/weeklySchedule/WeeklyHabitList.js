@@ -1,12 +1,13 @@
 import React from 'react';
+import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 
-const WeeklyHabitList = ({ habits, daysMapping, daysInKorean, date }) => {
+const WeeklyHabitList = ({ habits, date }) => {
   const relevantHabits = habits
     .reduce((acc, habit) => {
-      const dayInKorean = daysInKorean[date.getDay()];
+      const dayInKorean = DAYS_IN_KOREAN[date.getDay()];
       const isRelevantDay = habit.doDay.includes(
-        Object.keys(daysMapping).find(
-          (key) => daysMapping[key] === dayInKorean,
+        Object.keys(DAYS_MAPPING).find(
+          (key) => DAYS_MAPPING[key] === dayInKorean,
         ),
       );
 

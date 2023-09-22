@@ -1,10 +1,11 @@
 import React from 'react';
-import getStartAndEndOfWeek from '../../../utils/getStartAndEndOfWeek';
 import WeeklyHabitList from './WeeklyHabitList';
 import DoubleCircleIcon from './icon/DoubleCircle';
 import SquareArrowLeftIcon from './icon/SquareArrowLeft';
 import SquareArrowRightIcon from './icon/SquareArrowRight';
+import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 import getDatesOfPeriod from '../../../utils/dateUtils';
+import getStartAndEndOfWeek from '../../../utils/getStartAndEndOfWeek';
 
 const WeeklySchedule = ({
   weeklySchedule,
@@ -19,24 +20,12 @@ const WeeklySchedule = ({
 
   const datesOfWeek = getDatesOfPeriod(startOfWeek, endOfWeek);
 
-  const daysMapping = {
-    sun: '일',
-    mon: '월',
-    tue: '화',
-    wed: '수',
-    thu: '목',
-    fri: '금',
-    sat: '토',
-  };
-
-  const daysInKorean = ['일', '월', '화', '수', '목', '금', '토'];
-
   const allRelevantHabits = datesOfWeek.flatMap((date) => {
     return weeklySchedule.filter((habit) => {
-      const dayInKorean = daysInKorean[date.getDay()];
+      const dayInKorean = DAYS_IN_KOREAN[date.getDay()];
       const isRelevantDay = habit.doDay.includes(
-        Object.keys(daysMapping).find(
-          (key) => daysMapping[key] === dayInKorean,
+        Object.keys(DAYS_MAPPING).find(
+          (key) => DAYS_MAPPING[key] === dayInKorean,
         ),
       );
 
@@ -103,7 +92,7 @@ const WeeklySchedule = ({
             key={date}
             className='bg-green-bg p-1 ml-1 mr-1 rounded-t-md text-center w-1/4 font-semibold'
           >
-            {daysInKorean[date.getDay()]} ({date.getMonth() + 1}/
+            {DAYS_IN_KOREAN[date.getDay()]} ({date.getMonth() + 1}/
             {date.getDate()})
           </div>
         ))}
@@ -128,13 +117,7 @@ const WeeklySchedule = ({
         </div>
 
         {datesOfWeek.slice(0, 3).map((date) => (
-          <WeeklyHabitList
-            key={date}
-            habits={weeklySchedule}
-            daysMapping={daysMapping}
-            daysInKorean={daysInKorean}
-            date={date}
-          />
+          <WeeklyHabitList key={date} habits={weeklySchedule} date={date} />
         ))}
       </section>
 
@@ -144,7 +127,7 @@ const WeeklySchedule = ({
             key={date}
             className='bg-green-bg p-1 ml-1 mr-1 rounded-t-md text-center w-1/4 font-semibold'
           >
-            {daysInKorean[date.getDay()]} ({date.getMonth() + 1}/
+            {DAYS_IN_KOREAN[date.getDay()]} ({date.getMonth() + 1}/
             {date.getDate()})
           </div>
         ))}
@@ -152,13 +135,7 @@ const WeeklySchedule = ({
 
       <section className='flex mb-4'>
         {datesOfWeek.slice(3).map((date) => (
-          <WeeklyHabitList
-            key={date}
-            habits={weeklySchedule}
-            daysMapping={daysMapping}
-            daysInKorean={daysInKorean}
-            date={date}
-          />
+          <WeeklyHabitList key={date} habits={weeklySchedule} date={date} />
         ))}
       </section>
     </article>
