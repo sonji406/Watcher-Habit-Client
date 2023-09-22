@@ -24,7 +24,8 @@ const useWeeklySchedule = () => {
           }&endDate=${endDate.toISOString().split('T')[0]}`,
         );
 
-        setWeeklySchedule(habitsResponse.data);
+        const habitsData = habitsResponse.data || [];
+        setWeeklySchedule(habitsData);
       } catch (error) {
         console.error('Failed to fetch weekly schedule', error);
       }

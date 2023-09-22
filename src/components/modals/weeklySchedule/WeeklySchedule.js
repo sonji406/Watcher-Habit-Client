@@ -92,16 +92,22 @@ const WeeklySchedule = ({
 
       <section className='flex mb-4'>
         <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
-          {weeklySchedule
-            .sort((a, b) => a.startTime.localeCompare(b.startTime))
-            .map((habit) => (
-              <div
-                key={habit.habitTitle}
-                className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
-              >
-                <p className='text-center text-base'>{habit.habitTitle}</p>
-              </div>
-            ))}
+          {weeklySchedule.length > 0 ? (
+            weeklySchedule
+              .sort((a, b) => a.startTime.localeCompare(b.startTime))
+              .map((habit) => (
+                <div
+                  key={habit.habitTitle}
+                  className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
+                >
+                  <p className='text-center text-base'>{habit.habitTitle}</p>
+                </div>
+              ))
+          ) : (
+            <p className='text-center text-dark-gray-txt text-sm mt-2'>
+              등록된 습관이 없습니다
+            </p>
+          )}
         </div>
 
         {datesOfWeek.slice(0, 3).map((date) => (
