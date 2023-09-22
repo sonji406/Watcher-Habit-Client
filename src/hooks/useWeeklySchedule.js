@@ -4,7 +4,7 @@ import getStartAndEndOfWeek from '../utils/getStartAndEndOfWeek';
 import axios from 'axios';
 
 const useWeeklySchedule = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [weeklySchedule, setWeeklySchedule] = useState([]);
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
 
