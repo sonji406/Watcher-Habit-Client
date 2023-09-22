@@ -7,10 +7,13 @@ import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
 import ApprovalButtons from './ApprovalButtons';
 
-const ApprovalItem = ({ watcher }) => {
+const ApprovalItem = ({ watcher, isModal = false }) => {
   const [error, setError] = useState('');
 
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const selectConditon = isModal
+    ? (state) => state.notificationHabit.notificationHabitDetail
+    : (state) => state.habit.habitDetail;
+  const habitDetail = useSelector(selectConditon);
 
   const getApprovalMessage = (watcherStatus) => {
     if (watcherStatus === 'undecided' && isLoginUser(watcher._id)) {

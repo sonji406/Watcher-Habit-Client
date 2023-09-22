@@ -4,14 +4,18 @@ import ImageIcon from './icon/ImageIcon';
 import CountdownTimer from './CountdownTimer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
+import { setNotificationHabitDetail } from '../../../redux/notificationHabitSlice';
 
-const UploadImage = ({ habitId, endTime }) => {
+const UploadImage = ({ habitId, endTime, isModal = false }) => {
   const dispatch = useDispatch();
 
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
 
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const selectConditon = isModal
+    ? (state) => state.notificationHabit.notificationHabitDetail
+    : (state) => state.habit.habitDetail;
+  const habitDetail = useSelector(selectConditon);
 
   const onFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -36,7 +40,11 @@ const UploadImage = ({ habitId, endTime }) => {
         status: 'awaitingApproval',
       };
 
-      dispatch(setHabitDetail(updatedHabitDetail));
+      dispatch(
+        isModal
+          ? setNotificationHabitDetail(updatedHabitDetail)
+          : setHabitDetail(updatedHabitDetail),
+      );
     } catch (error) {
       setError('업로드 실패');
     }
