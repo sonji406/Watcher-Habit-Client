@@ -25,6 +25,7 @@ const useWeeklySchedule = () => {
         );
 
         const habitsData = habitsResponse.data || [];
+
         setWeeklySchedule(habitsData);
       } catch (error) {
         console.error('Failed to fetch weekly schedule', error);

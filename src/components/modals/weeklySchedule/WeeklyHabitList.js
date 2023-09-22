@@ -16,6 +16,7 @@ const WeeklyHabitList = ({ habits, daysMapping, daysInKorean, date }) => {
 
       return acc;
     }, [])
+
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   return (

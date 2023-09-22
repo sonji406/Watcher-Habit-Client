@@ -13,6 +13,7 @@ const getDatesOfWeek = (startDate, endDate) => {
     dates.push(new Date(currentDate));
     currentDate.setDate(currentDate.getDate() + 1);
   }
+
   return dates;
 };
 

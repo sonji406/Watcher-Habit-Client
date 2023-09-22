@@ -7,11 +7,13 @@ const WeeklyScheduleButton = ({ isHovered }) => {
 
   const handleButtonClick = () => {
     setIsModalOpen(true);
+
     document.body.style.overflow = 'hidden';
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+
     document.body.style.overflow = '';
   };
 
@@ -25,7 +27,6 @@ const WeeklyScheduleButton = ({ isHovered }) => {
         style={{ cursor: 'pointer' }}
       >
         <WeeklyHabitsListIcon />
-
         {isHovered && <span className='ml-2'>나의 주간 습관</span>}
       </div>
 
