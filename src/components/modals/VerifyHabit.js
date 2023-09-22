@@ -10,7 +10,7 @@ const VerifyHabitModal = ({ onClose }) => {
   return (
     <div className='fixed inset-0 w-full flex items-center justify-center z-30 bg-black bg-opacity-50'>
       <div
-        className='bg-dark-blue-bg border border-customGreen rounded p-5 w-8000 text-white rounded-xl'
+        className='h-[80vh] bg-dark-blue-bg border border-customGreen pt-6 pr-4 rounded w-8000 text-white rounded-xl overflow-hidden'
         ref={modalContentRef}
       >
         <HabitDetailAndVerification></HabitDetailAndVerification>
