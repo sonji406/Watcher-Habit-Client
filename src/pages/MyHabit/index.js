@@ -6,6 +6,7 @@ import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitList from '../../components/habits/habitList/HabitList';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
+import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
 
 function MyHabit() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function MyHabit() {
 
   useEffect(() => {
     dispatch(clearHabitDetail());
+    dispatch(clearNotificationHabitDetail());
   }, [nickname, dispatch]);
 
   if (loading) return <div>Loading...</div>;

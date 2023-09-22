@@ -1,7 +1,10 @@
 import { useSelector } from 'react-redux';
 
-const SuccessCriteria = () => {
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
+const SuccessCriteria = ({ isModal = false }) => {
+  const selectConditon = isModal
+    ? (state) => state.notificationHabit.notificationHabitDetail
+    : (state) => state.habit.habitDetail;
+  const habitDetail = useSelector(selectConditon);
 
   const minApprovalCount = habitDetail.minApprovalCount;
   const approvedCount = habitDetail.approvals.filter(

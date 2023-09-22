@@ -3,7 +3,7 @@ import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { setHabitDetail } from '../../redux/habitSlice';
+import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
@@ -52,8 +52,6 @@ const NotificationItem = ({
   };
 
   const handleOnClick = async () => {
-    console.log('handleOnClick');
-    // 습관 아이디로 습관 정보 조회해서 상태관리
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
@@ -65,7 +63,7 @@ const NotificationItem = ({
         profileImageUrl: approval._id.profileImageUrl,
       }));
 
-      dispatch(setHabitDetail(response.data));
+      dispatch(setNotificationHabitDetail(response.data));
     } catch (error) {
       console.error(error);
     }

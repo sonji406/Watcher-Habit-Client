@@ -9,8 +9,11 @@ import { Link, useLocation } from 'react-router-dom';
 import isLoginUser from '../../../lib/isLoginUser';
 import axios from 'axios';
 
-const HabitDetail = () => {
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
+const HabitDetail = ({ isModal = false }) => {
+  const selectConditon = isModal
+    ? (state) => state.notificationHabit.notificationHabitDetail
+    : (state) => state.habit.habitDetail;
+  const habitDetail = useSelector(selectConditon);
   const location = useLocation();
 
   const isCurrentUser = isLoginUser(habitDetail.creator._id);
@@ -45,7 +48,7 @@ const HabitDetail = () => {
 
       <HabitDaysOfWeek doDay={habitDetail.doDay} />
 
-      <WatcherActions habitDetail={habitDetail} />
+      <WatcherActions habitDetail={habitDetail} isModal={isModal} />
       {location.pathname.startsWith('/my-habit') && isCurrentUser && (
         <div className='flex justify-center mt-6 space-x-4'>
           <Link

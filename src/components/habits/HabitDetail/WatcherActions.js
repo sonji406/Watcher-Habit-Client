@@ -12,8 +12,12 @@ import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 import ErrorMessage from './ErrorMessage';
 import WatcherList from './WatcherList';
 import WatcherButton from './WatcherButton';
+import {
+  unSubscribeNotificationWatcherList,
+  updateNotificationWatcherList,
+} from '../../../redux/notificationHabitSlice';
 
-const WatcherActions = ({ habitDetail }) => {
+const WatcherActions = ({ habitDetail, isModal = false }) => {
   const dispatch = useDispatch();
   const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
@@ -52,7 +56,11 @@ const WatcherActions = ({ habitDetail }) => {
       const watcherId = getUserIdFromToken();
       const response = await subscribeWatcher(habitId, watcherId);
 
-      dispatch(updateWatcherList(response));
+      dispatch(
+        isModal
+          ? updateNotificationWatcherList(response)
+          : updateWatcherList(response),
+      );
     } catch (error) {
       setSubscriptionError('구독할 수 없습니다.');
     }
@@ -65,7 +73,11 @@ const WatcherActions = ({ habitDetail }) => {
       const watcherId = getUserIdFromToken();
       const response = await unsubscribeWatcher(habitId, watcherId);
 
-      dispatch(unSubscribeWatcherList(response));
+      dispatch(
+        isModal
+          ? unSubscribeNotificationWatcherList(response)
+          : unSubscribeWatcherList(response),
+      );
     } catch (error) {
       setSubscriptionError('구독을 해제할 수 없습니다.');
     }

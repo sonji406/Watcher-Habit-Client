@@ -13,7 +13,7 @@ const VerifyHabitModal = ({ onClose }) => {
         className='h-[80vh] bg-dark-blue-bg border border-customGreen pt-6 pr-4 rounded w-8000 text-white rounded-xl overflow-hidden'
         ref={modalContentRef}
       >
-        <HabitDetailAndVerification></HabitDetailAndVerification>
+        <HabitDetailAndVerification isModal={true}></HabitDetailAndVerification>
       </div>
     </div>
   );
