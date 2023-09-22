@@ -5,6 +5,7 @@ import MyHabitPageButton from './MyHabitPageButton';
 import CreateGroupButton from './CreateGroupButton';
 import JoinedGroupsButton from './JoinedGroupsButton';
 import WeeklyScheduleButton from './WeeklyScheduleButton';
+import HistoryButton from './HistoryButton';
 import userGetAPI from '../../services/api/userGet';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
@@ -65,6 +66,7 @@ const Sidebar = () => {
           isHovered ? 'items-start w-64 pl-6' : 'items-center'
         } transition-all`}
       >
+        <HistoryButton isHovered={isHovered} />
         <WeeklyScheduleButton isHovered={isHovered} />
         <MyHabitPageButton
           nickname={nickname}
