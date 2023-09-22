@@ -4,19 +4,24 @@ const WeeklyHabitList = ({ habits, daysMapping, daysInKorean, date }) => {
   const relevantHabits = habits
     .reduce((acc, habit) => {
       const dayInKorean = daysInKorean[date.getDay()];
-      const isRelevant = habit.doDay.includes(
+      const isRelevantDay = habit.doDay.includes(
         Object.keys(daysMapping).find(
           (key) => daysMapping[key] === dayInKorean,
         ),
       );
 
-      if (isRelevant) {
+      const isWithinDateRange =
+        date.getFullYear() === new Date(habit.habitStartDate).getFullYear() &&
+        date.getMonth() === new Date(habit.habitStartDate).getMonth() &&
+        date.getDate() >= new Date(habit.habitStartDate).getDate() &&
+        date.getDate() <= new Date(habit.habitEndDate).getDate();
+
+      if (isRelevantDay && isWithinDateRange) {
         acc.push(habit);
       }
 
       return acc;
     }, [])
-
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   return (

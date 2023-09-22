@@ -7,7 +7,7 @@ import SquareArrowRightIcon from './icon/SquareArrowRight';
 
 const getDatesOfWeek = (startDate, endDate) => {
   const dates = [];
-  let currentDate = new Date(startDate);
+  const currentDate = new Date(startDate);
 
   while (currentDate <= endDate) {
     dates.push(new Date(currentDate));
@@ -41,6 +41,35 @@ const WeeklySchedule = ({
   };
 
   const daysInKorean = ['일', '월', '화', '수', '목', '금', '토'];
+
+  const allRelevantHabits = datesOfWeek.flatMap((date) => {
+    return weeklySchedule.filter((habit) => {
+      const dayInKorean = daysInKorean[date.getDay()];
+      const isRelevantDay = habit.doDay.includes(
+        Object.keys(daysMapping).find(
+          (key) => daysMapping[key] === dayInKorean,
+        ),
+      );
+
+      const habitStartDate = new Date(habit.habitStartDate);
+      const habitEndDate = new Date(habit.habitEndDate);
+      const isWithinDateRange =
+        date.getFullYear() === habitStartDate.getFullYear() &&
+        date.getMonth() === habitStartDate.getMonth() &&
+        date.getDate() >= habitStartDate.getDate() &&
+        date.getDate() <= habitEndDate.getDate();
+
+      return isRelevantDay && isWithinDateRange;
+    });
+  });
+
+  const uniqueHabitTitles = Array.from(
+    new Set(allRelevantHabits.map((habit) => habit.habitTitle)),
+  ).sort((a, b) => {
+    const habitA = allRelevantHabits.find((h) => h.habitTitle === a);
+    const habitB = allRelevantHabits.find((h) => h.habitTitle === b);
+    return habitA.startTime.localeCompare(habitB.startTime);
+  });
 
   return (
     <article
@@ -93,17 +122,15 @@ const WeeklySchedule = ({
 
       <section className='flex mb-4'>
         <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
-          {weeklySchedule.length > 0 ? (
-            weeklySchedule
-              .sort((a, b) => a.startTime.localeCompare(b.startTime))
-              .map((habit) => (
-                <div
-                  key={habit.habitTitle}
-                  className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
-                >
-                  <p className='text-center text-base'>{habit.habitTitle}</p>
-                </div>
-              ))
+          {uniqueHabitTitles.length > 0 ? (
+            uniqueHabitTitles.map((habitTitle) => (
+              <div
+                key={habitTitle}
+                className='mb-2 bg-main-bg text-white p-2 m-1 rounded-lg break-words'
+              >
+                <p className='text-center text-base'>{habitTitle}</p>
+              </div>
+            ))
           ) : (
             <p className='text-center text-dark-gray-txt text-sm mt-2'>
               등록된 습관이 없습니다
