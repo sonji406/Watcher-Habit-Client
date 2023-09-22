@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import NotificationList from '../notifications/NotificationList';
 import { useProfileImage } from '../../hooks/useProfileImage';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import Notification from './Notification';
 
 const mockNotifications = [
   {
@@ -58,6 +59,7 @@ const Profile = () => {
 
   return (
     <div className='absolute top-0 right-0 flex items-center p-4'>
+      <Notification />
       <div
         className='relative'
         style={{ fontFamily: 'NotoSansKR' }}

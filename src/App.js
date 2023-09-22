@@ -9,8 +9,6 @@ import AwsS3Test from './pages/AwsS3Test';
 import Header from './components/common/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
-// eslint-disable-next-line no-unused-vars
-import event from './utils/event';
 
 const CreateOrEditHabit = lazy(() => import('./pages/CreateHabit'));
 
