@@ -4,7 +4,7 @@ const ValidationForm = ({ validationMessage }) => {
   return (
     <>
       {validationMessage && (
-        <div className='text-red-500'>{validationMessage}</div>
+        <div className='mt-3 text-right text-red-500'>{validationMessage}</div>
       )}
     </>
   );
