@@ -43,12 +43,12 @@ const RepeatForm = ({ doDay, setDoDay }) => {
         )}
       </label>
       <div className='mb-6 mt-2 flex items-center justify-center'>
-        <div className='bg-dark-blue-bg py-2 px-5 border-2 border-gray-500 rounded-xl shadow-lg mt-2 mr-2'>
-          <span className='text-white'>매일</span>
+        <div className='bg-dark-blue-bg py-2 px-5 border-2 border-gray-500 rounded-xl shadow-lg mt-2 mr-2 flex flex-col items-center'>
+          <span className='text-green-txt text-sm'>매일</span>
           <div className='flex space-x-2 mt-2'>
             <button
               type='button'
-              className={`py-2 px-4 border-2 border-gray-500 shadow-lg rounded-3xl bg-dark-blue-bg text-white ${
+              className={`py-2 px-4 border-2 border-gray-500 hover:border-customGreen shadow-lg rounded-3xl bg-dark-blue-bg text-white ${
                 doDay.length === 7 ? 'bg-green-bg' : ''
               }`}
               onClick={toggleAllDays}
@@ -57,14 +57,15 @@ const RepeatForm = ({ doDay, setDoDay }) => {
             </button>
           </div>
         </div>
-        <div className='bg-dark-blue-bg py-2 px-7 border-2 border-gray-500 rounded-xl shadow-lg mt-2'>
-          <span className='text-white'>매주</span>
+
+        <div className='bg-dark-blue-bg py-2 px-7 border-2 border-gray-500 rounded-xl shadow-lg mt-2 flex flex-col items-center'>
+          <span className='text-green-txt text-sm'>매주</span>
           <div className='flex space-x-2 mt-2'>
             {daysOfWeek.map((day, index) => (
               <button
                 type='button'
                 key={day}
-                className={`py-2 px-4 border-2 border-gray-500 shadow-lg rounded-3xl bg-dark-blue-bg text-white ${
+                className={`py-2 px-4 border-2 border-gray-500 hover:border-customGreen shadow-lg rounded-3xl bg-dark-blue-bg text-white ${
                   doDay.includes(day) ? 'bg-green-bg' : ''
                 }`}
                 onClick={() => {
