@@ -49,8 +49,8 @@ const DateForm = ({
           <span className='text-red-500 ml-2'>{endDateValidation}</span>
         )}
       </label>
-      <div className='grid grid-cols-2 gap-4 mb-4 mt-2'>
-        <div>
+      <div className='flex items-center mb-4 mt-2'>
+        <div className='flex-grow'>
           <input
             className='p-2 border-2 border-gray-500 shadow-lg rounded bg-dark-blue-bg text-white'
             type='date'
@@ -60,7 +60,8 @@ const DateForm = ({
             placeholder='Start Date'
           />
         </div>
-        <div>
+        <div className='mx-2 text-3xl text-white mt-[-1.2rem]'>~</div>
+        <div className='flex-grow'>
           <input
             className='p-2 border-2 border-gray-500 shadow-lg rounded bg-dark-blue-bg text-white'
             type='date'
