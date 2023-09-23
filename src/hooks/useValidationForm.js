@@ -48,7 +48,7 @@ export const useValidation = () => {
       !habitStartDate ||
       !habitEndDate
     ) {
-      displayValidationMessage('필수 항목*이 누락되었습니다.');
+      displayValidationMessage('필수 항목*을 모두 작성해야 합니다.');
       return false;
     }
 
@@ -56,7 +56,7 @@ export const useValidation = () => {
       sharedGroup &&
       (minApprovalCount === undefined || minApprovalCount <= 0)
     ) {
-      displayValidationMessage('필수 항목*이 누락되었습니다.');
+      displayValidationMessage('필수 항목*을 모두 작성해야 합니다.');
       return false;
     }
 
