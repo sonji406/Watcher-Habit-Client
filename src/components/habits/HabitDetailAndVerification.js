@@ -22,13 +22,20 @@ const HabitDetailAndVerification = ({ isModal = false }) => {
     setIsDetail(false);
   };
 
+  const containerBorderColorClass = isDetail
+    ? 'border-customGreen'
+    : 'border-black';
+
   return (
     <article className='w-[600px] ml-4 relative'>
       <Tabs
         handleViewDetail={handleViewDetail}
         handleViewVerfication={handleViewVerfication}
+        currentTab={isDetail ? 'detail' : 'verification'}
       />
-      <div className='h-[70vh] text-center absolute top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10'>
+      <div
+        className={`h-[70vh] text-center absolute border-2 ${containerBorderColorClass} top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10`}
+      >
         {isEmptyObject(habitDetail) ? (
           <EmptyHabitDetailState />
         ) : (
