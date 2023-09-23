@@ -26,7 +26,7 @@ const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
 
   return (
     <div
-      className={`bg-main-bg text-white p-4 m-2 rounded-lg hover:bg-dark-green-bg transform hover:scale-95 transition duration-200 ease-in-out ${
+      className={`bg-main-bg text-white p-4 m-2 rounded-lg hover:bg-dark-green-bg shadow-lg transform hover:scale-95 transition duration-200 ease-in-out ${
         isSelected ? 'shadow-green' : ''
       }`}
     >
