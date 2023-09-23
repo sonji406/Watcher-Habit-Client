@@ -31,41 +31,41 @@ const HabitDetail = ({ isModal = false }) => {
   };
 
   return (
-    <div className='h-[calc(70vh-130px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5 pb-10'>
+    <div className='h-[calc(70vh-150px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5'>
       <HabitSection title='내용' content={habitDetail.habitContent} />
       <HabitSection title='패널티' content={habitDetail.penalty} />
-
-      <div className='flex justify-between'>
-        <HabitDuration
-          startDate={habitDetail.habitStartDate}
-          endDate={habitDetail.habitEndDate}
-        />
-        <HabitTime
-          startTime={habitDetail.startTime}
-          endTime={habitDetail.endTime}
-        />
-      </div>
-
+      <HabitDuration
+        startDate={habitDetail.habitStartDate}
+        endDate={habitDetail.habitEndDate}
+      />
+      <HabitTime
+        startTime={habitDetail.startTime}
+        endTime={habitDetail.endTime}
+      />
       <HabitDaysOfWeek doDay={habitDetail.doDay} />
-
       <WatcherActions habitDetail={habitDetail} isModal={isModal} />
       {location.pathname.startsWith('/my-habit') && isCurrentUser && (
-        <div className='flex justify-center mt-6 space-x-4'>
-          <Link
-            to={{
-              pathname: `/edit-Habit/${habitDetail._id}`,
-            }}
-            className='bg-green-bg w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-green-800 border-2'
-          >
-            수정
-          </Link>
-
-          <button
-            onClick={handleDelete}
-            className='bg-transparent w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-red-500 border-2'
-          >
-            삭제
-          </button>
+        <div className='flex flex-wrap justify-center mt-6 space-x-4'>
+          {habitDetail.status === 'notTimeYet' && (
+            <div className='mb-4'>
+              <Link
+                to={{
+                  pathname: `/edit-Habit/${habitDetail._id}`,
+                }}
+                className='bg-green-bg w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-green-800 border-2'
+              >
+                수정
+              </Link>
+            </div>
+          )}
+          <div className='mb-4'>
+            <button
+              onClick={handleDelete}
+              className='bg-transparent w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-red-500 border-2'
+            >
+              삭제
+            </button>
+          </div>
         </div>
       )}
     </div>
