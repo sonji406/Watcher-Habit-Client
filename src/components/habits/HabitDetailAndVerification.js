@@ -7,10 +7,12 @@ import Tabs from './Tabs';
 import { isEmptyObject } from '../../utils/objectUtils';
 import EmptyHabitDetailState from './HabitDetail/EmptyHabitDetailState';
 
-const HabitDetailAndVerification = () => {
+const HabitDetailAndVerification = ({ isModal = false }) => {
   const [isDetail, setIsDetail] = useState(true);
-
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
+  const selectConditon = isModal
+    ? (state) => state.notificationHabit.notificationHabitDetail
+    : (state) => state.habit.habitDetail;
+  const habitDetail = useSelector(selectConditon);
 
   const handleViewDetail = () => {
     setIsDetail(true);
@@ -36,7 +38,11 @@ const HabitDetailAndVerification = () => {
               groupName={habitDetail.sharedGroup?.groupName}
               creator={habitDetail.creator}
             />
-            {isDetail ? <HabitDetail /> : <HabitVerification />}
+            {isDetail ? (
+              <HabitDetail isModal={isModal} />
+            ) : (
+              <HabitVerification isModal={isModal} />
+            )}
           </>
         )}
       </div>

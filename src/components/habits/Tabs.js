@@ -31,7 +31,7 @@ const Tabs = ({ handleViewDetail, handleViewVerfication }) => {
         onClick={handleDetailClick}
       >
         <p className='text-2xl' style={{ transform: 'translateY(10px)' }}>
-          상세 페이지
+          습관 상세
         </p>
       </div>
       <div
@@ -46,7 +46,7 @@ const Tabs = ({ handleViewDetail, handleViewVerfication }) => {
         onClick={handleVerificationClick}
       >
         <p className='text-2xl' style={{ transform: 'translateY(10px)' }}>
-          인증 페이지
+          인증/승인
         </p>
       </div>
     </div>

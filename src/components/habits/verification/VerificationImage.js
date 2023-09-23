@@ -1,8 +1,11 @@
 import { useSelector } from 'react-redux';
 import VerificationIcon from './icon/Verification';
 
-const VerificationImage = () => {
-  const habitDetail = useSelector((state) => state.habit.habitDetail);
+const VerificationImage = ({ isModal = false }) => {
+  const selectConditon = isModal
+    ? (state) => state.notificationHabit.notificationHabitDetail
+    : (state) => state.habit.habitDetail;
+  const habitDetail = useSelector(selectConditon);
 
   return (
     <div className='w-full h-full rounded-xl mx-auto flex items-center justify-center'>

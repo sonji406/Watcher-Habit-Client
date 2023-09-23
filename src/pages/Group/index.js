@@ -7,6 +7,7 @@ import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitList from '../../components/habits/habitList/HabitList';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
+import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
 
 function Group() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Group() {
   const fetchGroupInfo = async () => {
     try {
       dispatch(clearHabitDetail());
+      dispatch(clearNotificationHabitDetail());
 
       const data = await getGroup(groupId);
 
