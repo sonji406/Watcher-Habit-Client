@@ -33,12 +33,12 @@ const NotificationList = ({ notifications }) => {
 
   return (
     <div
-      className='bg-dark-blue-bg rounded-lg h-[80vh] flex flex-col'
+      className='bg-dark-blue-bg rounded-lg h-[80vh] w-[280px] border-2 border-black flex flex-col'
       style={{ fontFamily: 'NotoSansKR' }}
     >
       <div className='flex justify-between p-2 items-center'>
         <div className='flex items-center'>
-          <img src={bellIcon} alt='bell icon' className='h-4 w-4 mr-2' />
+          <img src={bellIcon} alt='bell icon' className='h-4 w-4 mr-2 ml-2' />
           <p className='text-green-txt font-bold'>알림</p>
         </div>
       </div>

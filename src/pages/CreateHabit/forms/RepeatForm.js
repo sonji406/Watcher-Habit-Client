@@ -1,56 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
+import validationMessages from './message/validationMessages';
 
 const RepeatForm = ({ doDay, setDoDay }) => {
   const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
   const daysOfWeekKR = ['일', '월', '화', '수', '목', '금', '토'];
+  const [repeatValidation, setRepeatValidation] = useState('');
 
   const toggleDay = (day) => {
     setDoDay((prevDoDay) => {
+      let newDoDay;
       if (prevDoDay.includes(day)) {
-        return prevDoDay.filter((d) => d !== day);
+        newDoDay = prevDoDay.filter((d) => d !== day);
+      } else {
+        newDoDay = [...prevDoDay, day];
       }
-      return [...prevDoDay, day];
+
+      if (newDoDay.length === 0) {
+        setRepeatValidation(validationMessages.repeatEmpty);
+      } else {
+        setRepeatValidation('');
+      }
+
+      return newDoDay;
     });
   };
 
   const toggleAllDays = () => {
     if (doDay.length === 7) {
-      return setDoDay([]);
+      setDoDay([]);
+      setRepeatValidation(validationMessages.repeatEmpty);
+    } else {
+      setDoDay(daysOfWeek);
+      setRepeatValidation('');
     }
-    setDoDay(daysOfWeek);
   };
 
   return (
-    <div>
-      <label>반복 주기</label>
-      <div className='mb-4 flex justify-between'>
-        <button
-          type='button'
-          className={`py-2 px-4 border rounded ${
-            doDay.length === 7 ? 'bg-green-bg' : ''
-          }`}
-          onClick={toggleAllDays}
-        >
-          매일
-        </button>
+    <>
+      <label className='text-white ml-2'>
+        반복 주기*
+        {repeatValidation && (
+          <span className='text-red-500 ml-2'>{repeatValidation}</span>
+        )}
+      </label>
+      <div className='mb-6 mt-2 flex items-center justify-center'>
+        <div className='bg-dark-blue-bg py-2 px-5 mb-3 border-2 border-gray-500 rounded-xl shadow-lg mt-2 mr-2 flex flex-col items-center'>
+          <span className='text-green-txt text-sm'>매일</span>
+          <div className='flex space-x-2 mt-2'>
+            <button
+              type='button'
+              className={`py-2 px-4 border-2 border-gray-500 hover:border-customGreen shadow-lg rounded-3xl bg-dark-blue-bg text-white ${
+                doDay.length === 7 ? 'bg-green-bg' : ''
+              }`}
+              onClick={toggleAllDays}
+            >
+              매일
+            </button>
+          </div>
+        </div>
 
-        <span>매주</span>
-        {daysOfWeek.map((day, index) => (
-          <button
-            type='button'
-            key={day}
-            className={`py-2 px-4 border rounded ${
-              doDay.includes(day) ? 'bg-green-bg' : ''
-            }`}
-            onClick={() => {
-              toggleDay(day);
-            }}
-          >
-            {daysOfWeekKR[index]}
-          </button>
-        ))}
+        <div className='bg-dark-blue-bg py-2 px-7 mb-3 border-2 border-gray-500 rounded-xl shadow-lg mt-2 flex flex-col items-center'>
+          <span className='text-green-txt text-sm'>매주</span>
+          <div className='flex space-x-2 mt-2'>
+            {daysOfWeek.map((day, index) => (
+              <button
+                type='button'
+                key={day}
+                className={`py-2 px-4 border-2 border-gray-500 hover:border-customGreen shadow-lg rounded-3xl bg-dark-blue-bg text-white ${
+                  doDay.includes(day) ? 'bg-green-bg' : ''
+                }`}
+                onClick={() => {
+                  toggleDay(day);
+                }}
+              >
+                {daysOfWeekKR[index]}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

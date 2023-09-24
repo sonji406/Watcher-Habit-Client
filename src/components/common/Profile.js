@@ -67,7 +67,7 @@ const Profile = () => {
         </div>
 
         {showNotifications && (
-          <div className='absolute right-0 mt-2 w-64 rounded-lg shadow-lg'>
+          <div className='absolute right-5 top-10 mt-2 w-64 rounded-lg shadow-lg'>
             <NotificationList
               notifications={notifications}
               setNotifications={setNotifications}

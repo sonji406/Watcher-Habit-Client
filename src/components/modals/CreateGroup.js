@@ -21,14 +21,14 @@ const CreateGroupModal = ({ onClose }) => {
         creatorId: getUserIdFromToken(),
       };
 
-      await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/group`,
         requestBody,
       );
 
-      setErrorMsg('');
-      onClose();
-      window.location.reload();
+      const newGroupId = response.data.newGroup._id;
+
+      window.location.href = `/group/${newGroupId}`;
     } catch (error) {
       let message = '알 수 없는 오류입니다.';
 
