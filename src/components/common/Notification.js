@@ -1,53 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import initEventSource from '../../utils/initEventSource';
+import getButtonText from '../../lib/notification/getButtonText';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import VerifyHabitModal from '../modals/VerifyHabit';
 
 const Notification = () => {
-  const [messages, setMessages] = useState([
-    {
-      id: 1632401012345, // 예시 타임스탬프
-      text: '첫 번째 알림 메시지입니다.',
-      text2: '알림을 확인하세요.',
-      isVisible: true,
-    },
-    {
-      id: 1632401023456, // 예시 타임스탬프
-      text: '두 번째 알림 메시지입니다.',
-      text2: '알림을 확인하세요.',
-      isVisible: true,
-    },
-    {
-      id: 1632401012345, // 예시 타임스탬프
-      text: '첫 번째 알림 메시지입니다.',
-      text2: '알림을 확인하세요.',
-      isVisible: true,
-    },
-    {
-      id: 1632401023456, // 예시 타임스탬프
-      text: '두 번째 알림 메시지입니다.',
-      text2: '알림을 확인하세요.',
-      isVisible: true,
-    },
-    {
-      id: 1632401012345, // 예시 타임스탬프
-      text: '첫 번째 알림 메시지입니다.',
-      text2: '알림을 확인하세요.',
-      isVisible: true,
-    },
-    {
-      id: 1632401023456, // 예시 타임스탬프
-      text: '두 번째 알림 메시지입니다.',
-      text2: '알림을 확인하세요.',
-      isVisible: true,
-    },
-  ]);
+  const dispatch = useDispatch();
+
+  const [messages, setMessages] = useState([]);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hiddenNotifications, setHiddenNotifications] = useState(new Set());
   const [error, setError] = useState(null);
 
+  const userId = getUserIdFromToken();
+  const status = 'success';
+  const groupId = '';
+  const habitId = '';
+
+  const handleInvite = async () => {
+    try {
+      const body = { userId };
+
+      await axios.patch(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/members`,
+        body,
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const openHabitVerificationModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const getButtonHandler = (status) => {
+    const buttonHandlerMap = {
+      success: openHabitVerificationModal,
+      failure: openHabitVerificationModal,
+      verificationRequest: openHabitVerificationModal,
+      approveRequest: openHabitVerificationModal,
+      invite: handleInvite,
+    };
+    return buttonHandlerMap[status];
+  };
+
   useEffect(() => {
-    const onMessage = (messageText) => {
+    const onMessage = (event) => {
+      const messageData = JSON.parse(event.data);
+
+      const { content, from, to, status, groupId, _id } = messageData;
       const message = {
-        id: Date.now(),
-        text: messageText,
+        id: _id,
+        text: content,
         isVisible: true,
+        status,
+        groupId,
       };
 
       setMessages((prevMessages) => [...prevMessages, message]);
@@ -72,8 +84,48 @@ const Notification = () => {
     };
   }, []);
 
+  const renderButton = () => {
+    const buttonText = getButtonText(status);
+    return (
+      <div className='flex'>
+        <button className='mx-auto bg-green-400 p-1 mt-2 rounded-lg hover:bg-green-500 hover:font-semibold'>
+          {buttonText}
+        </button>
+      </div>
+    );
+  };
+
+  const hideNotification = (id) => {
+    setHiddenNotifications((prev) => new Set(prev).add(id));
+  };
+
+  const handleOnClick = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
+      );
+
+      response.data.approvals = response.data.approvals.map((approval) => ({
+        ...approval._id,
+        status: approval.status,
+        profileImageUrl: approval._id.profileImageUrl,
+      }));
+
+      dispatch(setNotificationHabitDetail(response.data));
+    } catch (error) {
+      console.error(error);
+    }
+    hideNotification();
+    await getButtonHandler(status)();
+  };
+
+  const onClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className='mr-4'>
+      {isModalOpen && <VerifyHabitModal onClose={onClose} />}
       {error && <div>Error: {error.message}</div>}
       {messages.map((message) => (
         <div
@@ -84,7 +136,11 @@ const Notification = () => {
         >
           {message.text}
           <br />
-          {message.text2}
+          <button
+            onClick={() => handleOnClick(message.status, message.groupId)}
+          >
+            {renderButton()}
+          </button>
         </div>
       ))}
     </div>
