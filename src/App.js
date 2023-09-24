@@ -9,6 +9,8 @@ import AwsS3Test from './pages/AwsS3Test';
 import Header from './components/common/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
+import NotFound from './pages/NotFound';
+import ServerError from './pages/ServerError';
 
 const CreateOrEditHabit = lazy(() => import('./pages/CreateHabit'));
 
@@ -19,6 +21,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/create-nickname' element={<CreateNickname />} />
+          <Route path='/500' element={<ServerError />} />
           <Route
             path='*'
             element={
@@ -51,6 +54,7 @@ function App() {
               </div>
             }
           />
+          <Route path='/*' element={<NotFound />} />
         </Routes>
       </Router>
     </Provider>
