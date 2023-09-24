@@ -51,31 +51,38 @@ const NotificationItem = ({
     return buttonHandlerMap[status];
   };
 
-  const handleOnClick = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
-      );
+  const handleOnClick = async (handler) => {
+    if (status !== 'invite') {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
+        );
 
-      response.data.approvals = response.data.approvals.map((approval) => ({
-        ...approval._id,
-        status: approval.status,
-        profileImageUrl: approval._id.profileImageUrl,
-      }));
+        response.data.approvals = response.data.approvals.map((approval) => ({
+          ...approval._id,
+          status: approval.status,
+          profileImageUrl: approval._id.profileImageUrl,
+        }));
 
-      dispatch(setNotificationHabitDetail(response.data));
-    } catch (error) {
-      console.error(error);
+        dispatch(setNotificationHabitDetail(response.data));
+      } catch (error) {
+        console.error(error);
+      }
     }
+
     hideNotification();
-    await getButtonHandler(status)();
+    await handler();
   };
 
   const { date: formattedDate, time: formattedTime } = formatDate(date);
   const renderButton = () => {
     const buttonText = getButtonText(status);
+    const handler = getButtonHandler(status);
     return (
-      <button className={commonButtonClass} onClick={handleOnClick}>
+      <button
+        className={commonButtonClass}
+        onClick={() => handleOnClick(handler)}
+      >
         {buttonText}
       </button>
     );

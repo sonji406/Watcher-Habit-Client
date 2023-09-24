@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import NotificationList from '../notifications/NotificationList';
 import { useProfileImage } from '../../hooks/useProfileImage';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import Notification from './Notification';
+import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
 import axios from 'axios';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
@@ -38,9 +38,9 @@ const Profile = () => {
 
   return (
     <div className='absolute top-0 right-0 flex items-center p-4'>
-      <Notification />
+      <RealTimeNotifications />
       <div
-        className='relative'
+        className='absolute top-2 right-2'
         style={{ fontFamily: 'NotoSansKR' }}
         ref={containerRef}
       >

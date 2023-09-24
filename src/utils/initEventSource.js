@@ -10,7 +10,7 @@ function initEventSource(onMessage, onError) {
   eventSource.onmessage = function (event) {
     const notification = JSON.parse(event.data);
 
-    onMessage(notification.message);
+    onMessage(notification);
   };
 
   eventSource.onerror = function (error) {
