@@ -16,6 +16,7 @@ import {
   unSubscribeNotificationWatcherList,
   updateNotificationWatcherList,
 } from '../../../redux/notificationHabitSlice';
+import WatcherIcon from './icon/Watcher';
 
 const WatcherActions = ({ habitDetail, isModal = false }) => {
   const dispatch = useDispatch();
@@ -85,7 +86,10 @@ const WatcherActions = ({ habitDetail, isModal = false }) => {
 
   return (
     <div className='bg-main-bg p-4 rounded-lg text-left'>
-      <span className='font-bold'>Watchers</span>
+      <div className='flex'>
+        <span className='font-bold mr-1'>Watchers</span>
+        <WatcherIcon />
+      </div>
       {isGroupShared ? (
         <div>
           {hasNoWatchers && isCurrentUserCreator ? (
