@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
 import axios from 'axios';
@@ -22,6 +23,7 @@ const NotificationItem = ({
     habitId,
   } = notification;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleInvite = async () => {
@@ -31,6 +33,8 @@ const NotificationItem = ({
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/members`,
         body,
       );
+
+      navigate(`/group/${groupId}`);
     } catch (error) {
       console.error(error);
     }
@@ -51,50 +55,43 @@ const NotificationItem = ({
     return buttonHandlerMap[status];
   };
 
-  const handleOnClick = async (handler) => {
-    if (status !== 'invite') {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
-        );
+  const handleOnClick = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
+      );
 
-        response.data.approvals = response.data.approvals.map((approval) => ({
-          ...approval._id,
-          status: approval.status,
-          profileImageUrl: approval._id.profileImageUrl,
-        }));
+      response.data.approvals = response.data.approvals.map((approval) => ({
+        ...approval._id,
+        status: approval.status,
+        profileImageUrl: approval._id.profileImageUrl,
+      }));
 
-        dispatch(setNotificationHabitDetail(response.data));
-      } catch (error) {
-        console.error(error);
-      }
+      dispatch(setNotificationHabitDetail(response.data));
+    } catch (error) {
+      console.error(error);
     }
-
     hideNotification();
-    await handler();
+    await getButtonHandler(status)();
   };
 
   const { date: formattedDate, time: formattedTime } = formatDate(date);
   const renderButton = () => {
     const buttonText = getButtonText(status);
-    const handler = getButtonHandler(status);
     return (
-      <button
-        className={commonButtonClass}
-        onClick={() => handleOnClick(handler)}
-      >
+      <button className={commonButtonClass} onClick={handleOnClick}>
         {buttonText}
       </button>
     );
   };
 
   return (
-    <div className='py-2 px-4 flex flex-col items-center justify-center rounded-lg bg-main-bg m-4 relative'>
+    <div className='py-2 px-4 flex flex-col items-center justify-center border rounded-lg bg-main-bg m-4 relative '>
       <div className='absolute top-0 right-3 flex space-x-1'>
-        <p className='text-sm text-gray-600'>{formattedDate}</p>
-        <p className='text-sm text-gray-600'>{formattedTime}</p>
+        <p className='text-sm text-gray-600 pr-1 pt-1'>{formattedDate}</p>
+        <p className='text-sm text-gray-600 pr-1 pt-1'>{formattedTime}</p>
       </div>
-      <p className='text-center text-white mt-5'>{content}</p>
+      <p className='text-center text-white text-sm mt-5'>{content}</p>
       {renderButton()}
     </div>
   );
