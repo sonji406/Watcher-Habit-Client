@@ -39,7 +39,6 @@ const GoogleLoginButton = () => {
       }
     };
 
-    // if (window.google && window.google.accounts && window.google.accounts.id) {
     window.google.accounts.id.initialize({
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID,
       callback: handleResponse,
@@ -49,7 +48,6 @@ const GoogleLoginButton = () => {
       document.getElementById('googleLoginButton'),
       { theme: 'outline', size: 'large' },
     );
-    // }
   }, [dispatch, navigate]);
 
   return (
