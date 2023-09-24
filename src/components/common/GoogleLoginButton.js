@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
-import loginAPI from '../../services/api/login';
 import userCheckAPI from '../../services/api/userCheck';
 import checkUserByEmail from '../../lib/userCheck/checkUserByEmail';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
@@ -27,13 +26,7 @@ const GoogleLoginButton = () => {
           return;
         }
 
-        await loginAndRedirect(
-          loginAPI,
-          responsePayload,
-          nickname,
-          dispatch,
-          navigate,
-        );
+        await loginAndRedirect(responsePayload, nickname, navigate);
       } catch (error) {
         setError(error.message);
       }
