@@ -1,5 +1,6 @@
 import React from 'react';
 import Loading from '../../../lib/loading/Loading';
+import validationMessages from '../forms/message/validationMessages';
 
 const SubmitButton = ({ isEdit, isLoading, handleSubmit, error }) => {
   const buttonText = isEdit ? '수정' : '생성';
@@ -7,9 +8,7 @@ const SubmitButton = ({ isEdit, isLoading, handleSubmit, error }) => {
   return (
     <div>
       {error && (
-        <div className='text-red-500 mb-2'>
-          필수 항목*을 모두 작성해야 합니다.
-        </div>
+        <div className='text-red-500 mb-2'>{validationMessages[error]}</div>
       )}
       {isLoading ? (
         <Loading />

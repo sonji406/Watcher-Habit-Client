@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import validationMessages from './message/validationMessages';
 
 const HabitInfoForm = ({
   habitTitle,
@@ -13,11 +14,9 @@ const HabitInfoForm = ({
     setHabitTitle(e.target.value);
 
     if (e.target.value === '') {
-      setHabitTitleValidation('습관 제목을 입력해 주세요.');
+      setHabitTitleValidation(validationMessages.habitTitleEmpty);
     } else if (e.target.value.length < 2 || e.target.value.length > 10) {
-      setHabitTitleValidation(
-        '습관 제목은 2자 이상 10자 이내로 입력해 주세요.',
-      );
+      setHabitTitleValidation(validationMessages.habitTitleLength);
     } else {
       setHabitTitleValidation('');
     }
@@ -27,11 +26,9 @@ const HabitInfoForm = ({
     setHabitContent(e.target.value);
 
     if (e.target.value === '') {
-      setHabitContentValidation('습관 내용을 입력해 주세요.');
+      setHabitContentValidation(validationMessages.habitContentEmpty);
     } else if (e.target.value.length < 2 || e.target.value.length > 100) {
-      setHabitContentValidation(
-        '습관 내용은 2자 이상 100자 이내로 입력해 주세요.',
-      );
+      setHabitContentValidation(validationMessages.habitContentLength);
     } else {
       setHabitContentValidation('');
     }

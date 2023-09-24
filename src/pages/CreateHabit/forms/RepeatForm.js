@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import validationMessages from './message/validationMessages';
 
 const RepeatForm = ({ doDay, setDoDay }) => {
   const daysOfWeek = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
@@ -15,7 +16,7 @@ const RepeatForm = ({ doDay, setDoDay }) => {
       }
 
       if (newDoDay.length === 0) {
-        setRepeatValidation('반복 주기를 선택해 주세요.');
+        setRepeatValidation(validationMessages.repeatEmpty);
       } else {
         setRepeatValidation('');
       }
@@ -27,7 +28,7 @@ const RepeatForm = ({ doDay, setDoDay }) => {
   const toggleAllDays = () => {
     if (doDay.length === 7) {
       setDoDay([]);
-      setRepeatValidation('반복 주기를 선택해 주세요.');
+      setRepeatValidation(validationMessages.repeatEmpty);
     } else {
       setDoDay(daysOfWeek);
       setRepeatValidation('');
@@ -37,13 +38,13 @@ const RepeatForm = ({ doDay, setDoDay }) => {
   return (
     <>
       <label className='text-white ml-2'>
-        반복 주기*{' '}
+        반복 주기*
         {repeatValidation && (
           <span className='text-red-500 ml-2'>{repeatValidation}</span>
         )}
       </label>
       <div className='mb-6 mt-2 flex items-center justify-center'>
-        <div className='bg-dark-blue-bg py-2 px-5 border-2 border-gray-500 rounded-xl shadow-lg mt-2 mr-2 flex flex-col items-center'>
+        <div className='bg-dark-blue-bg py-2 px-5 mb-3 border-2 border-gray-500 rounded-xl shadow-lg mt-2 mr-2 flex flex-col items-center'>
           <span className='text-green-txt text-sm'>매일</span>
           <div className='flex space-x-2 mt-2'>
             <button
@@ -58,7 +59,7 @@ const RepeatForm = ({ doDay, setDoDay }) => {
           </div>
         </div>
 
-        <div className='bg-dark-blue-bg py-2 px-7 border-2 border-gray-500 rounded-xl shadow-lg mt-2 flex flex-col items-center'>
+        <div className='bg-dark-blue-bg py-2 px-7 mb-3 border-2 border-gray-500 rounded-xl shadow-lg mt-2 flex flex-col items-center'>
           <span className='text-green-txt text-sm'>매주</span>
           <div className='flex space-x-2 mt-2'>
             {daysOfWeek.map((day, index) => (

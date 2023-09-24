@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Tooltip from '../utils/Tooltip';
+import validationMessages from './message/validationMessages';
 
 const PenaltyForm = ({ penalty, setPenalty }) => {
   const tooltipText = (
@@ -18,9 +19,9 @@ const PenaltyForm = ({ penalty, setPenalty }) => {
     setPenalty(e.target.value);
 
     if (!e.target.value) {
-      setPenaltyValidation('패널티를 입력해 주세요.');
+      setPenaltyValidation(validationMessages.penaltyEmpty);
     } else if (e.target.value.length < 2 || e.target.value.length > 50) {
-      setPenaltyValidation('패널티는 2자 이상 50자 이내로 입력해 주세요.');
+      setPenaltyValidation(validationMessages.penaltyLength);
     } else {
       setPenaltyValidation('');
     }

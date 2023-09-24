@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import validationMessages from './message/validationMessages';
 
 const DateForm = ({
   habitStartDate,
@@ -14,13 +15,13 @@ const DateForm = ({
     setHabitStartDate(e.target.value);
 
     if (!e.target.value) {
-      setStartDateValidation('시작일을 선택해주세요.');
+      setStartDateValidation(validationMessages.startDateEmpty);
     } else {
       setStartDateValidation('');
     }
 
     if (habitEndDate && new Date(e.target.value) > new Date(habitEndDate)) {
-      setEndDateValidation('종료일은 시작일보다 이후여야 합니다.');
+      setEndDateValidation(validationMessages.endDateAfterStart);
     } else {
       setEndDateValidation('');
     }
@@ -30,9 +31,9 @@ const DateForm = ({
     setHabitEndDate(e.target.value);
 
     if (!e.target.value) {
-      setEndDateValidation('종료일을 선택해주세요.');
+      setEndDateValidation(validationMessages.endDateEmpty);
     } else if (new Date(e.target.value) < new Date(habitStartDate)) {
-      setEndDateValidation('종료일은 시작일보다 이후여야 합니다.');
+      setEndDateValidation(validationMessages.endDateAfterStart);
     } else {
       setEndDateValidation('');
     }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import validationMessages from '../pages/CreateHabit/forms/message/validationMessages';
 
 export const useValidation = () => {
   const [validationMessage, setValidationMessage] = useState('');
@@ -48,7 +49,7 @@ export const useValidation = () => {
       !habitStartDate ||
       !habitEndDate
     ) {
-      displayValidationMessage('필수 항목*을 모두 작성해야 합니다.');
+      displayValidationMessage(validationMessages.generalRequired);
       return false;
     }
 
@@ -56,7 +57,7 @@ export const useValidation = () => {
       sharedGroup &&
       (minApprovalCount === undefined || minApprovalCount <= 0)
     ) {
-      displayValidationMessage('필수 항목*을 모두 작성해야 합니다.');
+      displayValidationMessage(validationMessages.generalRequired);
       return false;
     }
 
