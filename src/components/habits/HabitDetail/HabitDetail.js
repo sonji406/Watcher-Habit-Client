@@ -13,6 +13,7 @@ const HabitDetail = ({ isModal = false }) => {
   const selectConditon = isModal
     ? (state) => state.notificationHabit.notificationHabitDetail
     : (state) => state.habit.habitDetail;
+
   const habitDetail = useSelector(selectConditon);
   const location = useLocation();
 
@@ -33,17 +34,23 @@ const HabitDetail = ({ isModal = false }) => {
   return (
     <div className='h-[calc(70vh-150px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5'>
       <HabitSection title='내용' content={habitDetail.habitContent} />
+
       <HabitSection title='패널티' content={habitDetail.penalty} />
+
       <HabitDuration
         startDate={habitDetail.habitStartDate}
         endDate={habitDetail.habitEndDate}
       />
+
       <HabitTime
         startTime={habitDetail.startTime}
         endTime={habitDetail.endTime}
       />
+
       <HabitDaysOfWeek doDay={habitDetail.doDay} />
+
       <WatcherActions habitDetail={habitDetail} isModal={isModal} />
+
       {location.pathname.startsWith('/my-habit') && isCurrentUser && (
         <div className='flex flex-wrap justify-center mt-6 space-x-4'>
           {habitDetail.status === 'notTimeYet' && (
@@ -58,6 +65,7 @@ const HabitDetail = ({ isModal = false }) => {
               </Link>
             </div>
           )}
+
           <div className='mb-4'>
             <button
               onClick={handleDelete}

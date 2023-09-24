@@ -9,9 +9,11 @@ import EmptyHabitDetailState from './HabitDetail/EmptyHabitDetailState';
 
 const HabitDetailAndVerification = ({ isModal = false }) => {
   const [isDetail, setIsDetail] = useState(true);
+
   const selectConditon = isModal
     ? (state) => state.notificationHabit.notificationHabitDetail
     : (state) => state.habit.habitDetail;
+
   const habitDetail = useSelector(selectConditon);
 
   const handleViewDetail = () => {

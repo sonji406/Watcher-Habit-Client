@@ -13,10 +13,9 @@ function HabitList({ dailyHabits }) {
   const [selectedMemberNickname, setSelectedMemberNickname] = useState(
     members[0],
   );
-
   const sortedMembers = members.sort((a, b) => a.localeCompare(b));
-
   const habits = dailyHabits.data[selectedMemberNickname];
+
   const handleOnchange = (e) => setSelectedMemberNickname(e.target.value);
 
   const sortedHabits = habits?.sort((a, b) => {
@@ -52,6 +51,7 @@ function HabitList({ dailyHabits }) {
           <GroupInviteButton groupId={groupId}></GroupInviteButton>
         )}
       </div>
+
       <div className='h-[70vh] overflow-hidden border-2 border-customGreen top-12 bg-dark-blue-bg rounded-3xl z-20 relative p-3'>
         <div className='h-full overflow-y-auto pt-4 custom-scrollbar'>
           {sortedHabits?.map((habit) => {

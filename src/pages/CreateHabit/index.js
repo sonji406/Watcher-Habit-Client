@@ -118,7 +118,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   };
   return (
     <div
-      className='min-h-screen flex flex-col bg-main-bg custom-scrollbar pr-20 bg-vignette '
+      className='min-h-screen flex flex-col bg-main-bg custom-scrollbar pr-20 bg-vignette'
       style={{ fontFamily: 'NotoSansKR' }}
     >
       <div className='container mx-auto flex justify-center items-center h-full'>

@@ -18,7 +18,7 @@ const HabitTime = ({ startTime, endTime }) => {
       <div>
         <span className='font-bold text-left block'>시간</span>
         <div className='text-center text-xl'>
-          {startTime} ~ {endTime}{' '}
+          {startTime} ~ {endTime}
           <span className='ml-3 text-green-txt'>하루에 {timeDisplay}씩</span>
         </div>
       </div>
