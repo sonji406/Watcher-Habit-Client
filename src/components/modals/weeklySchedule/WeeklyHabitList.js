@@ -14,9 +14,8 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
       case 'approvalSuccess':
         return 'border-green-500';
       case 'expiredFailure':
-        return 'border-red-500';
       case 'approvalFailure':
-        return 'border-orange-500';
+        return 'border-red-500';
       default:
         return 'border-main-bg';
     }
