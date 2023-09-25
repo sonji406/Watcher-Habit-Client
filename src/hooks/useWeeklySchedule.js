@@ -5,7 +5,11 @@ import axios from 'axios';
 
 const useWeeklySchedule = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [weeklySchedule, setWeeklySchedule] = useState([]);
+  const [weeklySchedule, setWeeklySchedule] = useState({
+    history: [],
+    regular: [],
+  });
+
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
 
   useEffect(() => {
@@ -26,11 +30,13 @@ const useWeeklySchedule = () => {
 
         const habitsData = habitsResponse.data || [];
 
-        setWeeklySchedule(habitsData);
+        setWeeklySchedule({
+          history: habitsData.history || [],
+          regular: habitsData.regular || [],
+        });
       } catch (error) {
         console.error('Failed to fetch weekly schedule', error);
       }
-
       setIsLoading(false);
     };
 

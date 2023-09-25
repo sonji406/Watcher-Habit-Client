@@ -33,8 +33,15 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
 
   const datesOfWeek = getDatesOfPeriod(startOfWeek, endOfWeek);
 
+  const filteredRegularHabits = weeklySchedule.regular;
+  const filteredHistoryHabits = weeklySchedule.history;
+
+  console.log('regular', filteredRegularHabits);
+
+  console.log('history', filteredHistoryHabits);
+
   const allRelevantHabits = datesOfWeek.flatMap((date) => {
-    return weeklySchedule.filter((habit) => {
+    return filteredRegularHabits.filter((habit) => {
       const dayInKorean = DAYS_IN_KOREAN[date.getDay()];
       const isRelevantDay = habit.doDay.includes(
         Object.keys(DAYS_MAPPING).find(
@@ -44,6 +51,7 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
 
       const habitStartDate = new Date(habit.habitStartDate);
       const habitEndDate = new Date(habit.habitEndDate);
+
       const isWithinDateRange =
         date.getFullYear() === habitStartDate.getFullYear() &&
         date.getMonth() === habitStartDate.getMonth() &&
@@ -134,7 +142,12 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
             </div>
 
             {datesOfWeek.slice(0, 3).map((date) => (
-              <WeeklyHabitList key={date} habits={weeklySchedule} date={date} />
+              <WeeklyHabitList
+                key={date}
+                habits={filteredRegularHabits}
+                historyHabits={filteredHistoryHabits}
+                date={date}
+              />
             ))}
           </section>
 
@@ -152,7 +165,12 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
 
           <section className='flex mb-4'>
             {datesOfWeek.slice(3).map((date) => (
-              <WeeklyHabitList key={date} habits={weeklySchedule} date={date} />
+              <WeeklyHabitList
+                key={date}
+                habits={filteredRegularHabits}
+                historyHabits={filteredHistoryHabits}
+                date={date}
+              />
             ))}
           </section>
         </>
