@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import validationMessages from './message/validationMessages';
 
 const TimeForm = ({
   startTime,
@@ -8,28 +9,52 @@ const TimeForm = ({
   duration,
   setDuration,
 }) => {
+  const [timeValidation, setTimeValidation] = useState('');
+  const [durationValidation, setDurationValidation] = useState('');
+
   const handleTimePeriodChange = (e) => {
     setTimePeriod(e.target.value);
+    if (e.target.value) {
+      setTimeValidation('');
+    } else {
+      setTimeValidation(validationMessages.timeEmpty);
+    }
   };
 
   const handleHourChange = (e) => {
     const newHour = e.target.value;
     const newMinute = startTime.split(':')[1];
     setStartTime(`${newHour}:${newMinute}`);
+    setTimeValidation('');
   };
 
   const handleMinuteChange = (e) => {
     const newHour = startTime.split(':')[0];
     const newMinute = e.target.value;
     setStartTime(`${newHour}:${newMinute}`);
+    setTimeValidation('');
   };
 
   const handleDurationHourChange = (e) => {
-    setDuration(e.target.value * 60);
+    const newDuration = e.target.value * 60 + (duration % 60);
+    setDuration(newDuration);
+
+    if (newDuration > 0) {
+      setDurationValidation('');
+    } else {
+      setDurationValidation(validationMessages.durationEmpty);
+    }
   };
 
   const handleDurationMinuteChange = (e) => {
-    setDuration(Math.floor(duration / 60) * 60 + Number(e.target.value));
+    const newDuration = Math.floor(duration / 60) * 60 + Number(e.target.value);
+    setDuration(newDuration);
+
+    if (newDuration > 0) {
+      setDurationValidation('');
+    } else {
+      setDurationValidation(validationMessages.durationEmpty);
+    }
   };
 
   const hourOptions =
@@ -38,15 +63,20 @@ const TimeForm = ({
       : Array.from({ length: 12 }, (_, i) => i + 1);
 
   const durationOptions = Array.from({ length: 13 }, (_, i) => i);
-  const minuteOptions = ['00', '15', '30', '45'];
+  const minuteOptions = Array.from({ length: 12 }, (_, i) =>
+    String(i * 5).padStart(2, '0'),
+  );
 
   return (
-    <div>
-      <div className='grid grid-cols-2 gap-4 mb-4'>
-        <div className='flex items-center space-x-2'>
-          <span>시작시간 </span>
+    <>
+      <label className='text-white ml-2'>
+        시간*<span className='text-red-500 ml-2'>{timeValidation}</span>
+        <span className='text-red-500 ml-2'>{durationValidation}</span>
+      </label>
+      <div className='mb-6 mt-2 grid grid-cols-2 gap-0 items-center justify-center'>
+        <div className='flex items-center space-x-2 ml-8 mb-6'>
           <select
-            className='p-2 border rounded'
+            className='p-2 border-2 border-gray-500 rounded bg-dark-blue-bg text-white shadow-lg mx-2'
             value={timePeriod}
             onChange={handleTimePeriodChange}
           >
@@ -54,7 +84,7 @@ const TimeForm = ({
             <option value='PM'>PM</option>
           </select>
           <select
-            className='p-2 border rounded'
+            className='p-2 border-2 border-gray-500 rounded bg-dark-blue-bg text-white shadow-lg'
             value={startTime.split(':')[0]}
             onChange={handleHourChange}
           >
@@ -64,10 +94,9 @@ const TimeForm = ({
               </option>
             ))}
           </select>
-          <span>시</span>
-
+          <span className='text-white'>시</span>
           <select
-            className='p-2 border rounded'
+            className='p-2 border-2 border-gray-500 rounded bg-dark-blue-bg text-white shadow-lg'
             value={startTime.split(':')[1]}
             onChange={handleMinuteChange}
           >
@@ -77,12 +106,12 @@ const TimeForm = ({
               </option>
             ))}
           </select>
-          <span>분 부터</span>
+          <span className='text-white'>분 부터</span>
         </div>
 
-        <div className='flex space-x-2'>
+        <div className='flex items-center space-x-2 mb-6 ml-2'>
           <select
-            className='p-2 border rounded'
+            className='p-2 border-2 border-gray-500 rounded bg-dark-blue-bg text-white shadow-lg'
             value={Math.floor(duration / 60)}
             onChange={handleDurationHourChange}
           >
@@ -92,11 +121,10 @@ const TimeForm = ({
               </option>
             ))}
           </select>
-          <span>시간</span>
+          <span className='text-white'>시간</span>
 
           <select
-            className='p-2 border rounded'
-            value={duration % 60}
+            className='p-2 border-2 border-gray-500 rounded bg-dark-blue-bg text-white shadow-lg'
             onChange={handleDurationMinuteChange}
           >
             {minuteOptions.map((min) => (
@@ -105,10 +133,10 @@ const TimeForm = ({
               </option>
             ))}
           </select>
-          <span>분 동안</span>
+          <span className='text-white'>분 동안 진행하기</span>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
