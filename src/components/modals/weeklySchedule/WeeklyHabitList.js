@@ -1,60 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 import { useClickOutside } from '../../../hooks/useClickOutside';
+import getStatusBorderColor from './utils/getStatusBorderColor';
+import getStatusMessage from './utils/getStatusMessage';
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 yesterday.setHours(0, 0, 0, 0);
 
 const WeeklyHabitList = ({ habits, historyHabits, date }) => {
-  console.log(date);
   const isAfterYesterday = date > yesterday;
-
-  const getStatusBorderColor = (status) => {
-    switch (status) {
-      case 'approvalSuccess':
-        return 'border-green-500';
-      case 'expiredFailure':
-      case 'approvalFailure':
-        return 'border-red-500';
-      default:
-        return 'border-none';
-    }
-  };
-
-  const getStatusMessage = (status) => {
-    switch (status) {
-      case 'approvalSuccess':
-        return (
-          <>
-            성공!
-            <span role='img' aria-label='축하 이모티콘' className='ml-2'>
-              🎉
-            </span>
-          </>
-        );
-      case 'expiredFailure':
-        return (
-          <>
-            기한 내에 인증 사진을 업로드하지 않았네요
-            <span role='img' aria-label='우는 이모티콘' className='ml-2'>
-              😢
-            </span>
-          </>
-        );
-      case 'approvalFailure':
-        return (
-          <>
-            최소 승인 인원을 넘지 못했어요
-            <span role='img' aria-label='아쉬운 이모티콘' className='ml-2'>
-              😔
-            </span>
-          </>
-        );
-      default:
-        return '종료된 습관';
-    }
-  };
 
   const relevantHabits = habits
     .reduce((acc, habit) => {
