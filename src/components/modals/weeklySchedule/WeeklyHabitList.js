@@ -89,11 +89,13 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
           key={habitHistory.habitTitle}
           className={`mb-1 ${getStatusBackgroundColor(
             habitHistory.status,
-          )} text-white p-2 m-1 rounded-lg break-words cursor-pointer`}
+          )} text-white p-2 m-1 rounded-lg break-words cursor-pointer transform transition-transform hover:scale-105 hover:bg-opacity-70`}
           onClick={() => openModal(habitHistory.habitImage)}
         >
           <p className='text-center text-xs text-dark-gray-txt'>
-            {habitHistory.startTime} ~ {habitHistory.endTime}
+            <span className='text-black'>
+              {habitHistory.startTime} ~{habitHistory.endTime}
+            </span>
           </p>
           <p className='text-center text-sm'>{habitHistory.habitTitle}</p>
         </ul>
@@ -109,7 +111,7 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
               className='absolute top-2 right-2 text-white rounded-full py-1 px-3 hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300'
               onClick={closeModal}
             >
-              x
+              <span className='relative top-[-2px]'>x</span>
             </button>
             <div className='p-4'>
               <p className='text-xl text-center font-bold text-white mb-4'>
