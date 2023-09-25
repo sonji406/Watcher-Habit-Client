@@ -36,10 +36,6 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
   const filteredRegularHabits = weeklySchedule.regular;
   const filteredHistoryHabits = weeklySchedule.history;
 
-  console.log('regular', filteredRegularHabits);
-
-  console.log('history', filteredHistoryHabits);
-
   const allRelevantHabits = datesOfWeek.flatMap((date) => {
     return filteredRegularHabits.filter((habit) => {
       const dayInKorean = DAYS_IN_KOREAN[date.getDay()];

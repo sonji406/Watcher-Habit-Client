@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
+import { useClickOutside } from '../../../hooks/useClickOutside';
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
@@ -61,6 +62,14 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
     setIsModalOpen(false);
   };
 
+  const modalRef = useRef(null);
+
+  useClickOutside(modalRef, () => {
+    if (isModalOpen) {
+      closeModal();
+    }
+  });
+
   return (
     <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
       {relevantHabits.map((habit) => (
@@ -92,7 +101,10 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
 
       {isModalOpen && (
         <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='relative bg-main-bg rounded-lg overflow-hidden max-w-lg w-full'>
+          <div
+            ref={modalRef}
+            className='relative bg-main-bg rounded-lg overflow-hidden max-w-lg w-full'
+          >
             <button
               className='absolute top-2 right-2 text-white rounded-full py-1 px-3 hover:bg-red-600 focus:outline-none focus:ring focus:ring-red-300'
               onClick={closeModal}
