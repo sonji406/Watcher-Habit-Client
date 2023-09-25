@@ -20,12 +20,15 @@ const useWeeklySchedule = () => {
         const userId = getUserIdFromToken();
         const [startDate, endDate] = getStartAndEndOfWeek(currentWeekStart);
 
+        const startDateStr = `${startDate.getFullYear()}-${String(
+          startDate.getMonth() + 1,
+        ).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
+        const endDateStr = `${endDate.getFullYear()}-${String(
+          endDate.getMonth() + 1,
+        ).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`;
+
         const habitsResponse = await axios.get(
-          `${
-            process.env.REACT_APP_SERVER_DOMAIN
-          }/api/habit/periodic/${userId}?startDate=${
-            startDate.toISOString().split('T')[0]
-          }&endDate=${endDate.toISOString().split('T')[0]}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/periodic/${userId}?startDate=${startDateStr}&endDate=${endDateStr}`,
         );
 
         const habitsData = habitsResponse.data || [];
