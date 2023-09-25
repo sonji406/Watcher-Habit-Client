@@ -74,7 +74,7 @@ const RealTimeNotifications = () => {
     );
   };
 
-  const handleOnClick = async (notification) => {
+  const handleActionButtonClick = async (notification) => {
     try {
       if (notification.status === 'invite') {
         await handleInvite(notification);
@@ -85,11 +85,13 @@ const RealTimeNotifications = () => {
       if (NOTIFICATION_STATUSES.includes(notification.status)) {
         setIsModalOpen(true);
       }
-
-      removeMessage(notification._id);
     } catch (err) {
       setError(err.message);
     }
+  };
+
+  const handleCloseButtonClick = (notification) => {
+    removeMessage(notification._id);
   };
 
   return (
@@ -102,7 +104,8 @@ const RealTimeNotifications = () => {
         <NotificationMessage
           key={notification._id}
           notification={notification}
-          onButtonClick={() => handleOnClick(notification)}
+          onActionButtonClick={() => handleActionButtonClick(notification)}
+          onCloseButtonClick={() => handleCloseButtonClick(notification)}
         />
       ))}
     </div>
