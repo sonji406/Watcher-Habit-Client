@@ -71,7 +71,7 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
         >
           <p className='text-center text-xs text-dark-gray-txt'>
             <span>
-              {habitHistory.startTime} ~{habitHistory.endTime}
+              {habitHistory.startTime} ~ {habitHistory.endTime}
             </span>
           </p>
           <p className='text-center text-sm'>{habitHistory.habitTitle}</p>
