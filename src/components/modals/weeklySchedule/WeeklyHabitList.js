@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 import getStatusBorderColor from './utils/getStatusBorderColor';
 import HabitImageModal from './HabitImageModal';
+import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
