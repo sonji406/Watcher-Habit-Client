@@ -18,7 +18,7 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
       case 'approvalFailure':
         return 'border-red-500';
       default:
-        return 'border-main-bg';
+        return 'border-none';
     }
   };
 
@@ -52,7 +52,7 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
           </>
         );
       default:
-        return '';
+        return '종료된 습관';
     }
   };
 
