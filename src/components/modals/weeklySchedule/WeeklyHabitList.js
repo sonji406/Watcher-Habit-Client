@@ -22,6 +22,53 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
     }
   };
 
+  const getStatusEmoji = (status) => {
+    switch (status) {
+      case 'approvalSuccess':
+        return '🟢 ';
+      case 'expiredFailure':
+        return '❌ ';
+      case 'approvalFailure':
+        return '🔺 ';
+      default:
+        return '';
+    }
+  };
+
+  const getStatusMessage = (status) => {
+    switch (status) {
+      case 'approvalSuccess':
+        return (
+          <>
+            성공!
+            <span role='img' aria-label='축하 이모티콘' className='ml-2'>
+              🎉
+            </span>
+          </>
+        );
+      case 'expiredFailure':
+        return (
+          <>
+            기한 내에 인증 사진을 업로드하지 않았네요
+            <span role='img' aria-label='우는 이모티콘' className='ml-2'>
+              😢
+            </span>
+          </>
+        );
+      case 'approvalFailure':
+        return (
+          <>
+            최소 승인 인원을 넘지 못했어요
+            <span role='img' aria-label='아쉬운 이모티콘' className='ml-2'>
+              😔
+            </span>
+          </>
+        );
+      default:
+        return '';
+    }
+  };
+
   const relevantHabits = habits
     .reduce((acc, habit) => {
       const dayInKorean = DAYS_IN_KOREAN[date.getDay()];
@@ -51,14 +98,17 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHabitImage, setSelectedHabitImage] = useState(null);
+  const [selectedHabitStatus, setSelectedHabitStatus] = useState('');
 
-  const openModal = (habitImage) => {
+  const openModal = (habitImage, status) => {
     setSelectedHabitImage(habitImage);
+    setSelectedHabitStatus(status);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setSelectedHabitImage(null);
+    setSelectedHabitStatus('');
     setIsModalOpen(false);
   };
 
@@ -90,14 +140,19 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
           className={`mb-1 ${getStatusBackgroundColor(
             habitHistory.status,
           )} text-white p-2 m-1 rounded-lg break-words cursor-pointer transform transition-transform hover:scale-105 hover:bg-opacity-70`}
-          onClick={() => openModal(habitHistory.habitImage)}
+          onClick={() =>
+            openModal(habitHistory.habitImage, habitHistory.status)
+          }
         >
           <p className='text-center text-xs text-dark-gray-txt'>
             <span className='text-black'>
               {habitHistory.startTime} ~{habitHistory.endTime}
             </span>
           </p>
-          <p className='text-center text-sm'>{habitHistory.habitTitle}</p>
+          <p className='text-center text-sm'>
+            {getStatusEmoji(habitHistory.status)}
+            {habitHistory.habitTitle}
+          </p>
         </ul>
       ))}
 
@@ -117,6 +172,9 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
               <p className='text-xl text-center font-bold text-white mb-4'>
                 인증샷
               </p>
+              <div className='text-center text-lg mb-2'>
+                {getStatusMessage(selectedHabitStatus)}
+              </div>
               {selectedHabitImage ? (
                 <img
                   src={selectedHabitImage}
@@ -124,7 +182,9 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
                   className='w-full h-auto rounded-lg'
                 />
               ) : (
-                <p className='text-center text-gray-400'>인증샷이 없습니다</p>
+                <p className='text-center text-gray-400 m-20'>
+                  인증샷이 없습니다
+                </p>
               )}
             </div>
           </div>
