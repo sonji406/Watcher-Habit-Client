@@ -9,29 +9,16 @@ yesterday.setHours(0, 0, 0, 0);
 const WeeklyHabitList = ({ habits, historyHabits, date }) => {
   const isAfterYesterday = date > yesterday;
 
-  const getStatusBackgroundColor = (status) => {
+  const getStatusBorderColor = (status) => {
     switch (status) {
       case 'approvalSuccess':
-        return 'bg-green-500';
+        return 'border-green-500';
       case 'expiredFailure':
-        return 'bg-red-500';
+        return 'border-red-500';
       case 'approvalFailure':
-        return 'bg-orange-500';
+        return 'border-orange-500';
       default:
-        return 'bg-main-bg';
-    }
-  };
-
-  const getStatusEmoji = (status) => {
-    switch (status) {
-      case 'approvalSuccess':
-        return '🟢 ';
-      case 'expiredFailure':
-        return '❌ ';
-      case 'approvalFailure':
-        return '🔺 ';
-      default:
-        return '';
+        return 'border-main-bg';
     }
   };
 
@@ -137,22 +124,19 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
       {currentDateHistoryHabits.map((habitHistory) => (
         <ul
           key={habitHistory.habitTitle}
-          className={`mb-1 ${getStatusBackgroundColor(
+          className={`mb-1 text-white p-2 m-1 bg-main-bg rounded-lg break-words border-2 cursor-pointer transform transition-transform hover:scale-105 hover:bg-opacity-70 ${getStatusBorderColor(
             habitHistory.status,
-          )} text-white p-2 m-1 rounded-lg break-words cursor-pointer transform transition-transform hover:scale-105 hover:bg-opacity-70`}
+          )}`}
           onClick={() =>
             openModal(habitHistory.habitImage, habitHistory.status)
           }
         >
           <p className='text-center text-xs text-dark-gray-txt'>
-            <span className='text-black'>
+            <span>
               {habitHistory.startTime} ~{habitHistory.endTime}
             </span>
           </p>
-          <p className='text-center text-sm'>
-            {getStatusEmoji(habitHistory.status)}
-            {habitHistory.habitTitle}
-          </p>
+          <p className='text-center text-sm'>{habitHistory.habitTitle}</p>
         </ul>
       ))}
 
