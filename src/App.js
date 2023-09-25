@@ -5,7 +5,6 @@ import store from './redux/store';
 import Home from './pages/Home';
 import Group from './pages/Group';
 import MyHabit from './pages/MyHabit';
-import AwsS3Test from './pages/AwsS3Test';
 import Header from './components/common/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
@@ -48,13 +47,12 @@ function App() {
                     />
                     <Route path='/my-habit/:nickname' element={<MyHabit />} />
                     <Route path='/group/:groupId' element={<Group />} />
-                    <Route path='/aws-s3-test' element={<AwsS3Test />} />
+                    <Route path='/*' element={<NotFound />} />
                   </Routes>
                 </div>
               </div>
             }
           />
-          <Route path='/*' element={<NotFound />} />
         </Routes>
       </Router>
     </Provider>
