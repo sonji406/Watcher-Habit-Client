@@ -125,6 +125,7 @@ const TimeForm = ({
 
           <select
             className='p-2 border-2 border-gray-500 rounded bg-dark-blue-bg text-white shadow-lg'
+            value={String(duration % 60).padStart(2, '0')}
             onChange={handleDurationMinuteChange}
           >
             {minuteOptions.map((min) => (
