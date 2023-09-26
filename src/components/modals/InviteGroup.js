@@ -48,11 +48,13 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
       if (error.response.status === 400 && validationErrors) {
         setErrorMsg('이메일 형식이 잘못되었습니다.');
+      } else if (error.response.status === 404) {
+        setErrorMsg('존재하지 않는 사용자입니다.');
       } else {
-        setErrorMsg(error.message);
-        console.error(error);
+        setErrorMsg('알 수 없는 에러입니다.');
       }
     }
+
     setSearchClicked(true);
   };
 
@@ -74,6 +76,8 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
       if (error.response.status === 400 && validationErrors) {
         message = '유효하지 않은 아이디입니다.';
+      } else if (error.response.status === 404) {
+        message = '존재하지 않는 사용자입니다.';
       } else {
         message = error.response.data.error || message;
       }

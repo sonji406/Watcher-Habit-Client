@@ -48,9 +48,9 @@ const HabitVerification = ({ isModal = false }) => {
   const isPreVerification = ['inProgress', 'notTimeYet'].includes(status);
 
   return (
-    <div className='w-[560px] h-[330px] mx-auto bg-main-bg rounded-xl pt-2 pb-10'>
+    <div className='w-[560px] h-[310px] mx-auto bg-main-bg rounded-xl pt-2 pb-10'>
       <p className='font-semibold'>{statusMessage}</p>
-      <div className='flex mt-4 h-[280px]'>
+      <div className='flex mt-4 h-[270px]'>
         {isPreVerification ? (
           <PreVerificationIcon />
         ) : (
