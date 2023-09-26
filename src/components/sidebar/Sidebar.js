@@ -9,7 +9,7 @@ import userGetAPI from '../../services/api/userGet';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
 const Sidebar = () => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(true);
   const [nickname, setNickname] = useState('');
   const [groupList, setGroupList] = useState([]);
 
@@ -56,8 +56,8 @@ const Sidebar = () => {
       className={`h-screen fixed top-0 left-0 bg-[#2D3C4A] shadow-md duration-100 z-50 w-20 ${
         isHovered && 'w-72'
       }`}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      // onMouseEnter={handleMouseEnter}
+      // onMouseLeave={handleMouseLeave}
     >
       <HamburgerButton isHovered={isHovered} />
       <div

@@ -13,7 +13,7 @@ const MyHabitPageButton = ({ nickname, isHovered, isCurrentPage }) => {
         style={{ cursor: 'pointer' }}
       >
         <MyHabitIcon />
-        {isHovered && <span className='ml-2'>나의 습관 관리</span>}
+        {isHovered && <span className='ml-3'>나의 습관 관리</span>}
       </div>
     </Link>
   );

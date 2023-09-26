@@ -27,7 +27,7 @@ const WeeklyScheduleButton = ({ isHovered }) => {
         style={{ cursor: 'pointer' }}
       >
         <WeeklyHabitsListIcon />
-        {isHovered && <span className='ml-2'>나의 주간 습관</span>}
+        {isHovered && <span className='ml-3'>나의 주간 습관</span>}
       </div>
 
       {isModalOpen && <WeeklyScheduleModal onClose={handleCloseModal} />}

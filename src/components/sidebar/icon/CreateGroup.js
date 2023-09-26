@@ -1,7 +1,7 @@
 const CreateGroupIcon = ({ isHovered }) => {
   return (
     <svg
-      className={`text-center w-9 h-9 fill-current ml-1 mt-3 ${
+      className={`text-center w-10 h-10 fill-current pl-1 mt-3 ${
         !isHovered && 'ml-3'
       }`}
       viewBox='0 0 30 30'

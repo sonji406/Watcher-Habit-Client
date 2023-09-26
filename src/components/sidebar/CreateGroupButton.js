@@ -27,7 +27,7 @@ const CreateGroupButton = ({ isHovered }) => {
         style={{ cursor: 'pointer' }}
       >
         <CreateGroupIcon isHovered={isHovered} />
-        {isHovered && <span className='ml-2'>새로운 그룹 생성하기</span>}
+        {isHovered && <span>새로운 그룹 생성하기</span>}
       </div>
       {isModalOpen && <CreateGroupModal onClose={handleCloseModal} />}
     </>
