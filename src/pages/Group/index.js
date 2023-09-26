@@ -35,6 +35,7 @@ function Group() {
   };
 
   let title = groupInfo ? `그룹 ${groupInfo.group.groupName}의 페이지` : null;
+
   useDocumentTitle(title);
 
   useEffect(() => {
