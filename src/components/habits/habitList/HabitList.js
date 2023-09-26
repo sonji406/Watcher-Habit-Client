@@ -54,22 +54,38 @@ function HabitList({ dailyHabits }) {
 
       <div className='h-[70vh] overflow-hidden border-2 border-customGreen top-12 bg-dark-blue-bg rounded-3xl z-20 relative p-3'>
         <div className='h-full overflow-y-auto pt-4 custom-scrollbar'>
-          {sortedHabits?.map((habit) => {
-            return (
-              <HabitItem
-                key={habit._id}
-                habitInfo={habit}
-                isSelected={selectedHabitId === habit._id}
-                onSelect={() => setSelectedHabitId(habit._id)}
-              ></HabitItem>
-            );
-          })}
+          {sortedHabits && sortedHabits.length > 0 ? (
+            sortedHabits.map((habit) => {
+              return (
+                <HabitItem
+                  key={habit._id}
+                  habitInfo={habit}
+                  isSelected={selectedHabitId === habit._id}
+                  onSelect={() => setSelectedHabitId(habit._id)}
+                />
+              );
+            })
+          ) : (
+            <div
+              className={`flex flex-col items-center justify-center bg-main-bg text-white p-4 m-2 rounded-lg shadow-lg transform hover:scale-95 transition duration-200 ease-in-out`}
+            >
+              <div className='flex flex-col items-center'>
+                <div className='text-sm text-center text-dark-gray-txt my-2'>
+                  등록된 습관이 없습니다
+                </div>
+                {currentPage === 'my-habit' && <HabbitCreateButton />}
+              </div>
+            </div>
+          )}
         </div>
-        {currentPage === 'my-habit' && (
-          <div className='absolute bottom-14 right-1'>
-            <HabbitCreateButton></HabbitCreateButton>
-          </div>
-        )}
+
+        {currentPage === 'my-habit' &&
+          sortedHabits &&
+          sortedHabits.length > 0 && (
+            <div className='absolute bottom-4 right-4 z-20'>
+              <HabbitCreateButton />
+            </div>
+          )}
       </div>
     </article>
   );

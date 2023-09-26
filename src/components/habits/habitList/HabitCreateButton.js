@@ -10,7 +10,7 @@ const HabitCreateButton = () => {
 
   return (
     <button
-      className='flex justify-center items-center bg-green-bg text-white text-3xl rounded-full w-10 h-10 hover:bg-green-700 absolute bottom right-4 z-20'
+      className='flex justify-center items-center bg-green-bg text-white text-3xl rounded-full w-10 h-10 hover:bg-green-700'
       onClick={handleClick}
     >
       +
