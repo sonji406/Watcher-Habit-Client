@@ -3,9 +3,9 @@ import MyHabitIcon from './icon/MyHabit';
 
 const MyHabitPageButton = ({ nickname, isHovered, isCurrentPage }) => {
   return (
-    <Link to={`/my-habit/${nickname}`} className='mb-10'>
+    <Link to={`/my-habit/${nickname}`}>
       <div
-        className={`flex items-center text-customGray hover:text-customDarkGray hover:font-bold p-3 ${
+        className={`flex items-center text-customGray hover:text-customDarkGray hover:font-bold p-3 mb-10 ${
           isCurrentPage
             ? 'bg-dark-green-bg rounded-full text-customGreen hover:text-customGreen'
             : ''
