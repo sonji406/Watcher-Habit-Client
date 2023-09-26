@@ -76,7 +76,7 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
       ) : (
         <>
           <header className='text-center font-extrabold'>주간계획표</header>
-          <div className='flex justify-center space-x-3 my-2'>
+          <div className='flex justify-center space-x-3 my-4'>
             <button
               onClick={goToPreviousWeek}
               className='hover:text-green-txt transition duration-150 ease-in-out'
@@ -120,7 +120,7 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
           </section>
 
           <section className='flex mb-4'>
-            <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
+            <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[25vh] w-1/4 custom-scrollbar'>
               {uniqueHabitTitles.length > 0 ? (
                 uniqueHabitTitles.map((habitTitle) => (
                   <div
