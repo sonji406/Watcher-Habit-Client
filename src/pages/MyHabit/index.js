@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearHabitDetail } from '../../redux/habitSlice';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitList from '../../components/habits/habitList/HabitList';
@@ -12,6 +13,8 @@ import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice
 function MyHabit() {
   const dispatch = useDispatch();
   const { nickname } = useParams('nickname');
+
+  useDocumentTitle(`${nickname}님의 습관 관리 페이지`);
 
   const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(

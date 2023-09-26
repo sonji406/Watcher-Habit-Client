@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import { useHandleSubmit } from '../../hooks/useHandleSubmit';
@@ -24,6 +25,8 @@ const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
 
 const CreateOrEditHabit = ({ isEdit = false }) => {
+  const documentTitle = isEdit ? '습관 수정 페이지' : '습관 생성 페이지';
+  useDocumentTitle(documentTitle);
   const navigate = useNavigate();
   const today = new Date().toISOString().split('T')[0];
   const { habitId } = useParams();
@@ -116,6 +119,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       timePeriod,
     });
   };
+
   return (
     <div
       className='min-h-screen flex flex-col bg-main-bg custom-scrollbar pr-20 bg-vignette'

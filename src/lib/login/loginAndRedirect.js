@@ -1,12 +1,6 @@
 import axios from 'axios';
 
-const loginAndRedirect = async (
-  loginApi,
-  loginData,
-  nickname,
-  dispatch,
-  navigate,
-) => {
+const loginAndRedirect = async (loginData, nickname, navigate) => {
   try {
     const response = await axios.post(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`,
