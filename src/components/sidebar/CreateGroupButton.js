@@ -22,8 +22,8 @@ const CreateGroupButton = ({ isHovered }) => {
       <div
         onClick={handleButtonClick}
         className={`flex items-center text-customGray hover:text-customDarkGray hover:font-bold mb-14 p-3 ${
-          isHovered ? 'ml-2' : ''
-        }${isHovered ? 'w-[210px] ' : ''}`}
+          isHovered ? 'w-[210px]' : ''
+        }`}
         style={{ cursor: 'pointer' }}
       >
         <CreateGroupIcon />
