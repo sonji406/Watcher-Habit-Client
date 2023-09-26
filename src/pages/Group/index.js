@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import getGroup from '../../services/api/groupGet';
 import { clearHabitDetail } from '../../redux/habitSlice';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitList from '../../components/habits/habitList/HabitList';
@@ -32,6 +33,9 @@ function Group() {
       console.error('Error fetching group info', error);
     }
   };
+
+  let title = groupInfo ? `그룹 ${groupInfo.group.groupName}의 페이지` : null;
+  useDocumentTitle(title);
 
   useEffect(() => {
     fetchGroupInfo();

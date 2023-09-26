@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 function NotFound() {
   const navigate = useNavigate();
+
+  useDocumentTitle('404 - 페이지를 찾을 수 없습니다');
 
   const goToHome = () => {
     navigate('/');

@@ -1,7 +1,10 @@
 import { useNavigate } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 function ServerError() {
   const navigate = useNavigate();
+
+  useDocumentTitle('500 - 서버 오류');
 
   const goToHome = () => {
     navigate('/');
