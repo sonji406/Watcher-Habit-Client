@@ -11,7 +11,7 @@ function ServerError() {
   };
 
   const goBack = () => {
-    window.history.back();
+    navigate(-1);
   };
 
   return (
