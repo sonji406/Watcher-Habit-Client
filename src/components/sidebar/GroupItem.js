@@ -5,9 +5,9 @@ const Group = ({ groupId, pathGroupId, groupName }) => {
     <Link to={`/group/${groupId}`}>
       <div className={`py-3`}>
         <li
-          className={`hover:font-bold hover:text-customDarkGray py-2 w-36 text-center ${
+          className={`w-50 mx-2 px-3 text-left truncate hover:font-bold hover:text-customDarkGray ${
             pathGroupId === groupId
-              ? 'bg-dark-green-bg rounded-full text-customGreen font-bold'
+              ? 'py-1 bg-dark-green-bg rounded-full text-customGreen font-bold'
               : ''
           }`}
         >

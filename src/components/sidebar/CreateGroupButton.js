@@ -21,13 +21,13 @@ const CreateGroupButton = ({ isHovered }) => {
     <>
       <div
         onClick={handleButtonClick}
-        className={`flex items-center text-customGray hover:text-customDarkGray hover:font-bold mb-14 p-3 ${
+        className={`flex items-center text-customGray hover:text-customDarkGray hover:font-bold mb-10 p-3 ${
           isHovered ? 'w-[210px]' : ''
         }`}
         style={{ cursor: 'pointer' }}
       >
-        <CreateGroupIcon />
-        {isHovered && <span className='ml-2'>새로운 그룹 생성하기</span>}
+        <CreateGroupIcon isHovered={isHovered} />
+        {isHovered && <span>새로운 그룹 생성하기</span>}
       </div>
       {isModalOpen && <CreateGroupModal onClose={handleCloseModal} />}
     </>

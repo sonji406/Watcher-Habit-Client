@@ -103,7 +103,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
             required
           />
           <button
-            className='w-16 h-12 bg-green-bg text-white text-center rounded-lg mt-4 ml-4 font-extrabold'
+            className='w-16 h-12 bg-green-bg text-white text-center rounded-lg mt-4 ml-4 font-extrabold hover:bg-green-800'
             onClick={onClickGetUserByEmail}
           >
             검색
@@ -124,14 +124,15 @@ const InviteGroupModal = ({ groupId, onClose }) => {
         <div className='flex justify-center mt-4'>
           <button
             onClick={onClickInvite}
-            className='bg-green-bg text-white rounded-xl p-2 w-40 mx-7 font-extrabold'
+            className='bg-green-bg text-white rounded-xl p-2 w-40 mx-7 font-extrabold hover:bg-green-800'
             disabled={!searchClicked || errorMsg}
+            style={{ cursor: 'pointer' }}
           >
             초대
           </button>
           <button
             onClick={onClose}
-            className='bg-dark-blue-bg text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold'
+            className='bg-dark-blue-bg text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold hover:bg-red-800 hover:text-white hover:border-red-700'
           >
             취소
           </button>

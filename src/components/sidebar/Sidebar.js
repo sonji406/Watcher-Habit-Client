@@ -53,8 +53,8 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-screen sticky top-0 bg-[#2D3C4A] shadow-md duration-100 z-40 w-20 ${
-        isHovered && 'w-64'
+      className={`h-screen fixed top-0 left-0 bg-[#2D3C4A] shadow-md duration-100 z-50 w-20 ${
+        isHovered && 'w-72'
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -62,7 +62,7 @@ const Sidebar = () => {
       <HamburgerButton isHovered={isHovered} />
       <div
         className={`flex flex-col ${
-          isHovered ? 'items-start w-64 pl-6' : 'items-center'
+          isHovered ? 'items-start w-72 pl-6' : 'items-center'
         } transition-all`}
       >
         <WeeklyScheduleButton isHovered={isHovered} />

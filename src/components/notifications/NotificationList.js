@@ -3,6 +3,7 @@ import NotificationItem from './NotificationItem';
 import { useNavigate } from 'react-router-dom';
 import logoutAPI from '../../services/api/logout';
 import VerifyHabitModal from '../modals/VerifyHabit';
+import LogoutIcon from './icon/Logout';
 
 const bellIcon = `${process.env.PUBLIC_URL}/images/notification/bell.png`;
 
@@ -60,9 +61,10 @@ const NotificationList = ({ notifications }) => {
 
       {isModalOpen && <VerifyHabitModal onClose={onClose} />}
 
-      <div className='flex-shrink-0'>
+      <div className='py-1 text-red-500 hover:text-red-600 flex items-center justify-center'>
+        <LogoutIcon />
         <button
-          className='w-full text-center py-2 text-sm text-red-400'
+          className='ml-1 text-center py-2 text-sm font-semibold'
           onClick={handleLogout}
         >
           로그아웃

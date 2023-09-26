@@ -47,7 +47,7 @@ function Group() {
 
   return (
     <section className='min-h-screen flex flex-col bg-main-bg text-white'>
-      <div className='text-center pt-20 mr-20'>
+      <div className='text-center pt-20'>
         <div className='inline-block'>
           <h1 className='text-2xl'>{groupInfo.group.groupName}</h1>
           <div className='w-full h-[2px] bg-white mt-2'></div>

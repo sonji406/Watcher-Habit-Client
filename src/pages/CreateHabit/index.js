@@ -122,7 +122,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
   return (
     <div
-      className='min-h-screen flex flex-col bg-main-bg custom-scrollbar pr-20 bg-vignette'
+      className='min-h-screen flex flex-col bg-main-bg custom-scrollbar bg-vignette'
       style={{ fontFamily: 'NotoSansKR' }}
     >
       <div className='container mx-auto flex justify-center items-center h-full'>
@@ -133,7 +133,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             </h1>
             <div className='relative'>
               <div
-                className='items-center w-[70vw] h-[75vh] max-w-3xl p-10 m-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
+                className='items-center w-[70vw] h-[74vh] max-w-3xl p-10 my-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
                 style={{ maxHeight: 'calc(100vh - 2rem)' }}
               >
                 <form onSubmit={handleFormSubmit}>
