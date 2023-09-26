@@ -9,6 +9,7 @@ import AwsS3Test from './pages/AwsS3Test';
 import Header from './components/common/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
+import Loading from './lib/loading/Loading';
 
 const CreateOrEditHabit = lazy(() => import('./pages/CreateHabit'));
 
@@ -30,7 +31,7 @@ function App() {
                     <Route
                       path='/my-habit/:nickname/new-habit'
                       element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loading />}>
                           <CreateOrEditHabit isEdit={false} />
                         </Suspense>
                       }
@@ -38,7 +39,7 @@ function App() {
                     <Route
                       path='/edit-habit/:habitId'
                       element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loading />}>
                           <CreateOrEditHabit isEdit={true} />
                         </Suspense>
                       }

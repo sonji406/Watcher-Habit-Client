@@ -16,7 +16,7 @@ const Tabs = ({ handleViewDetail, handleViewVerfication, currentTab }) => {
           transform:
             currentTab === 'detail' ? 'translateY(-10px)' : 'translateY(0)',
         }}
-        className='bg-green-bg text-center rounded-t-2xl cursor-pointer'
+        className='bg-green-bg text-center rounded-t-2xl cursor-pointer hover:bg-green-700 hover:text-gray-400 transition-transform ease-in-out'
         onClick={handleViewDetail}
       >
         <p className='text-2xl' style={{ transform: 'translateY(10px)' }}>
@@ -31,7 +31,7 @@ const Tabs = ({ handleViewDetail, handleViewVerfication, currentTab }) => {
               ? 'translateY(-10px)'
               : 'translateY(0)',
         }}
-        className='bg-black text-center rounded-t-2xl cursor-pointer'
+        className='bg-black text-center rounded-t-2xl cursor-pointer hover:bg-zinc-900 hover:text-gray-400 transition-transform ease-in-out'
         onClick={handleViewVerfication}
       >
         <p className='text-2xl' style={{ transform: 'translateY(10px)' }}>
