@@ -67,13 +67,7 @@ const CreateNickname = () => {
 
       await userPostAPI(userData);
 
-      await loginAndRedirect(
-        loginAPI,
-        responsePayload,
-        nickname,
-        dispatch,
-        navigate,
-      );
+      await loginAndRedirect(responsePayload.email, nickname, navigate);
     } catch (error) {
       setError(error.message);
     }
