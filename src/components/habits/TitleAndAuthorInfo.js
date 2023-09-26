@@ -1,6 +1,6 @@
 const TitleAndAuthorInfo = ({ title, groupName, creator }) => {
   return (
-    <div className='h-[100px] mt-10 overflow-hidden'>
+    <div className='h-[100px] mt-10 mb-5 overflow-hidden'>
       <h1 className='text-3xl text-center font-bold flex-1 mt-4'>{title}</h1>
       <div className='mb-4 mr-8 font-bold text-right'>
         <p>{groupName ? groupName : '비공개'}</p>
