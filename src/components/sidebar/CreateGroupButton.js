@@ -15,7 +15,7 @@ const CreateGroupButton = ({ isHovered }) => {
 
   return (
     <div
-      className='flex items-center text-customGray hover:text-customDarkGray hover:font-bold mb-14 p-3 duration-500 ease-in-out '
+      className='flex items-center text-customGray hover:text-customDarkGray hover:font-bold mb-10 p-3 duration-500 ease-in-out '
       style={{ cursor: 'pointer' }}
     >
       <CreateGroupIcon />
