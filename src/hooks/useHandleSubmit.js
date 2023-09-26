@@ -30,7 +30,7 @@ export const useHandleSubmit = (
 
     setTimeout(() => {
       navigate(`/my-habit/${nickname}`);
-    }, 3000);
+    }, 2000);
   };
 
   const handleSubmit = async (formData) => {

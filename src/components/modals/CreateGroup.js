@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
@@ -8,7 +9,14 @@ const CreateGroupModal = ({ onClose }) => {
   const [groupName, setGroupName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  useClickOutside(modalContentRef, onClose);
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    document.body.style.overflow = '';
+    onClose();
+  };
+
+  useClickOutside(modalContentRef, handleClose);
 
   const onChangeHandler = (e) => {
     setGroupName(e.target.value);
@@ -28,7 +36,8 @@ const CreateGroupModal = ({ onClose }) => {
 
       const newGroupId = response.data.newGroup._id;
 
-      window.location.href = `/group/${newGroupId}`;
+      onClose();
+      navigate(`/group/${newGroupId}`);
     } catch (error) {
       let message = '알 수 없는 오류입니다.';
 
@@ -68,13 +77,13 @@ const CreateGroupModal = ({ onClose }) => {
         <div className='flex justify-center mt-4'>
           <button
             onClick={onClickHandler}
-            className='bg-green-bg text-white rounded-xl p-2 w-40 mx-7 font-extrabold'
+            className='bg-green-500 text-white rounded-xl p-2 w-40 mx-7 font-extrabold hover:bg-green-600'
           >
             생성
           </button>
           <button
-            onClick={onClose}
-            className='bg-dark-blue-bg text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold'
+            onClick={handleClose}
+            className='bg-dark-blue text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold hover:border-red-500'
           >
             취소
           </button>

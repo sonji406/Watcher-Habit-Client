@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import WatcherActions from './WatcherActions';
 import HabitDuration from './HabitDuration';
 import HabitTime from './HabitTime';
@@ -10,6 +10,9 @@ import isLoginUser from '../../../lib/isLoginUser';
 import axios from 'axios';
 
 const HabitDetail = ({ isModal = false }) => {
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const selectConditon = isModal
     ? (state) => state.notificationHabit.notificationHabitDetail
     : (state) => state.habit.habitDetail;
@@ -21,6 +24,7 @@ const HabitDetail = ({ isModal = false }) => {
 
   const handleDelete = async () => {
     try {
+      setIsDeleting(true);
       await axios.delete(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
       );
@@ -28,7 +32,21 @@ const HabitDetail = ({ isModal = false }) => {
       window.location.reload();
     } catch (error) {
       console.error('Habit deletion failed:', error);
+      setIsDeleting(false);
     }
+  };
+
+  const handleDeleteConfirmation = () => {
+    setConfirmDelete(true);
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmDelete(false);
+  };
+
+  const handleConfirmDelete = async () => {
+    setConfirmDelete(false);
+    handleDelete();
   };
 
   return (
@@ -52,27 +70,54 @@ const HabitDetail = ({ isModal = false }) => {
       <WatcherActions habitDetail={habitDetail} isModal={isModal} />
 
       {location.pathname.startsWith('/my-habit') && isCurrentUser && (
-        <div className='flex flex-wrap justify-center mt-6 space-x-4'>
-          {habitDetail.status === 'notTimeYet' && (
-            <div className='mb-4'>
-              <Link
-                to={{
-                  pathname: `/edit-Habit/${habitDetail._id}`,
-                }}
-                className='bg-green-bg w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-green-800 border-2'
-              >
-                수정
-              </Link>
-            </div>
-          )}
+        <div className='flex flex-wrap mt-6 w-full justify-center mb-2'>
+          <div className='flex space-x-4'>
+            {habitDetail.status === 'notTimeYet' && (
+              <div>
+                <Link
+                  to={{
+                    pathname: `/edit-Habit/${habitDetail._id}`,
+                  }}
+                  className='bg-green-bg w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-green-800 border-2'
+                >
+                  수정
+                </Link>
+              </div>
+            )}
 
-          <div className='mb-4'>
-            <button
-              onClick={handleDelete}
-              className='bg-transparent w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-red-500 border-2'
-            >
-              삭제
-            </button>
+            {confirmDelete ? (
+              <div className='flex space-x-4'>
+                <p className='text-center ml-2 mt-1'>
+                  이 습관을 삭제하시겠습니까?
+                </p>
+                <button
+                  onClick={handleConfirmDelete}
+                  className='bg-transparent w-10 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-red-500 border-2'
+                >
+                  네
+                </button>
+                <button
+                  onClick={handleCancelDelete}
+                  className='bg-transparent w-20 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all hover:bg-green-bg border-2'
+                >
+                  아니오
+                </button>
+              </div>
+            ) : (
+              <div>
+                <button
+                  onClick={handleDeleteConfirmation}
+                  className={`w-32 h-8 rounded-xl flex items-center justify-center text-center text-white transition-all ${
+                    isDeleting
+                      ? 'bg-red-500'
+                      : 'bg-transparent hover:bg-red-500'
+                  } border-2`}
+                  disabled={isDeleting}
+                >
+                  {isDeleting ? '삭제 중...' : '삭제'}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
