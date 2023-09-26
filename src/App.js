@@ -8,6 +8,7 @@ import MyHabit from './pages/MyHabit';
 import Header from './components/common/Header';
 import Sidebar from './components/sidebar/Sidebar';
 import CreateNickname from './pages/CreateNickname';
+import Loading from './lib/loading/Loading';
 import NotFound from './pages/NotFound';
 import ServerError from './pages/ServerError';
 
@@ -32,7 +33,7 @@ function App() {
                     <Route
                       path='/my-habit/:nickname/new-habit'
                       element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loading />}>
                           <CreateOrEditHabit isEdit={false} />
                         </Suspense>
                       }
@@ -40,7 +41,7 @@ function App() {
                     <Route
                       path='/edit-habit/:habitId'
                       element={
-                        <Suspense fallback={<div>Loading...</div>}>
+                        <Suspense fallback={<Loading />}>
                           <CreateOrEditHabit isEdit={true} />
                         </Suspense>
                       }

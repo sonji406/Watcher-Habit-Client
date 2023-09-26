@@ -7,6 +7,7 @@ import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getCurrentDate from '../../utils/getCurrentDate';
 import HabitList from '../../components/habits/habitList/HabitList';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
+import Loading from '../../lib/loading/Loading';
 import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
 
 function Group() {
@@ -36,7 +37,7 @@ function Group() {
     fetchGroupInfo();
   }, [groupId, dispatch]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
