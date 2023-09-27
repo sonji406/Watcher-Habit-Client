@@ -3,6 +3,7 @@ import WeeklyHabitList from './WeeklyHabitList';
 import DoubleCircleIcon from './icon/DoubleCircle';
 import SquareArrowLeftIcon from './icon/SquareArrowLeft';
 import SquareArrowRightIcon from './icon/SquareArrowRight';
+import formatDate from './utils/formatDate';
 import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 import getDatesOfPeriod from '../../../utils/dateUtils';
 import getStartAndEndOfWeek from '../../../utils/getStartAndEndOfWeek';
@@ -45,14 +46,12 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
         ),
       );
 
-      const habitStartDate = new Date(habit.habitStartDate);
-      const habitEndDate = new Date(habit.habitEndDate);
+      const currentDate = formatDate(date);
+      const habitStartDateStr = formatDate(new Date(habit.habitStartDate));
+      const habitEndDateStr = formatDate(new Date(habit.habitEndDate));
 
       const isWithinDateRange =
-        date.getFullYear() === habitStartDate.getFullYear() &&
-        date.getMonth() === habitStartDate.getMonth() &&
-        date.getDate() >= habitStartDate.getDate() &&
-        date.getDate() <= habitEndDate.getDate();
+        currentDate >= habitStartDateStr && currentDate <= habitEndDateStr;
 
       return isRelevantDay && isWithinDateRange;
     });
