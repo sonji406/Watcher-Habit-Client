@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import getGroup from '../../services/api/groupGet';
 import { clearHabitDetail } from '../../redux/habitSlice';
@@ -14,6 +14,8 @@ import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice
 function Group() {
   const dispatch = useDispatch();
   const { groupId } = useParams('groupId');
+  const navigate = useNavigate();
+
   const currentDate = getCurrentDate();
   const [groupInfo, setGroupInfo] = useState(null);
 
@@ -27,6 +29,11 @@ function Group() {
       dispatch(clearNotificationHabitDetail());
 
       const data = await getGroup(groupId);
+
+      if (!data.isMember) {
+        navigate('/');
+        return;
+      }
 
       setGroupInfo(data);
     } catch (error) {
