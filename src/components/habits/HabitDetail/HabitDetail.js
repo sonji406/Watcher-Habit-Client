@@ -5,13 +5,15 @@ import HabitTime from './HabitTime';
 import HabitDaysOfWeek from './HabitDaysOfWeek';
 import HabitSection from './HabitSection';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import isLoginUser from '../../../lib/isLoginUser';
 import axios from 'axios';
 
 const HabitDetail = ({ isModal = false }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const navigate = useNavigate();
 
   const selectConditon = isModal
     ? (state) => state.notificationHabit.notificationHabitDetail
@@ -29,7 +31,7 @@ const HabitDetail = ({ isModal = false }) => {
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
       );
 
-      window.location.reload();
+      navigate(0);
     } catch (error) {
       console.error('Habit deletion failed:', error);
       setIsDeleting(false);
