@@ -9,8 +9,6 @@ export const getGroup = async (groupId) => {
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}?userId=${userId}`,
     );
 
-    console.log('response.data', response.data);
-
     return response.data;
   } catch (error) {
     throw error;
