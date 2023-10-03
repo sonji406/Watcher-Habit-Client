@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
@@ -8,7 +9,14 @@ const CreateGroupModal = ({ onClose }) => {
   const [groupName, setGroupName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  useClickOutside(modalContentRef, onClose);
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    document.body.style.overflow = '';
+    onClose();
+  };
+
+  useClickOutside(modalContentRef, handleClose);
 
   const onChangeHandler = (e) => {
     setGroupName(e.target.value);
@@ -21,14 +29,15 @@ const CreateGroupModal = ({ onClose }) => {
         creatorId: getUserIdFromToken(),
       };
 
-      await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/group`,
         requestBody,
       );
 
-      setErrorMsg('');
+      const newGroupId = response.data.newGroup._id;
+
       onClose();
-      window.location.reload();
+      navigate(`/group/${newGroupId}`);
     } catch (error) {
       let message = '알 수 없는 오류입니다.';
 
@@ -46,7 +55,7 @@ const CreateGroupModal = ({ onClose }) => {
   };
 
   return (
-    <div className='fixed inset-0 w-full flex items-center justify-center z-10 bg-black bg-opacity-50'>
+    <div className='fixed inset-0 w-full flex items-center justify-center z-30 bg-black bg-opacity-50'>
       <div
         className='bg-dark-blue-bg border border-customGreen rounded p-5 w-8000 text-white rounded-xl'
         ref={modalContentRef}
@@ -68,13 +77,13 @@ const CreateGroupModal = ({ onClose }) => {
         <div className='flex justify-center mt-4'>
           <button
             onClick={onClickHandler}
-            className='bg-green-bg text-white rounded-xl p-2 w-40 mx-7 font-extrabold'
+            className='bg-green-500 text-white rounded-xl p-2 w-40 mx-7 font-extrabold hover:bg-green-600'
           >
             생성
           </button>
           <button
-            onClick={onClose}
-            className='bg-dark-blue-bg text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold'
+            onClick={handleClose}
+            className='bg-dark-blue text-green-txt border border-customGreen rounded-xl p-2 w-40 mx-7 font-extrabold hover:border-red-500'
           >
             취소
           </button>

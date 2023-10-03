@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import NicknameInput from './NicknameInput';
 import ErrorMessage from './ErrorMessage';
 import CreateNicknameButton from './CreateNicknameButton';
@@ -9,6 +10,8 @@ import userPostAPI from '../../services/api/userPost';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
 const CreateNickname = () => {
+  useDocumentTitle('닉네임 생성 페이지');
+
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();

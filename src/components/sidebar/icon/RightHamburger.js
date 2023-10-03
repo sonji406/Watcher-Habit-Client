@@ -1,7 +1,7 @@
 const RightHamburgerIcon = () => {
   return (
     <svg
-      className='w-9 h-9 text-customGray stroke-current mt-4 mb-16 hover:text-customDarkGray'
+      className='w-9 h-9 text-customGray stroke-current mt-4 hover:text-customDarkGray'
       viewBox='0 0 45 45'
       fill='none'
       style={{ cursor: 'pointer' }}

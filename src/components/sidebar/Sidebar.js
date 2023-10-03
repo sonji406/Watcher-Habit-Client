@@ -4,6 +4,7 @@ import HamburgerButton from './HamburgerButton';
 import MyHabitPageButton from './MyHabitPageButton';
 import CreateGroupButton from './CreateGroupButton';
 import JoinedGroupsButton from './JoinedGroupsButton';
+import WeeklyScheduleButton from './WeeklyScheduleButton';
 import userGetAPI from '../../services/api/userGet';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import cookieAPI from '../../services/api/cookie';
@@ -62,8 +63,8 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`h-screen sticky top-0 bg-[#2D3C4A] shadow-md duration-100 z-20 w-20 ${
-        isHovered && 'w-64'
+      className={`h-screen fixed top-0 left-0 bg-[#2D3C4A] shadow-md duration-100 z-50 w-20 ${
+        isHovered && 'w-72'
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -73,9 +74,10 @@ const Sidebar = () => {
       <button onClick={getTest}>GET API</button>
       <div
         className={`flex flex-col ${
-          isHovered ? 'items-start w-64 pl-6' : 'items-center'
+          isHovered ? 'items-start w-72 pl-6' : 'items-center'
         } transition-all`}
       >
+        <WeeklyScheduleButton isHovered={isHovered} />
         <MyHabitPageButton
           nickname={nickname}
           isHovered={isHovered}

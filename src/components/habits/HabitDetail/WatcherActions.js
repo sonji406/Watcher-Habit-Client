@@ -12,8 +12,13 @@ import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 import ErrorMessage from './ErrorMessage';
 import WatcherList from './WatcherList';
 import WatcherButton from './WatcherButton';
+import {
+  unSubscribeNotificationWatcherList,
+  updateNotificationWatcherList,
+} from '../../../redux/notificationHabitSlice';
+import WatcherIcon from './icon/Watcher';
 
-const WatcherActions = ({ habitDetail }) => {
+const WatcherActions = ({ habitDetail, isModal = false }) => {
   const dispatch = useDispatch();
   const [subscriptionError, setSubscriptionError] = useState(null);
   const currentUserId = getUserIdFromToken();
@@ -52,7 +57,11 @@ const WatcherActions = ({ habitDetail }) => {
       const watcherId = getUserIdFromToken();
       const response = await subscribeWatcher(habitId, watcherId);
 
-      dispatch(updateWatcherList(response));
+      dispatch(
+        isModal
+          ? updateNotificationWatcherList(response)
+          : updateWatcherList(response),
+      );
     } catch (error) {
       setSubscriptionError('구독할 수 없습니다.');
     }
@@ -65,7 +74,11 @@ const WatcherActions = ({ habitDetail }) => {
       const watcherId = getUserIdFromToken();
       const response = await unsubscribeWatcher(habitId, watcherId);
 
-      dispatch(unSubscribeWatcherList(response));
+      dispatch(
+        isModal
+          ? unSubscribeNotificationWatcherList(response)
+          : unSubscribeWatcherList(response),
+      );
     } catch (error) {
       setSubscriptionError('구독을 해제할 수 없습니다.');
     }
@@ -73,7 +86,10 @@ const WatcherActions = ({ habitDetail }) => {
 
   return (
     <div className='bg-main-bg p-4 rounded-lg text-left'>
-      <span className='font-bold'>Watchers</span>
+      <div className='flex'>
+        <span className='font-bold mr-1'>Watchers</span>
+        <WatcherIcon />
+      </div>
       {isGroupShared ? (
         <div>
           {hasNoWatchers && isCurrentUserCreator ? (
@@ -112,7 +128,7 @@ const WatcherActions = ({ habitDetail }) => {
       )}
       {!shouldRenderButtons && isGroupShared && (
         <p className='text-center mb-4 text-dark-gray-txt'>
-          인증 페이지를 확인하세요
+          인증/승인 탭을 확인하세요
         </p>
       )}
       {subscriptionError && <ErrorMessage message={subscriptionError} />}

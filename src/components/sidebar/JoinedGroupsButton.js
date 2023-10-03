@@ -25,17 +25,14 @@ const JoinedGroupsButton = ({ isHovered, isCurrentPage, groupList }) => {
         >
           <div className='flex items-center'>
             <JoinGroupIcon />
-            {isHovered && <span className='ml-2'>가입된 그룹</span>}
+            {isHovered && <span className='ml-3'>가입된 그룹</span>}
           </div>
-          <div className={`${isHovered ? 'ml-10' : ''}`}>
+          <div className={`${isHovered ? 'ml-20' : ''}`}>
             {isHovered && (showGroupList ? <ArrowDownIcon /> : <ArrowUpIcon />)}
           </div>
         </div>
       </div>
-      <div
-        className={`flex w-full items-center text-customGray`}
-        style={{ cursor: 'pointer' }}
-      >
+      <div className={`flex w-full items-center text-customGray`}>
         {showGroupList && isHovered && <GroupList groupList={groupList} />}
       </div>
     </>

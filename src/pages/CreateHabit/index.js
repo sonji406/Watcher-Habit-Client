@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useValidation } from '../../hooks/useValidationForm';
 import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 import { useHandleSubmit } from '../../hooks/useHandleSubmit';
@@ -24,6 +25,8 @@ const token = localStorage.getItem('accessToken');
 const userId = getUserIdFromToken(token);
 
 const CreateOrEditHabit = ({ isEdit = false }) => {
+  const documentTitle = isEdit ? '습관 수정 페이지' : '습관 생성 페이지';
+  useDocumentTitle(documentTitle);
   const navigate = useNavigate();
   const today = new Date().toISOString().split('T')[0];
   const { habitId } = useParams();
@@ -119,76 +122,87 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
 
   return (
     <div
-      className='min-h-screen flex flex-col text-black bg-main-bg custom-scrollbar overflow-y-auto bg-vignette'
+      className='min-h-screen flex flex-col bg-main-bg custom-scrollbar bg-vignette'
       style={{ fontFamily: 'NotoSansKR' }}
     >
-      <div className='container mx-auto flex justify-center items-start h-full overflow-y-auto m-20'>
-        <div className='w-full max-w-3xl p-8 m-4 bg-white rounded shadow-md overflow-y-auto'>
-          <h1 className='block w-full text-center text-grey-darkest mb-6 text-2xl font-semibold'>
-            {isEdit ? '습관 수정하기' : '습관 생성하기'}
-          </h1>
+      <div className='container mx-auto flex justify-center items-center h-full'>
+        <div className='flex justify-center items-center'>
+          <div className='flex flex-col w-full max-w-3xl mt-16'>
+            <h1 className='self-center block text-center text-white text-2xl font-semibold'>
+              {isEdit ? '습관 수정하기' : '습관 생성하기'}
+            </h1>
+            <div className='relative'>
+              <div
+                className='items-center w-[70vw] h-[74vh] max-w-3xl p-10 my-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
+                style={{ maxHeight: 'calc(100vh - 2rem)' }}
+              >
+                <form onSubmit={handleFormSubmit}>
+                  <HabitInfoForm
+                    habitTitle={habitTitle}
+                    setHabitTitle={setHabitTitle}
+                    habitContent={habitContent}
+                    setHabitContent={setHabitContent}
+                  />
 
-          <form onSubmit={handleFormSubmit}>
-            <HabitInfoForm
-              habitTitle={habitTitle}
-              setHabitTitle={setHabitTitle}
-              habitContent={habitContent}
-              setHabitContent={setHabitContent}
-            />
+                  <DateForm
+                    habitStartDate={habitStartDate}
+                    setHabitStartDate={setHabitStartDate}
+                    habitEndDate={habitEndDate}
+                    setHabitEndDate={setHabitEndDate}
+                  />
 
-            <DateForm
-              habitStartDate={habitStartDate}
-              setHabitStartDate={setHabitStartDate}
-              habitEndDate={habitEndDate}
-              setHabitEndDate={setHabitEndDate}
-            />
+                  <RepeatForm doDay={doDay} setDoDay={setDoDay} />
 
-            <RepeatForm doDay={doDay} setDoDay={setDoDay} />
+                  <TimeForm
+                    startTime={startTime}
+                    setStartTime={setStartTime}
+                    timePeriod={timePeriod}
+                    setTimePeriod={setTimePeriod}
+                    duration={duration}
+                    setDuration={setDuration}
+                  />
 
-            <TimeForm
-              startTime={startTime}
-              setStartTime={setStartTime}
-              timePeriod={timePeriod}
-              setTimePeriod={setTimePeriod}
-              duration={duration}
-              setDuration={setDuration}
-            />
+                  <GroupForm
+                    sharedGroup={sharedGroup}
+                    setSharedGroup={setSharedGroup}
+                    groupOptions={groupList}
+                    isEdit={isEdit}
+                  />
 
-            <GroupForm
-              sharedGroup={sharedGroup}
-              setSharedGroup={setSharedGroup}
-              groupOptions={groupList}
-              isEdit={isEdit}
-            />
+                  <PenaltyForm penalty={penalty} setPenalty={setPenalty} />
 
-            <PenaltyForm penalty={penalty} setPenalty={setPenalty} />
+                  <MinApprovalForm
+                    minApprovalCount={minApprovalCount}
+                    setMinApprovalCount={setMinApprovalCount}
+                    sharedGroup={sharedGroup}
+                  />
+                  <div className='flex justify-end mr-10'>
+                    <div className='absolute bottom-[-40] right-10'>
+                      <div className='flex space-x-4'>
+                        <ValidationForm validationMessage={validationMessage} />
+                        <span
+                          className={`message ${
+                            messageType === 'success'
+                              ? 'text-green-500'
+                              : 'text-red-500'
+                          } text-right mt-4 `}
+                        >
+                          {message}
+                        </span>
 
-            <MinApprovalForm
-              minApprovalCount={minApprovalCount}
-              setMinApprovalCount={setMinApprovalCount}
-              sharedGroup={sharedGroup}
-            />
-
-            <ValidationForm validationMessage={validationMessage} />
-
-            <div
-              className={`message text-${
-                messageType === 'success' ? 'green-500' : 'red-500'
-              }`}
-            >
-              {message}
+                        <SubmitButton
+                          isEdit={isEdit}
+                          isLoading={isSubmitting}
+                          handleSubmit={handleSubmit}
+                        />
+                        <CancelButton />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-
-            <div className='flex justify-between mt-6'>
-              <SubmitButton
-                isEdit={isEdit}
-                isLoading={isSubmitting}
-                handleSubmit={handleSubmit}
-              />
-
-              <CancelButton />
-            </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
