@@ -1,7 +1,7 @@
 import axios from 'axios';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
-export const getGroup = async (groupId) => {
+export const groupGet = async (groupId) => {
   const userId = getUserIdFromToken();
 
   try {
@@ -15,4 +15,4 @@ export const getGroup = async (groupId) => {
   }
 };
 
-export default getGroup;
+export default groupGet;

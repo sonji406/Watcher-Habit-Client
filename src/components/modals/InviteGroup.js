@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import getGroup from '../../services/api/groupGet';
+import groupGet from '../../services/api/groupGet';
 
 const InviteGroupModal = ({ groupId, onClose }) => {
   const modalContentRef = useRef();
@@ -18,7 +18,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = getGroup(groupId);
+        const response = groupGet(groupId);
 
         setGroupName(response.data.groupName);
       } catch (error) {
