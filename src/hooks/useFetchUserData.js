@@ -11,13 +11,13 @@ export const useFetchUserData = (userId) => {
     }));
   };
 
-  const { data: groupList, refetch } = useQuery(
-    ['userData', userId],
-    fetchUserData,
-    {
-      enabled: !!userId,
-    },
-  );
+  const {
+    data: groupList,
+    refetch,
+    isLoading,
+  } = useQuery(['userData', userId], fetchUserData, {
+    enabled: !!userId,
+  });
 
-  return { groupList, refetch };
+  return { groupList, refetch, isLoading };
 };

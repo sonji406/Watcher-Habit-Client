@@ -8,6 +8,7 @@ import { useHandleSubmit } from '../../hooks/useHandleSubmit';
 import { useFetchHabitData } from '../../hooks/useFetchHabitData';
 import { useFetchUserData } from '../../hooks/useFetchUserData';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import Loading from '../../lib/loading/Loading';
 
 import HabitInfoForm from './forms/HabitInfoForm';
 import DateForm from './forms/DateForm';
@@ -45,7 +46,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [groupList, setGroupList] = useState([]);
   const nickname = useFetchUserInfo(userId);
   const habitData = useFetchHabitData(habitId, isEdit);
-  const fetchedGroupList = useFetchUserData(userId);
+  const { groupList: fetchedGroupList, isLoading } = useFetchUserData(userId);
 
   useEffect(() => {
     if (habitData) {
@@ -119,6 +120,10 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
       timePeriod,
     });
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div
