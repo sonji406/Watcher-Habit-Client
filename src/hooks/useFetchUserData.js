@@ -1,26 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import userGetAPI from '../services/api/userGet';
 
 export const useFetchUserData = (userId) => {
-  const [groupList, setGroupList] = useState([]);
+  const fetchUserData = async () => {
+    const response = await userGetAPI(userId, 'group', true);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await userGetAPI(userId, 'group', true);
-        const groupOptions = response.groups.map((group) => ({
-          groupId: group._id,
-          groupName: group.groupName,
-        }));
+    return response.groups.map((group) => ({
+      groupId: group._id,
+      groupName: group.groupName,
+    }));
+  };
 
-        setGroupList(groupOptions);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
+  const { data: groupList, refetch } = useQuery(
+    ['userData', userId],
+    fetchUserData,
+    {
+      enabled: !!userId,
+    },
+  );
 
-    fetchUserData();
-  }, [userId]);
-
-  return groupList;
+  return { groupList, refetch };
 };
