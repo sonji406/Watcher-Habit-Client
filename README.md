@@ -135,20 +135,20 @@
 시작하기 전에, 루트 디렉토리에 .env 파일을 만들고 아래와 같이 설정해주세요.
 
 ```env
-# Client
-REACT_APP_SERVER_DOMAIN=                 # Backend API server address
-REACT_APP_GOOGLE_CLIENT_ID=              # For Google OAuth 2.0 authentication
-REACT_APP_AWS_ACCESS_KEY_ID=             # Credentials to access AWS services programmatically
-REACT_APP_AWS_SECRET_ACCESS_KEY=         # Credentials to access AWS services programmatically
-REACT_APP_REDIRECT_URI=                  # URI to redirect users during OAuth authentication process
+# 클라이언트
+REACT_APP_SERVER_DOMAIN=                 # 백엔드 API 서버 주소
+REACT_APP_GOOGLE_CLIENT_ID=              # Google OAuth 2.0 인증을 위한 값
+REACT_APP_AWS_ACCESS_KEY_ID=             # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
+REACT_APP_AWS_SECRET_ACCESS_KEY=         # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
+REACT_APP_REDIRECT_URI=                  # OAuth 인증 과정 중 사용자를 리다이렉트시킬 URI
 
-# Server
-MONGODB_URI=                             # URI to connect to the MongoDB database
-ACCESS_TOKEN_SECRET=                     # Secret key to generate and validate JWT
-REFRESH_TOKEN_SECRET=                    # Secret key to generate and validate JWT
-CLIENT_DOMAIN=                           # Frontend client's domain or IP address
-AWS_ACCESS_KEY_ID=                       # Credentials to access AWS services programmatically
-AWS_SECRET_ACCESS_KEY=                   # Credentials to access AWS services programmatically
+# 서버
+MONGODB_URI=                             # MongoDB 데이터베이스 연결을 위한 URI
+ACCESS_TOKEN_SECRET=                     # JWT 생성 및 검증을 위한 비밀 키
+REFRESH_TOKEN_SECRET=                    # JWT 생성 및 검증을 위한 비밀 키
+CLIENT_DOMAIN=                           # 프론트엔드 클라이언트의 도메인 주소나 IP 주소
+AWS_ACCESS_KEY_ID=                       # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
+AWS_SECRET_ACCESS_KEY=                   # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
 ```
 
 ## 👥 팀 멤버
