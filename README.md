@@ -1,10 +1,14 @@
 # Watcher Habit: 습관 공유 플랫폼 🌱
 
+<br>
+
 ## 💁‍♀️ 소개
 
 **Watcher Habit**은 개인의 습관을 효과적으로 관리하고, 소규모 그룹과 습관을 공유하는 플랫폼입니다. 사용자들이 서로의 습관을 공유하며, 서로를 지켜보면서 동기부여를 얻을 수 있습니다. 이를 통해 습관의 지속성을 높이고, 그룹 내의 동료들과 함께 성장하는 경험을 할 수 있습니다.
 
 > 📹 **소개 영상**: (영상 링크 업데이트 예정)
+
+<br>
 
 ## 👀 목차
 
@@ -17,6 +21,8 @@
 7. [팀 멤버](#👥-팀-멤버)
 8. [Repository 주소](#🔗-repository-link)
 9. [기타 사항](#📌-기타-사항)
+
+<br>
 
 ## 💡 프로젝트 동기
 
@@ -50,13 +56,19 @@
 
 </details>
 
+<br>
+
 ### 2. 습관 기록 아이디어
 
 시환님은 평소 노션으로 스스로의 습관 형성을 기록하고 있었는데, 혼자만의 기록은 동기 부여에 한계가 있었습니다. 이러한 문제점을 해결하기 위해 습관 기록을 서로 공유하고 확인할 수 있는 소규모 그룹을 형성하는 아이디어가 제시되었습니다. 이 아이디어는 그동안 공부해온 리액트로도 충분히 구현 가능하면서, 관리할 상태가 많을 것으로 예상되었기 때문에 상태 관리 툴의 필요성이 높다고 생각되었습니다. 또, 이전 프로젝트와는 다르게 서버와 클라이언트를 분리하여 작업하는 등 다양한 기술적 도전을 포함하고 있었습니다.
 
+<br>
+
 ### 3. 웹 애플리케이션 '왓쳐해빗'
 
 모든 팀원의 기술적 흥미와 시환님의 습관 기록 아이디어가 합쳐져, 사용자들이 서로의 습관을 지켜보며 서로를 도와주는 웹 애플리케이션 '왓쳐해빗'이 탄생하게 되었습니다. 사용자들에게 서로의 습관을 모니터링하며 동기를 부여하는 서비스입니다.
+
+<br>
 
 ## 🚧 도전
 
@@ -68,6 +80,8 @@
 - 배치 처리 문제
 - 로그인 처리
 - 토큰 만료 처리
+
+<br>
 
 ## 📅 일정
 
@@ -98,6 +112,8 @@
 
 </details>
 
+<br>
+
 ## 🛠️ 기술 스택
 
 **프론트엔드**
@@ -113,6 +129,8 @@
 ![ESLint](https://img.shields.io/badge/ESLint-9.0.0-4B32C3?logo=ESLint)
 ![Prettier](https://img.shields.io/badge/Prettier-3.0.3-F7B93E?logo=Prettier)
 
+<br>
+
 **백엔드**
 
 ![Node.js](https://img.shields.io/badge/Node.js-LTS-339933?logo=Node.js)
@@ -126,9 +144,13 @@
 ![ESLint](https://img.shields.io/badge/ESLint-8.49.0-4B32C3?logo=ESLint)
 ![Prettier](https://img.shields.io/badge/Prettier-3.0.3-F7B93E?logo=Prettier)
 
+<br>
+
 ## 📖 사용 방법
 
 > 📹 **사용방법 영상**: (영상 링크 업데이트 예정)
+
+<br>
 
 ## ⚙️ 세팅 방법
 
@@ -151,6 +173,8 @@ AWS_ACCESS_KEY_ID=                       # AWS 서비스에 프로그래밍 방�
 AWS_SECRET_ACCESS_KEY=                   # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
 ```
 
+<br>
+
 ## 👥 팀 멤버
 
 문의나 협업에 관심이 있으시다면, 아래의 이메일로 연락주세요.
@@ -159,10 +183,14 @@ AWS_SECRET_ACCESS_KEY=                   # AWS 서비스에 프로그래밍 방�
 - 손지은: [wkaqh24@gmail.com](mailto:wkaqh24@gmail.com)
 - 우지현: [xhrrl003@gmail.com](mailto:xhrrl003@gmail.com)
 
+<br>
+
 ## 🔗 Repository Link
 
 - [Watcher-Habit 클라이언트 Repository](https://github.com/Last-Survivors-3-8/Watcher-Habit-Client)
 - [Watcher-Habit 서버 Repository](https://github.com/Last-Survivors-3-8/Watcher-Habit-Server)
+
+<br>
 
 ## 📌 기타 사항
 
