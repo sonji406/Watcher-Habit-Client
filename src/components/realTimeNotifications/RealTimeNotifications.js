@@ -99,7 +99,7 @@ const RealTimeNotifications = () => {
       {isModalOpen && (
         <VerifyHabitModal onClose={() => setIsModalOpen(false)} />
       )}
-      {error && <div>Error: {error}</div>}
+      {error && <div>Error: {error.message}</div>}
       {notifications.map((notification) => (
         <NotificationMessage
           key={notification._id}
