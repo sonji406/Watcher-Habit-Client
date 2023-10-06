@@ -1,7 +1,7 @@
 const DoubleCircleIcon = () => {
   return (
     <svg
-      className='w-7 h-7 fill-current '
+      className='w-7 h-7 fill-current'
       viewBox='0 0 30 30'
       fill='none'
       style={{ cursor: 'pointer' }}
