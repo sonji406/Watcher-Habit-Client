@@ -30,7 +30,6 @@
     - [4) 설계 결과](#4-설계-결과)
 - [📅 일정](#-일정)
 - [🛠️ 기술 스택](#-기술-스택)
-- [📖 사용 방법](#-사용-방법)
 - [⚙️ 세팅 방법](#-세팅-방법)
 - [👥 팀 멤버](#-팀-멤버)
 - [🔗 Repository 주소](#-repository-link)
@@ -276,12 +275,6 @@ module.exports = mongoose.model('HabitHistory', HabitHistorySchema);
 ![Http Errors](https://img.shields.io/badge/Http%20Errors-1.6.3-red)
 ![ESLint](https://img.shields.io/badge/ESLint-8.49.0-4B32C3?logo=ESLint)
 ![Prettier](https://img.shields.io/badge/Prettier-3.0.3-F7B93E?logo=Prettier)
-
-<br>
-
-## 📖 사용 방법
-
-> 📹 **사용방법 영상**: (영상 링크 업데이트 예정)
 
 <br>
 
