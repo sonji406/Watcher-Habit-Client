@@ -310,7 +310,7 @@ AWS_SECRET_ACCESS_KEY=                   # AWS 서비스에 프로그래밍 방�
 
 ## 👥 팀 멤버
 
-문의나 협업에 관심이 있으시다면, 아래의 이메일로 연락주세요.
+문의 사항이 있으시다면, 아래의 이메일로 연락주세요.
 
 - 조시환: [acforcompany@gmail.com](mailto:acforcompany@gmail.com)
 - 손지은: [wkaqh24@gmail.com](mailto:wkaqh24@gmail.com)
