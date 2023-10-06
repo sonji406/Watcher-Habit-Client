@@ -52,7 +52,7 @@ const HabitDetail = ({ isModal = false }) => {
   };
 
   return (
-    <div className='h-[calc(70vh-150px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5'>
+    <div className='h-[calc(70vh-150px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5 pb-10'>
       <HabitSection title='내용' content={habitDetail.habitContent} />
 
       <HabitSection title='패널티' content={habitDetail.penalty} />
