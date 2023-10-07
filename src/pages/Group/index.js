@@ -65,10 +65,12 @@ function Group() {
   return (
     <section className='min-h-screen flex flex-col bg-main-bg text-white'>
       <header className='text-center pt-20'>
-        <h1 className='text-2xl'>
-          {groupInfo?.group?.groupName || 'Loading...'}
-        </h1>
-        <hr className='w-full h-[2px] bg-white mt-2' />
+        <div className='inline-block'>
+          <h1 className='text-2xl'>
+            {groupInfo?.group?.groupName || 'Loading...'}
+          </h1>
+          <hr className='w-full h-[2px] bg-white mt-2' />
+        </div>
       </header>
       <main className='flex mx-auto mt-10'>
         <HabitList dailyHabits={dailyHabits} />
