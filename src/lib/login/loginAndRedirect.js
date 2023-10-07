@@ -5,6 +5,7 @@ const loginAndRedirect = async (loginData, nickname, navigate) => {
     const response = await axios.post(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`,
       { email: loginData },
+      { withCredentials: true },
     );
 
     const accessToken = response.data.accessToken;
