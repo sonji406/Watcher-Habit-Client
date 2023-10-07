@@ -14,15 +14,15 @@ const HabitTime = ({ startTime, endTime }) => {
     .join(' ');
 
   return (
-    <div className='bg-main-bg p-4 rounded-lg mb-4 mr-2'>
-      <div>
+    <section className='bg-main-bg p-4 rounded-lg mb-4 mr-2'>
+      <header>
         <span className='font-bold text-left block'>시간</span>
-        <div className='text-center text-xl'>
-          {startTime} ~ {endTime}
-          <span className='ml-3 text-green-txt'>하루에 {timeDisplay}씩</span>
-        </div>
-      </div>
-    </div>
+      </header>
+      <p className='text-center text-xl'>
+        {startTime} ~ {endTime}
+        <span className='ml-3 text-green-txt'>하루에 {timeDisplay}씩</span>
+      </p>
+    </section>
   );
 };
 
