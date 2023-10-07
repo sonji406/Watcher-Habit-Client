@@ -6,9 +6,9 @@ const SubmitButton = ({ isEdit, isLoading, handleSubmit, error }) => {
   const buttonText = isEdit ? '수정' : '생성';
 
   return (
-    <div>
+    <section>
       {error && (
-        <div className='text-red-500 mb-2'>{validationMessages[error]}</div>
+        <p className='text-red-500 mb-2'>{validationMessages[error]}</p>
       )}
       {isLoading ? (
         <Loading />
@@ -23,7 +23,7 @@ const SubmitButton = ({ isEdit, isLoading, handleSubmit, error }) => {
           {buttonText}
         </button>
       )}
-    </div>
+    </section>
   );
 };
 

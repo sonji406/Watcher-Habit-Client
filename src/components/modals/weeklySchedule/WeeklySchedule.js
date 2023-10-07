@@ -67,7 +67,7 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
 
   return (
     <article
-      className='bg-dark-blue-bg border h-[75vh] border-customGreen relative rounded p-5 w-3/5 text-white rounded-xl overflow-hidden'
+      className='bg-dark-blue-bg border h-[75vh] w-[780px] border-customGreen relative rounded p-5 w-3/5 text-white rounded-xl overflow-hidden'
       ref={modalContentRef}
     >
       {isLoading ? (
@@ -75,22 +75,22 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
       ) : (
         <>
           <header className='text-center font-extrabold'>주간계획표</header>
-          <div className='flex justify-center space-x-3 my-4'>
+          <div className='flex justify-center my-4 ml-2'>
             <button
               onClick={goToPreviousWeek}
-              className='hover:text-green-txt transition duration-150 ease-in-out'
+              className='hover:text-green-txt transition duration-150 ease-in-out flex items-center justify-center mx-1'
             >
               <SquareArrowLeftIcon />
             </button>
             <button
               onClick={goToCurrentWeek}
-              className='hover:text-blue-500 transition duration-150 ease-in-out'
+              className='hover:text-blue-500 transition duration-150 ease-in-out flex items-center justify-center mx-1'
             >
               <DoubleCircleIcon />
             </button>
             <button
               onClick={goToNextWeek}
-              className='hover:text-green-txt transition duration-150 ease-in-out'
+              className='hover:text-green-txt transition duration-150 ease-in-out flex items-center justify-center mx-1'
             >
               <SquareArrowRightIcon />
             </button>
@@ -119,7 +119,7 @@ const WeeklySchedule = ({ modalContentRef, handleClose }) => {
           </section>
 
           <section className='flex mb-4'>
-            <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[25vh] w-1/4 custom-scrollbar'>
+            <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[23vh] w-1/4 custom-scrollbar'>
               {uniqueHabitTitles.length > 0 ? (
                 uniqueHabitTitles.map((habitTitle) => (
                   <div

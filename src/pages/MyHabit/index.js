@@ -27,15 +27,15 @@ function MyHabit() {
   }, [nickname, dispatch]);
 
   if (loading) return <Loading />;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <article>Error: {error.message}</article>;
 
   return (
-    <section className='flex flex-1 min-h-screen bg-main-bg text-white bg-vignette'>
-      <article className='flex mt-28 mx-auto'>
+    <main className='flex flex-1 min-h-screen bg-main-bg text-white bg-vignette'>
+      <section className='flex mt-28 mx-auto'>
         <HabitList dailyHabits={dailyHabits} />
         <HabitDetailAndVerification />
-      </article>
-    </section>
+      </section>
+    </main>
   );
 }
 

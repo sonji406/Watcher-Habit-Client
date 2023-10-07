@@ -17,7 +17,7 @@ const HabitDuration = ({ startDate: start, endDate: end }) => {
     Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
 
   return (
-    <div className='bg-main-bg p-4 rounded-lg mb-4 mr-2'>
+    <div className='bg-main-bg p-4 rounded-lg mb-4'>
       <span className='font-bold text-left block'>기한</span>
       <div className='text-center text-xl'>
         {formattedStartDate} ~ {formattedEndDate}

@@ -42,7 +42,7 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
   const [selectedHabitStatus, setSelectedHabitStatus] = useState('');
 
   return (
-    <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[25vh] w-1/4 custom-scrollbar'>
+    <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[23vh] w-1/4 custom-scrollbar'>
       {relevantHabits.map((habit) => (
         <ul
           key={habit.habitTitle}

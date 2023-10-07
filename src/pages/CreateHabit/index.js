@@ -138,7 +138,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             </h1>
             <div className='relative'>
               <div
-                className='items-center w-[70vw] h-[74vh] max-w-3xl p-10 my-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
+                className='items-center w-[780px] h-[74vh] max-w-3xl p-10 my-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
                 style={{ maxHeight: 'calc(100vh - 2rem)' }}
               >
                 <form onSubmit={handleFormSubmit}>

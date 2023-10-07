@@ -28,17 +28,19 @@ const PenaltyForm = ({ penalty, setPenalty }) => {
   };
 
   return (
-    <>
-      <label className='relative text-white ml-2'>
-        패널티 내용*
-        <span className='mt-2 inline-block group cursor-pointer'>
-          <span className='bg-dark-blue-bg text-white border-2 rounded-full shadow-lg pr-2 pl-2 ml-1'>
-            ?
+    <section>
+      <header>
+        <label className='relative text-white ml-2'>
+          패널티 내용*
+          <span className='mt-2 inline-block group cursor-pointer'>
+            <span className='bg-dark-blue-bg text-white border-2 rounded-full shadow-lg pr-2 pl-2 ml-1'>
+              ?
+            </span>
+            <Tooltip text={tooltipText} />
           </span>
-          <Tooltip text={tooltipText} />
-        </span>
-        <span className='text-red-500 ml-2'>{penaltyValidation}</span>
-      </label>
+          <span className='text-red-500 ml-2'>{penaltyValidation}</span>
+        </label>
+      </header>
 
       <div className='mb-6 mt-2'>
         <textarea
@@ -51,7 +53,7 @@ const PenaltyForm = ({ penalty, setPenalty }) => {
           maxLength={50}
         />
       </div>
-    </>
+    </section>
   );
 };
 
