@@ -60,22 +60,20 @@ function Group() {
   }, [groupId, dispatch]);
 
   if (loading) return <Loading />;
-  if (error) return <div>Error: {error.message}</div>;
+  if (error) return <article>Error: {error.message}</article>;
 
   return (
     <section className='min-h-screen flex flex-col bg-main-bg text-white'>
-      <div className='text-center pt-20'>
-        <div className='inline-block'>
-          <h1 className='text-2xl'>
-            {groupInfo?.group?.groupName || 'Loading...'}
-          </h1>
-          <div className='w-full h-[2px] bg-white mt-2'></div>
-        </div>
-      </div>
-      <article className='flex mx-auto mt-10'>
+      <header className='text-center pt-20'>
+        <h1 className='text-2xl'>
+          {groupInfo?.group?.groupName || 'Loading...'}
+        </h1>
+        <hr className='w-full h-[2px] bg-white mt-2' />
+      </header>
+      <main className='flex mx-auto mt-10'>
         <HabitList dailyHabits={dailyHabits} />
         <HabitDetailAndVerification />
-      </article>
+      </main>
     </section>
   );
 }
