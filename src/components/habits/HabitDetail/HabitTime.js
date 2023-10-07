@@ -14,7 +14,7 @@ const HabitTime = ({ startTime, endTime }) => {
     .join(' ');
 
   return (
-    <section className='bg-main-bg p-4 rounded-lg mb-4 mr-2'>
+    <section className='bg-main-bg p-4 rounded-lg mb-4'>
       <header>
         <span className='font-bold text-left block'>시간</span>
       </header>
