@@ -44,7 +44,7 @@ function Group() {
 
       setGroupInfo(data);
     } catch (error) {
-      console.error('Error fetching group info', error);
+      navigate('/404');
     }
   };
 
