@@ -6,7 +6,6 @@ const api = axios.create({
 
 api.interceptors.response.use(
   (response) => {
-    console.log('Response:', response);
     return response;
   },
   async (error) => {
