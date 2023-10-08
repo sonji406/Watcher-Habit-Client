@@ -60,7 +60,11 @@ function Group() {
   }, [groupId, dispatch]);
 
   if (loading) return <Loading />;
-  if (error) return <article>Error: {error.message}</article>;
+
+  if (error) {
+    navigate('/404');
+    return null;
+  }
 
   return (
     <section className='min-h-screen flex flex-col bg-main-bg text-white'>
