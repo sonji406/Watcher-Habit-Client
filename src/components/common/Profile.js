@@ -84,10 +84,7 @@ const Profile = () => {
 
         {showNotifications && (
           <div className='absolute right-5 top-10 mt-2 w-64 rounded-lg shadow-lg'>
-            <NotificationList
-              notifications={notifications || []}
-              setNotifications={() => {}}
-            />
+            <NotificationList notifications={notifications || []} />
           </div>
         )}
       </div>
