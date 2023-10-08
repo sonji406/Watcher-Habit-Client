@@ -66,6 +66,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
           fromUserId: inviteUserId,
           toUserId: invitedUser.userId,
         },
+        { withCredentials: true },
       );
 
       setErrorMsg('');

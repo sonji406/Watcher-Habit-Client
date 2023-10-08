@@ -16,7 +16,7 @@ api.interceptors.response.use(
 
       try {
         const res = await api.post(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/refresh-token`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/refreshToken`,
           {},
           { withCredentials: true },
         );
