@@ -7,21 +7,11 @@ import JoinedGroupsButton from './JoinedGroupsButton';
 import WeeklyScheduleButton from './WeeklyScheduleButton';
 import userGetAPI from '../../services/api/userGet';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import cookieAPI from '../../services/api/cookie';
-import habitGetAPI from '../../services/api/habitGet';
+import { useFetchUserData } from '../../hooks/useFetchUserData';
 
 const Sidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [nickname, setNickname] = useState('');
-  const [groupList, setGroupList] = useState([]);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
 
   const location = useLocation();
   const pathSegments = location.pathname.split('/');
@@ -33,33 +23,28 @@ const Sidebar = () => {
 
   const userId = getUserIdFromToken();
 
+  const { groupList, refetch } = useFetchUserData(userId);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await userGetAPI(userId, 'group', true);
-        const groupNames = response.groups.map((group) => group.groupName);
-        const groupIds = response.groups.map((group) => group._id);
-
         setNickname(response.nickname);
-        setGroupList({
-          groupNames: groupNames,
-          groupIds: groupIds,
-        });
       } catch (error) {
         throw new Error('사용자 정보 확인 중 문제가 발생했습니다.');
       }
     };
 
     fetchUserData();
-  }, []);
-
-  const cookieTest = () => {
-    cookieAPI();
-  };
-
-  const getTest = () => {
-    habitGetAPI('650121c4be0e36ef9a07a5cb');
-  };
+  }, [userId]);
 
   return (
     <div
@@ -70,8 +55,6 @@ const Sidebar = () => {
       onMouseLeave={handleMouseLeave}
     >
       <HamburgerButton isHovered={isHovered} />
-      <button onClick={cookieTest}>쿠키API</button>
-      <button onClick={getTest}>GET API</button>
       <div
         className={`flex flex-col ${
           isHovered ? 'items-start w-72 pl-6' : 'items-center'
@@ -83,11 +66,12 @@ const Sidebar = () => {
           isHovered={isHovered}
           isCurrentPage={isMyHabitPage}
         />
-        <CreateGroupButton isHovered={isHovered} />
+        <CreateGroupButton isHovered={isHovered} refetchGroups={refetch} />
         <JoinedGroupsButton
           isHovered={isHovered}
           isCurrentPage={isJoinedGroupPage}
           groupList={groupList}
+          refetchGroups={refetch}
         />
       </div>
     </div>

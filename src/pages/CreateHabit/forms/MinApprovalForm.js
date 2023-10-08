@@ -33,7 +33,7 @@ const MinApprovalForm = ({
   return (
     <>
       <label className='text-white ml-2'>
-        최소 승인 인원
+        최소 승인 인원*
         <span className='text-center text-red-500 ml-2'>
           {validationMessage}
         </span>

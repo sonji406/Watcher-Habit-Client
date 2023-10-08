@@ -97,11 +97,11 @@ const RealTimeNotifications = () => {
   };
 
   return (
-    <div className='mr-10'>
+    <aside className='mr-10'>
       {isModalOpen && (
         <VerifyHabitModal onClose={() => setIsModalOpen(false)} />
       )}
-      {error && <div>Error: {error}</div>}
+      {error && <article>Error: {error.message}</article>}
       {notifications.map((notification) => (
         <NotificationMessage
           key={notification._id}
@@ -110,7 +110,7 @@ const RealTimeNotifications = () => {
           onCloseButtonClick={() => handleCloseButtonClick(notification)}
         />
       ))}
-    </div>
+    </aside>
   );
 };
 

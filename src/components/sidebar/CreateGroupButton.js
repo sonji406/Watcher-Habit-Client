@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CreateGroupModal from '../modals/CreateGroup';
 import CreateGroupIcon from './icon/CreateGroup';
 
-const CreateGroupButton = ({ isHovered }) => {
+const CreateGroupButton = ({ isHovered, refetchGroups }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -29,7 +29,12 @@ const CreateGroupButton = ({ isHovered }) => {
         <CreateGroupIcon isHovered={isHovered} />
         {isHovered && <span>새로운 그룹 생성하기</span>}
       </div>
-      {isModalOpen && <CreateGroupModal onClose={handleCloseModal} />}
+      {isModalOpen && (
+        <CreateGroupModal
+          onClose={handleCloseModal}
+          refetchGroups={refetchGroups}
+        />
+      )}
     </>
   );
 };

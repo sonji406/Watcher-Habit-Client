@@ -4,7 +4,7 @@ import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import api from '../../utils/api';
 
-const CreateGroupModal = ({ onClose }) => {
+const CreateGroupModal = ({ onClose, refetchGroups }) => {
   const modalContentRef = useRef();
   const [groupName, setGroupName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -36,6 +36,8 @@ const CreateGroupModal = ({ onClose }) => {
       );
 
       const newGroupId = response.data.newGroup._id;
+
+      refetchGroups();
 
       onClose();
       navigate(`/group/${newGroupId}`);

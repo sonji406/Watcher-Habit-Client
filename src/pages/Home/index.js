@@ -9,21 +9,23 @@ function HomePage() {
   useDocumentTitle('WatcherHabit 홈페이지');
 
   return (
-    <div
+    <main
       className='min-h-screen flex flex-col items-center justify-center bg-main-bg text-white p-20 space-y-6 bg-vignette'
       style={{ fontFamily: 'NotoSansKR' }}
     >
-      <MainLogo />
-      <div className='mb-4'>
+      <h1>
+        <MainLogo />
+      </h1>
+      <section className='mb-4'>
         <SubTitle />
-      </div>
-      <div>
+      </section>
+      <section>
         <Carousel />
-      </div>
-      <div className='pt-8'>
+      </section>
+      <footer className='pt-8'>
         <GoogleLoginButton />
-      </div>
-    </div>
+      </footer>
+    </main>
   );
 }
 

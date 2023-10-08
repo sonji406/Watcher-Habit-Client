@@ -11,7 +11,7 @@ const VerificationImage = ({ isModal = false }) => {
     <div className='w-full h-full rounded-xl mx-auto flex items-center justify-center'>
       <img
         src={habitDetail.habitImage}
-        alt=''
+        alt='습관 인증샷 이미지'
         className='relative w-full h-full mx-auto absolute object-cover rounded-xl p-1'
       />
       {habitDetail.status === 'approvalSuccess' && <VerificationIcon />}

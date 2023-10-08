@@ -35,17 +35,19 @@ const GroupForm = ({ sharedGroup, setSharedGroup, groupOptions, isEdit }) => {
   };
 
   return (
-    <>
-      <label className='text-white relative ml-2'>
-        그룹 선택
-        <span className='ml-2 inline-block group cursor-pointer mb-2'>
-          <span className='text-red-500'> (생성 후 수정 불가) </span>
-          <span className='bg-dark-blue-bg text-white border-2 rounded-full shadow-lg pr-2 pl-2'>
-            ?
+    <section>
+      <header>
+        <label className='text-white relative ml-2'>
+          그룹 선택
+          <span className='ml-2 inline-block group cursor-pointer mb-2'>
+            <span className='text-red-500'> (생성 후 수정 불가) </span>
+            <span className='bg-dark-blue-bg text-white border-2 rounded-full shadow-lg pr-2 pl-2'>
+              ?
+            </span>
+            <Tooltip text={tooltipText} />
           </span>
-          <Tooltip text={tooltipText} />
-        </span>
-      </label>
+        </label>
+      </header>
 
       <div className='mb-4'>
         <select
@@ -68,7 +70,7 @@ const GroupForm = ({ sharedGroup, setSharedGroup, groupOptions, isEdit }) => {
           ))}
         </select>
       </div>
-    </>
+    </section>
   );
 };
 

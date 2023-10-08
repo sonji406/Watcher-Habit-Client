@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import getStatusBorderColor from './utils/getStatusBorderColor';
+import formatDate from './utils/formatDate';
 import HabitImageModal from './HabitImageModal';
 import { DAYS_IN_KOREAN, DAYS_MAPPING } from '../../../constants/daysConstants';
 
-const yesterday = new Date();
-yesterday.setDate(yesterday.getDate() - 1);
-yesterday.setHours(0, 0, 0, 0);
-
 const WeeklyHabitList = ({ habits, historyHabits, date }) => {
-  const isAfterYesterday = date > yesterday;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const formattedDate = formatDate(date);
+  const formattedToday = formatDate(today);
 
-  const relevantHabits = habits
-    .reduce((acc, habit) => {
+  let relevantHabits = [];
+  if (formattedDate >= formattedToday) {
+    relevantHabits = habits.reduce((acc, habit) => {
       const dayInKorean = DAYS_IN_KOREAN[date.getDay()];
       const isRelevantDay = habit.doDay.includes(
         Object.keys(DAYS_MAPPING).find(
@@ -19,32 +20,29 @@ const WeeklyHabitList = ({ habits, historyHabits, date }) => {
         ),
       );
 
-      const isWithinDateRange =
-        isAfterYesterday &&
-        date.getFullYear() === new Date(habit.habitStartDate).getFullYear() &&
-        date.getMonth() === new Date(habit.habitStartDate).getMonth() &&
-        date.getDate() >= new Date(habit.habitStartDate).getDate() &&
-        date.getDate() <= new Date(habit.habitEndDate).getDate();
+      const habitStartDate = formatDate(new Date(habit.habitStartDate));
+      const habitEndDate = formatDate(new Date(habit.habitEndDate));
 
-      if (isRelevantDay && isWithinDateRange) {
+      if (
+        isRelevantDay &&
+        formattedDate >= habitStartDate &&
+        formattedDate <= habitEndDate
+      ) {
         acc.push(habit);
       }
 
       return acc;
-    }, [])
-    .sort((a, b) => a.startTime.localeCompare(b.startTime));
+    }, []);
+  }
 
-  const currentDateKey = `${date.getFullYear()}-${String(
-    date.getMonth() + 1,
-  ).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-  const currentDateHistoryHabits = historyHabits[currentDateKey] || [];
+  const currentDateHistoryHabits = historyHabits[formattedDate] || [];
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedHabitImage, setSelectedHabitImage] = useState(null);
   const [selectedHabitStatus, setSelectedHabitStatus] = useState('');
 
   return (
-    <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[22vh] w-1/4 custom-scrollbar'>
+    <div className='bg-gray-700 p-3 ml-1 mr-1 rounded-b-md overflow-y-auto h-[23vh] w-1/4 custom-scrollbar'>
       {relevantHabits.map((habit) => (
         <ul
           key={habit.habitTitle}

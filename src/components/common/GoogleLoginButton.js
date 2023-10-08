@@ -36,7 +36,7 @@ const GoogleLoginButton = () => {
         return;
       }
 
-      await loginAndRedirect(responsePayload, nickname, navigate);
+      await loginAndRedirect(responsePayload.email, nickname, navigate);
     } catch (error) {
       setError(error.message);
     }

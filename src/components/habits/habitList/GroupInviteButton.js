@@ -14,7 +14,7 @@ function GroupInviteButton({ groupId }) {
   };
 
   return (
-    <div>
+    <section>
       <button
         className='flex hover:bg-dark-blue-bg text-white text-3xl w-10 h-10 rounded-full hover:text-green-700 absolute right-12 top-1 z-20'
         onClick={openModal}
@@ -24,7 +24,7 @@ function GroupInviteButton({ groupId }) {
       {isModalOpen && (
         <InviteGroupModal groupId={groupId} onClose={closeModal} />
       )}
-    </div>
+    </section>
   );
 }
 

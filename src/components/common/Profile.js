@@ -5,6 +5,7 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useQuery } from 'react-query';
+import BellIcon from './bellIcon';
 import api from '../../utils/api';
 
 const Profile = () => {
@@ -34,6 +35,8 @@ const Profile = () => {
       console.error('Error fetching notifications');
     }
   }, [isError]);
+
+  const visibleCount = notifications?.length || 0;
 
   const toggleNotifications = () => {
     setShowNotifications((prevState) => !prevState);
@@ -68,6 +71,15 @@ const Profile = () => {
             />
           ) : (
             <div className='bg-transparent rounded w-[40px] h-[40px] border border-white'></div>
+          )}
+
+          {visibleCount > 0 && (
+            <span
+              key={shakeKey}
+              className={`absolute bottom-[-6px] right-[-6px] animate-shake`}
+            >
+              <BellIcon />
+            </span>
           )}
         </div>
 
