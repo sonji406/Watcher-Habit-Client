@@ -17,8 +17,9 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
+        const response = await api.get(
           `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}`,
+          { withCredentials: true },
         );
 
         setGroupName(response.data.groupName);

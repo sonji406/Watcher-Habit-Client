@@ -5,14 +5,12 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useQuery } from 'react-query';
-import BellIcon from './bellIcon';
 import api from '../../utils/api';
 
 const Profile = () => {
   const containerRef = useRef(null);
-
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [shakeKey, setShakeKey] = useState(0);
   const { profileImageUrl, error } = useProfileImage();
   const userId = getUserIdFromToken();
 
@@ -37,11 +35,15 @@ const Profile = () => {
     }
   }, [isError]);
 
-  const visibleCount = notifications.length;
-
   const toggleNotifications = () => {
     setShowNotifications((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    if (notifications?.length > shakeKey) {
+      setShakeKey(notifications.length);
+    }
+  }, [notifications]);
 
   useClickOutside(containerRef, () => setShowNotifications(false));
 
@@ -67,19 +69,13 @@ const Profile = () => {
           ) : (
             <div className='bg-transparent rounded w-[40px] h-[40px] border border-white'></div>
           )}
-
-          {visibleCount > 0 && (
-            <span className='absolute bottom-[-5px] right-[-5px] bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center w-[20px] h-[20px] text-[12px]'>
-              {visibleCount}
-            </span>
-          )}
         </div>
 
         {showNotifications && (
           <div className='absolute right-5 top-10 mt-2 w-64 rounded-lg shadow-lg'>
             <NotificationList
-              notifications={notifications}
-              setNotifications={setNotifications}
+              notifications={notifications || []}
+              setNotifications={() => {}}
             />
           </div>
         )}
