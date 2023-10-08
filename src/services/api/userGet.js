@@ -13,8 +13,8 @@ export const getUserInfo = async (
           include,
           withUserData,
         },
+        withCredentials: true,
       },
-      { withCredentials: true },
     );
 
     return response.data;
