@@ -1,12 +1,13 @@
-import axios from 'axios';
+import api from '../../utils/api';
 
 export const subscribeWatcher = async (habitId, watcherId) => {
   try {
-    const res = await axios.patch(
+    const res = await api.patch(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}/watcher`,
       {
         watcherId,
       },
+      { withCredentials: true },
     );
 
     return res.data;
@@ -17,8 +18,9 @@ export const subscribeWatcher = async (habitId, watcherId) => {
 
 export const unsubscribeWatcher = async (habitId, watcherId) => {
   try {
-    const res = await axios.delete(
+    const res = await api.delete(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}/watcher/${watcherId}`,
+      { withCredentials: true },
     );
     return res.data;
   } catch (error) {

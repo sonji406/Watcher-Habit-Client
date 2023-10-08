@@ -1,8 +1,9 @@
-import axios from 'axios';
+import api from '../../utils/api';
 
 const userCheckAPI = (email) => {
-  return axios.get(
+  return api.get(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/check?email=${email}`,
+    { withCredentials: true },
   );
 };
 

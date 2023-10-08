@@ -7,7 +7,7 @@ import HabitSection from './HabitSection';
 import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import isLoginUser from '../../../lib/isLoginUser';
-import axios from 'axios';
+import api from '../../../utils/api';
 
 const HabitDetail = ({ isModal = false }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -25,8 +25,9 @@ const HabitDetail = ({ isModal = false }) => {
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      await axios.delete(
+      await api.delete(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
+        { withCredentials: true },
       );
 
       window.location.reload();

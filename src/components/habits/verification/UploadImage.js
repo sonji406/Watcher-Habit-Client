@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import ImageIcon from './icon/ImageIcon';
 import CountdownTimer from './CountdownTimer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
 import { setNotificationHabitDetail } from '../../../redux/notificationHabitSlice';
+import api from '../../../utils/api';
 
 const UploadImage = ({ habitId, endTime, isModal = false }) => {
   const dispatch = useDispatch();
@@ -26,11 +26,12 @@ const UploadImage = ({ habitId, endTime, isModal = false }) => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await axios.post(
+      const response = await api.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}/image`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
+          withCredentials: true,
         },
       );
 

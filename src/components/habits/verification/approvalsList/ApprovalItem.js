@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ApprovedIcon from '../icon/Approved';
@@ -6,6 +5,7 @@ import RejectedIcon from '../icon/Rejected';
 import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
 import ApprovalButtons from './ApprovalButtons';
+import api from '../../../../utils/api';
 
 const ApprovalItem = ({ watcher, isModal = false }) => {
   const [error, setError] = useState('');
@@ -52,9 +52,10 @@ const ApprovalItem = ({ watcher, isModal = false }) => {
 
   const updateStatus = async (newStatus) => {
     try {
-      await axios.patch(
+      await api.patch(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
         { approvalStatus: newStatus, approvalId: watcher._id },
+        { withCredentials: true },
       );
 
       setApprovalsMessage(getApprovalMessage(newStatus));

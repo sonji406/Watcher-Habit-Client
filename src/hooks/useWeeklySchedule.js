@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import getUserIdFromToken from '../utils/getUserIdFromToken';
 import getStartAndEndOfWeek from '../utils/getStartAndEndOfWeek';
-import axios from 'axios';
+import api from '../utils/api';
 
 const useWeeklySchedule = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,8 +27,9 @@ const useWeeklySchedule = () => {
           endDate.getMonth() + 1,
         ).padStart(2, '0')}-${String(endDate.getDate()).padStart(2, '0')}`;
 
-        const habitsResponse = await axios.get(
+        const habitsResponse = await api.get(
           `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/periodic/${userId}?startDate=${startDateStr}&endDate=${endDateStr}`,
+          { withCredentials: true },
         );
 
         const habitsData = habitsResponse.data || [];

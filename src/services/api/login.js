@@ -1,7 +1,7 @@
-import axios from 'axios';
+import api from '../../utils/api';
 
 const loginAPI = (payload) => {
-  return axios.post(
+  return api.post(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`,
     payload,
   );

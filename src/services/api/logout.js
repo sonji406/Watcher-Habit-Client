@@ -1,7 +1,7 @@
-import axios from 'axios';
+import api from '../../utils/api';
 
 const logoutAPI = () => {
-  return axios.post(
+  return api.post(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/logout`,
     {},
     {

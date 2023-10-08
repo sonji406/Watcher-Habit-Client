@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { createHabitData } from '../lib/createHabit/createHabitData';
+import api from '../utils/api';
 
 export const useHandleSubmit = (
   validateForm,
@@ -46,17 +46,19 @@ export const useHandleSubmit = (
       let response;
 
       if (isEdit) {
-        response = await axios.patch(
+        response = await api.patch(
           `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
           habitData,
+          { withCredentials: true },
         );
         handleResponse(response);
 
         return;
       } else {
-        response = await axios.post(
+        response = await api.post(
           `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
           habitData,
+          { withCredentials: true },
         );
       }
       handleResponse(response);

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../utils/api';
 import { useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
@@ -37,8 +37,9 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
   const onClickGetUserByEmail = async (e) => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/getInfoByEmail?email=${inviteEmail}`,
+        { withCredentials: true },
       );
 
       setInvitedUser(response.data);
@@ -58,7 +59,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
   const onClickInvite = async (e) => {
     try {
-      await axios.post(
+      await api.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/invite`,
         {
           fromUserId: inviteUserId,
