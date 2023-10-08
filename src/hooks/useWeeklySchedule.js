@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import getUserIdFromToken from '../utils/getUserIdFromToken';
 import getStartAndEndOfWeek from '../utils/getStartAndEndOfWeek';
-import api from '../utils/api';
+import api from '../lib/api';
 
 const useWeeklySchedule = () => {
   const [isLoading, setIsLoading] = useState(true);

@@ -4,7 +4,7 @@ import CountdownTimer from './CountdownTimer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
 import { setNotificationHabitDetail } from '../../../redux/notificationHabitSlice';
-import api from '../../../utils/api';
+import api from '../../../lib/api';
 
 const UploadImage = ({ habitId, endTime, isModal = false }) => {
   const dispatch = useDispatch();

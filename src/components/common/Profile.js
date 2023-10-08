@@ -6,7 +6,7 @@ import RealTimeNotifications from '../realTimeNotifications/RealTimeNotification
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useQuery } from 'react-query';
 import BellIcon from './bellIcon';
-import api from '../../utils/api';
+import api from '../../lib/api';
 
 const Profile = () => {
   const containerRef = useRef(null);

@@ -1,4 +1,4 @@
-import api from '../../utils/api';
+import api from '../../lib/api';
 import { useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';

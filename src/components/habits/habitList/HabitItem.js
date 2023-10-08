@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
-import api from '../../../utils/api';
+import api from '../../../lib/api';
 
 const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
   const dispatch = useDispatch();

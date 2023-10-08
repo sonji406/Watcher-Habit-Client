@@ -7,7 +7,7 @@ import HabitSection from './HabitSection';
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import isLoginUser from '../../../lib/isLoginUser';
-import api from '../../../utils/api';
+import api from '../../../lib/api';
 
 const HabitDetail = ({ isModal = false }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);

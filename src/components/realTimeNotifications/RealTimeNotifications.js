@@ -5,7 +5,7 @@ import NotificationMessage from './NotificationMessage';
 import VerifyHabitModal from '../modals/VerifyHabit';
 import initEventSource from '../../utils/initEventSource';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
-import api from '../../utils/api';
+import api from '../../lib/api';
 
 const NOTIFICATION_STATUSES = [
   'success',

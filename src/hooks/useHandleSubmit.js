@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createHabitData } from '../lib/createHabit/createHabitData';
-import api from '../utils/api';
+import api from '../lib/api';
 
 export const useHandleSubmit = (
   validateForm,

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useClickOutside } from '../../hooks/useClickOutside';
-import api from '../../utils/api';
+import api from '../../lib/api';
 
 const CreateGroupModal = ({ onClose, refetchGroups }) => {
   const modalContentRef = useRef();

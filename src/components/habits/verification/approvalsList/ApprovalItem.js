@@ -5,7 +5,7 @@ import RejectedIcon from '../icon/Rejected';
 import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
 import ApprovalButtons from './ApprovalButtons';
-import api from '../../../../utils/api';
+import api from '../../../../lib/api';
 
 const ApprovalItem = ({ watcher, isModal = false }) => {
   const [error, setError] = useState('');

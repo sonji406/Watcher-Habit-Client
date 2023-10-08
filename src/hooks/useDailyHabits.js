@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import api from '../utils/api';
+import api from '../lib/api';
 
 export const useDailyHabits = (apiUrl) => {
   const [dailyHabits, setDailyHabits] = useState(null);

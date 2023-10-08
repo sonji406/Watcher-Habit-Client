@@ -4,7 +4,7 @@ import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
 import { useDispatch } from 'react-redux';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
-import api from '../../utils/api';
+import api from '../../lib/api';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';

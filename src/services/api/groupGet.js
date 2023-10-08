@@ -1,5 +1,5 @@
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import api from '../../utils/api';
+import api from '../../lib/api';
 
 export const groupGet = async (groupId) => {
   const userId = getUserIdFromToken();
