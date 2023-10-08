@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import groupGet from '../../services/api/groupGet';
 
 const InviteGroupModal = ({ groupId, onClose }) => {
   const modalContentRef = useRef();
@@ -17,9 +18,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}`,
-        );
+        const response = groupGet(groupId);
 
         setGroupName(response.data.groupName);
       } catch (error) {
@@ -48,11 +47,13 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
       if (error.response.status === 400 && validationErrors) {
         setErrorMsg('이메일 형식이 잘못되었습니다.');
+      } else if (error.response.status === 404) {
+        setErrorMsg('존재하지 않는 사용자입니다.');
       } else {
-        setErrorMsg(error.message);
-        console.error(error);
+        setErrorMsg('알 수 없는 에러입니다.');
       }
     }
+
     setSearchClicked(true);
   };
 
@@ -74,6 +75,8 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
       if (error.response.status === 400 && validationErrors) {
         message = '유효하지 않은 아이디입니다.';
+      } else if (error.response.status === 404) {
+        message = '존재하지 않는 사용자입니다.';
       } else {
         message = error.response.data.error || message;
       }

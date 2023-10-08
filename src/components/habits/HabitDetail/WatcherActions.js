@@ -85,54 +85,56 @@ const WatcherActions = ({ habitDetail, isModal = false }) => {
   };
 
   return (
-    <div className='bg-main-bg p-4 rounded-lg text-left'>
-      <div className='flex'>
-        <span className='font-bold mr-1'>Watchers</span>
+    <section className='bg-main-bg p-4 rounded-lg text-left'>
+      <header className='flex'>
+        <h2 className='font-bold mr-1'>Watchers</h2>
         <WatcherIcon />
-      </div>
-      {isGroupShared ? (
-        <div>
-          {hasNoWatchers && isCurrentUserCreator ? (
-            <p className='text-center mb-4 text-dark-gray-txt'>
-              내 습관을 구독한 <br />
-              Watcher가 없습니다
-            </p>
-          ) : (
-            <div className='flex flex-wrap justify-center'>
-              {shouldRenderButtons &&
-                !isCurrentUserWatcher &&
-                !isCurrentUserCreator && (
-                  <div className='m-2'>
-                    <WatcherButton
-                      isSubscribe={true}
-                      handleAction={handleSubscribe}
-                      className='w-12 h-12'
-                    />
-                  </div>
-                )}
-              <WatcherList
-                sortedApprovals={sortedApprovals}
-                currentUserId={currentUserId}
-                handleUnsubscribe={handleUnsubscribe}
-                shouldRenderButtons={shouldRenderButtons}
-              />
-            </div>
-          )}
-        </div>
-      ) : (
-        <p className='text-center mb-4 text-dark-gray-txt'>
-          비공개 습관이므로
-          <br />
-          Watcher가 없습니다
-        </p>
-      )}
-      {!shouldRenderButtons && isGroupShared && (
-        <p className='text-center mb-4 text-dark-gray-txt'>
-          인증/승인 탭을 확인하세요
-        </p>
-      )}
+      </header>
+      <article>
+        {isGroupShared ? (
+          <div>
+            {hasNoWatchers && isCurrentUserCreator ? (
+              <p className='text-center mb-4 text-dark-gray-txt'>
+                내 습관을 구독한 <br />
+                Watcher가 없습니다
+              </p>
+            ) : (
+              <div className='flex flex-wrap justify-center'>
+                {shouldRenderButtons &&
+                  !isCurrentUserWatcher &&
+                  !isCurrentUserCreator && (
+                    <div className='m-2'>
+                      <WatcherButton
+                        isSubscribe={true}
+                        handleAction={handleSubscribe}
+                        className='w-12 h-12'
+                      />
+                    </div>
+                  )}
+                <WatcherList
+                  sortedApprovals={sortedApprovals}
+                  currentUserId={currentUserId}
+                  handleUnsubscribe={handleUnsubscribe}
+                  shouldRenderButtons={shouldRenderButtons}
+                />
+              </div>
+            )}
+          </div>
+        ) : (
+          <p className='text-center mb-4 text-dark-gray-txt'>
+            비공개 습관이므로
+            <br />
+            Watcher가 없습니다
+          </p>
+        )}
+        {!shouldRenderButtons && isGroupShared && (
+          <p className='text-center mb-4 text-dark-gray-txt'>
+            인증/승인 탭을 확인하세요
+          </p>
+        )}
+      </article>
       {subscriptionError && <ErrorMessage message={subscriptionError} />}
-    </div>
+    </section>
   );
 };
 

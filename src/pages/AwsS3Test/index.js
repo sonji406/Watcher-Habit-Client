@@ -6,9 +6,9 @@ const AwsS3Test = () => {
   };
 
   return (
-    <div>
+    <section>
       <button onClick={handleDeletePhoto}>사진 삭제 버튼</button>
-    </div>
+    </section>
   );
 };
 

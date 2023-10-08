@@ -5,34 +5,47 @@ import { useClickOutside } from '../../hooks/useClickOutside';
 import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
 import axios from 'axios';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import { useQuery } from 'react-query';
+import BellIcon from './bellIcon';
 
 const Profile = () => {
   const containerRef = useRef(null);
-
   const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  const [shakeKey, setShakeKey] = useState(0);
   const { profileImageUrl, error } = useProfileImage();
   const userId = getUserIdFromToken();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/notification/${userId}`,
-        );
-        setNotifications(response.data.notifications);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  }, []);
+  const { data: notifications, isError } = useQuery(
+    'notifications',
+    async () => {
+      const response = await axios.get(
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/notification/${userId}`,
+      );
 
-  const visibleCount = notifications.length;
+      return response.data.notifications;
+    },
+    {
+      refetchInterval: 10000,
+    },
+  );
+
+  useEffect(() => {
+    if (isError) {
+      console.error('Error fetching notifications');
+    }
+  }, [isError]);
+
+  const visibleCount = notifications?.length || 0;
 
   const toggleNotifications = () => {
     setShowNotifications((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    if (notifications?.length > shakeKey) {
+      setShakeKey(notifications.length);
+    }
+  }, [notifications]);
 
   useClickOutside(containerRef, () => setShowNotifications(false));
 
@@ -60,18 +73,18 @@ const Profile = () => {
           )}
 
           {visibleCount > 0 && (
-            <span className='absolute bottom-[-5px] right-[-5px] bg-yellow-400 rounded-full text-xs p-1 flex justify-center items-center w-[20px] h-[20px] text-[12px]'>
-              {visibleCount}
+            <span
+              key={shakeKey}
+              className={`absolute bottom-[-6px] right-[-6px] animate-shake`}
+            >
+              <BellIcon />
             </span>
           )}
         </div>
 
         {showNotifications && (
           <div className='absolute right-5 top-10 mt-2 w-64 rounded-lg shadow-lg'>
-            <NotificationList
-              notifications={notifications}
-              setNotifications={setNotifications}
-            />
+            <NotificationList notifications={notifications || []} />
           </div>
         )}
       </div>

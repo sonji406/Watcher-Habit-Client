@@ -8,6 +8,7 @@ import { useHandleSubmit } from '../../hooks/useHandleSubmit';
 import { useFetchHabitData } from '../../hooks/useFetchHabitData';
 import { useFetchUserData } from '../../hooks/useFetchUserData';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import Loading from '../../lib/loading/Loading';
 
 import HabitInfoForm from './forms/HabitInfoForm';
 import DateForm from './forms/DateForm';
@@ -45,7 +46,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
   const [groupList, setGroupList] = useState([]);
   const nickname = useFetchUserInfo(userId);
   const habitData = useFetchHabitData(habitId, isEdit);
-  const fetchedGroupList = useFetchUserData(userId);
+  const { groupList: fetchedGroupList, isLoading } = useFetchUserData(userId);
 
   useEffect(() => {
     if (habitData) {
@@ -120,6 +121,10 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
     });
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div
       className='min-h-screen flex flex-col bg-main-bg custom-scrollbar bg-vignette'
@@ -133,7 +138,7 @@ const CreateOrEditHabit = ({ isEdit = false }) => {
             </h1>
             <div className='relative'>
               <div
-                className='items-center w-[70vw] h-[74vh] max-w-3xl p-10 my-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
+                className='items-center w-[780px] h-[74vh] max-w-3xl p-10 my-4 bg-[#2D3C4A] rounded-2xl shadow-md overflow-y-auto custom-scrollbar border-4 border-customdarkgray'
                 style={{ maxHeight: 'calc(100vh - 2rem)' }}
               >
                 <form onSubmit={handleFormSubmit}>

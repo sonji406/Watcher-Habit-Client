@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
-const CreateGroupModal = ({ onClose }) => {
+const CreateGroupModal = ({ onClose, refetchGroups }) => {
   const modalContentRef = useRef();
   const [groupName, setGroupName] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -35,6 +35,8 @@ const CreateGroupModal = ({ onClose }) => {
       );
 
       const newGroupId = response.data.newGroup._id;
+
+      refetchGroups();
 
       onClose();
       navigate(`/group/${newGroupId}`);

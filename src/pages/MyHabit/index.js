@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearHabitDetail } from '../../redux/habitSlice';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
@@ -9,14 +9,21 @@ import HabitList from '../../components/habits/habitList/HabitList';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
 import Loading from '../../lib/loading/Loading';
 import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 
 function MyHabit() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const userId = getUserIdFromToken();
+  const loggedInUserNickname = useFetchUserInfo(userId);
+  const currentDate = getCurrentDate();
+
   const { nickname } = useParams('nickname');
 
   useDocumentTitle(`${nickname}님의 습관 관리 페이지`);
 
-  const currentDate = getCurrentDate();
   const { dailyHabits, loading, error } = useDailyHabits(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${nickname}/habitList?date=${currentDate}`,
   );
@@ -24,18 +31,21 @@ function MyHabit() {
   useEffect(() => {
     dispatch(clearHabitDetail());
     dispatch(clearNotificationHabitDetail());
-  }, [nickname, dispatch]);
 
-  if (loading) return <Loading />;
-  if (error) return <div>Error: {error.message}</div>;
+    if (nickname !== loggedInUserNickname || error) {
+      navigate(`/my-habit/${loggedInUserNickname}`, { replace: true });
+    }
+  }, [nickname, dispatch, loggedInUserNickname, error, navigate]);
+
+  if (!loggedInUserNickname || loading) return <Loading />;
 
   return (
-    <section className='flex flex-1 min-h-screen bg-main-bg text-white bg-vignette'>
-      <article className='flex mt-28 mx-auto'>
+    <main className='flex flex-1 min-h-screen bg-main-bg text-white bg-vignette'>
+      <section className='flex mt-28 mx-auto'>
         <HabitList dailyHabits={dailyHabits} />
         <HabitDetailAndVerification />
-      </article>
-    </section>
+      </section>
+    </main>
   );
 }
 

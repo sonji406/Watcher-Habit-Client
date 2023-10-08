@@ -68,7 +68,7 @@ const ApprovalItem = ({ watcher, isModal = false }) => {
       <div className='relative mr-[-25px] w-[40px] h-[40px] bg-light-gray-bg rounded-full flex'>
         <img
           src={watcher.profileImageUrl}
-          alt=''
+          alt='왓쳐 프로필이미지'
           className='object-cover rounded-full p-0.5'
         />
       </div>

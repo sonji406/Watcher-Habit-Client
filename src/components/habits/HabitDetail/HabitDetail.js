@@ -5,13 +5,15 @@ import HabitTime from './HabitTime';
 import HabitDaysOfWeek from './HabitDaysOfWeek';
 import HabitSection from './HabitSection';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import isLoginUser from '../../../lib/isLoginUser';
 import axios from 'axios';
 
 const HabitDetail = ({ isModal = false }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const navigate = useNavigate();
 
   const selectConditon = isModal
     ? (state) => state.notificationHabit.notificationHabitDetail
@@ -29,7 +31,7 @@ const HabitDetail = ({ isModal = false }) => {
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
       );
 
-      window.location.reload();
+      navigate(0);
     } catch (error) {
       console.error('Habit deletion failed:', error);
       setIsDeleting(false);
@@ -50,7 +52,7 @@ const HabitDetail = ({ isModal = false }) => {
   };
 
   return (
-    <div className='h-[calc(70vh-150px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5'>
+    <article className='h-[calc(70vh-150px)] overflow-y-auto custom-scrollbar z-10 ml-4 mr-1.5 pr-1.5 pb-10'>
       <HabitSection title='내용' content={habitDetail.habitContent} />
 
       <HabitSection title='패널티' content={habitDetail.penalty} />
@@ -70,7 +72,7 @@ const HabitDetail = ({ isModal = false }) => {
       <WatcherActions habitDetail={habitDetail} isModal={isModal} />
 
       {location.pathname.startsWith('/my-habit') && isCurrentUser && (
-        <div className='flex flex-wrap mt-6 w-full justify-center mb-2'>
+        <footer className='flex flex-wrap mt-6 w-full justify-center mb-2'>
           <div className='flex space-x-4'>
             {habitDetail.status === 'notTimeYet' && (
               <div>
@@ -86,7 +88,7 @@ const HabitDetail = ({ isModal = false }) => {
             )}
 
             {confirmDelete ? (
-              <div className='flex space-x-4'>
+              <nav className='flex space-x-4'>
                 <p className='text-center ml-2 mt-1'>
                   이 습관을 삭제하시겠습니까?
                 </p>
@@ -102,7 +104,7 @@ const HabitDetail = ({ isModal = false }) => {
                 >
                   아니오
                 </button>
-              </div>
+              </nav>
             ) : (
               <div>
                 <button
@@ -119,9 +121,9 @@ const HabitDetail = ({ isModal = false }) => {
               </div>
             )}
           </div>
-        </div>
+        </footer>
       )}
-    </div>
+    </article>
   );
 };
 

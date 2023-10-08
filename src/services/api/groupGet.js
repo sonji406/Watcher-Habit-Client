@@ -1,9 +1,12 @@
 import axios from 'axios';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
 
-export const getGroup = async (groupId) => {
+export const groupGet = async (groupId) => {
+  const userId = getUserIdFromToken();
+
   try {
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}?userId=${userId}`,
     );
 
     return response.data;
@@ -12,4 +15,4 @@ export const getGroup = async (groupId) => {
   }
 };
 
-export default getGroup;
+export default groupGet;

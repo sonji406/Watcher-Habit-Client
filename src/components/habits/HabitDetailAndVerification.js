@@ -36,7 +36,7 @@ const HabitDetailAndVerification = ({ isModal = false }) => {
         currentTab={isDetail ? 'detail' : 'verification'}
       />
       <div
-        className={`h-[70vh] text-center absolute border-2 ${containerBorderColorClass} top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10`}
+        className={`h-[70vh] text-center absolute border-2 ${containerBorderColorClass} top-12 left-0 right-0 bg-dark-blue-bg rounded-3xl z-10 overflow-hidden`}
       >
         {isEmptyObject(habitDetail) ? (
           <EmptyHabitDetailState />

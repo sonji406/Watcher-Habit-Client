@@ -35,6 +35,23 @@ module.exports = {
       boxShadow: {
         green: '0 0 8px 3px rgba(0, 255, 0, 0.5)',
       },
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'rotate(0)' },
+          '10%': { transform: 'rotate(-5deg)' },
+          '20%': { transform: 'rotate(5deg)' },
+          '30%': { transform: 'rotate(-5deg)' },
+          '40%': { transform: 'rotate(5deg)' },
+          '50%': { transform: 'rotate(0)' },
+          '60%': { transform: 'rotate(5deg)' },
+          '70%': { transform: 'rotate(-5deg)' },
+          '80%': { transform: 'rotate(5deg)' },
+          '90%': { transform: 'rotate(-5deg)' },
+        },
+      },
+      animation: {
+        shake: 'shake 2s ease-in-out',
+      },
     },
   },
   plugins: [],

@@ -48,14 +48,16 @@ const HabitVerification = ({ isModal = false }) => {
   const isPreVerification = ['inProgress', 'notTimeYet'].includes(status);
 
   return (
-    <div className='w-[560px] h-[330px] mx-auto bg-main-bg rounded-xl pt-2 pb-10'>
-      <p className='font-semibold'>{statusMessage}</p>
-      <div className='flex mt-4 h-[280px]'>
-        {isPreVerification ? (
-          <PreVerificationIcon />
-        ) : (
-          <ApprovalBox isModal={isModal} />
-        )}
+    <div className='w-[560px] h-[calc(70vh-175px)] mx-auto overflow-y-auto custom-scrollbar px-1'>
+      <div className='bg-main-bg rounded-xl pt-2 pb-10'>
+        <p className='font-semibold mt-3'>{statusMessage}</p>
+        <div className='flex mt-4 h-[270px]'>
+          {isPreVerification ? (
+            <PreVerificationIcon />
+          ) : (
+            <ApprovalBox isModal={isModal} />
+          )}
+        </div>
       </div>
     </div>
   );
