@@ -1,4 +1,5 @@
 import axios from 'axios';
+import ERROR_MESSAGES from '../constants/errorMessages';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_DOMAIN + '/api',
@@ -8,7 +9,7 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     if (error.response && error.response.status === 401) {
-      if (error.response.data.error === '리프레시 토큰이 만료되었습니다.') {
+      if (error.response.data.error === ERROR_MESSAGES.REFRESH_TOKEN_EXPIRED) {
         window.location.href = '/';
         return Promise.reject(error);
       }
