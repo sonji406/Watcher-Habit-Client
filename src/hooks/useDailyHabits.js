@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 export const useDailyHabits = (apiUrl) => {
   const [dailyHabits, setDailyHabits] = useState(null);
@@ -9,7 +9,8 @@ export const useDailyHabits = (apiUrl) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiUrl);
+        const response = await api.get(apiUrl, { withCredentials: true });
+
         setDailyHabits(response.data);
         setLoading(false);
       } catch (err) {
