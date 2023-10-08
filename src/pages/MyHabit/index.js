@@ -31,15 +31,13 @@ function MyHabit() {
   useEffect(() => {
     dispatch(clearHabitDetail());
     dispatch(clearNotificationHabitDetail());
-  }, [nickname, dispatch]);
+
+    if (nickname !== loggedInUserNickname || error) {
+      navigate(`/my-habit/${loggedInUserNickname}`, { replace: true });
+    }
+  }, [nickname, dispatch, loggedInUserNickname, error, navigate]);
 
   if (!loggedInUserNickname || loading) return <Loading />;
-
-  if (nickname !== loggedInUserNickname || error) {
-    navigate(`/my-habit/${loggedInUserNickname}`);
-
-    return null;
-  }
 
   return (
     <main className='flex flex-1 min-h-screen bg-main-bg text-white bg-vignette'>
