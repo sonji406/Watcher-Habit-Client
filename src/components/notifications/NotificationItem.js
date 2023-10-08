@@ -2,9 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import getButtonText from '../../lib/notification/getButtonText';
 import formatDate from '../../utils/formatDate';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
+import api from '../../lib/api';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
@@ -29,9 +29,10 @@ const NotificationItem = ({
   const handleInvite = async () => {
     try {
       const body = { userId };
-      await axios.patch(
+      await api.patch(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/members`,
         body,
+        { withCredentials: true },
       );
 
       navigate(`/group/${groupId}`);
@@ -57,8 +58,9 @@ const NotificationItem = ({
 
   const handleOnClick = async () => {
     try {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
+        { withCredentials: true },
       );
 
       response.data.approvals = response.data.approvals.map((approval) => ({

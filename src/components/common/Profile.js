@@ -3,10 +3,10 @@ import NotificationList from '../notifications/NotificationList';
 import { useProfileImage } from '../../hooks/useProfileImage';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
-import axios from 'axios';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useQuery } from 'react-query';
 import BellIcon from './bellIcon';
+import api from '../../lib/api';
 
 const Profile = () => {
   const containerRef = useRef(null);
@@ -18,8 +18,9 @@ const Profile = () => {
   const { data: notifications, isError } = useQuery(
     'notifications',
     async () => {
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/notification/${userId}`,
+        { withCredentials: true },
       );
 
       return response.data.notifications;

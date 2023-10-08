@@ -1,8 +1,9 @@
-import axios from 'axios';
+import api from '../../lib/api';
 
 const habitGetAPI = (habitId) => {
-  return axios.get(
+  return api.get(
     `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
+    { withCredentials: true },
   );
 };
 

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
+import api from '../../../lib/api';
 
 const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
   const dispatch = useDispatch();
@@ -8,8 +8,9 @@ const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
   const onClickHandler = async () => {
     try {
       onSelect();
-      const response = await axios.get(
+      const response = await api.get(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
+        { withCredentials: true },
       );
 
       response.data.approvals = response.data.approvals.map((approval) => ({

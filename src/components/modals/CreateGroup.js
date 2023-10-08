@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import api from '../../lib/api';
 
 const CreateGroupModal = ({ onClose, refetchGroups }) => {
   const modalContentRef = useRef();
@@ -29,9 +29,10 @@ const CreateGroupModal = ({ onClose, refetchGroups }) => {
         creatorId: getUserIdFromToken(),
       };
 
-      const response = await axios.post(
+      const response = await api.post(
         `${process.env.REACT_APP_SERVER_DOMAIN}/api/group`,
         requestBody,
+        { withCredentials: true },
       );
 
       const newGroupId = response.data.newGroup._id;

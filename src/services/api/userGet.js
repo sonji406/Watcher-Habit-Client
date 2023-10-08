@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../../lib/api';
 
 export const getUserInfo = async (
   userId,
@@ -6,13 +6,14 @@ export const getUserInfo = async (
   withUserData = true,
 ) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
       {
         params: {
           include,
           withUserData,
         },
+        withCredentials: true,
       },
     );
 

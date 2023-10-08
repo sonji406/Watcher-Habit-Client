@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import NotificationMessage from './NotificationMessage';
 import VerifyHabitModal from '../modals/VerifyHabit';
 import initEventSource from '../../utils/initEventSource';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
+import api from '../../lib/api';
 
 const NOTIFICATION_STATUSES = [
   'success',
@@ -47,17 +47,19 @@ const RealTimeNotifications = () => {
 
   const handleInvite = async (notification) => {
     const body = { userId: notification.to };
-    const response = await axios.patch(
+    const response = await api.patch(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${notification.groupId}/members`,
       body,
+      { withCredentials: true },
     );
     const groupId = response.data.groupId;
     navigate(`/group/${groupId}`);
   };
 
   const handleHabitNotification = async (notification) => {
-    const response = await axios.get(
+    const response = await api.get(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${notification.habitId}`,
+      { withCredentials: true },
     );
 
     const updatedApprovals = response.data.approvals.map((approval) => ({
