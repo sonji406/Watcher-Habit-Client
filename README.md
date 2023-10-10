@@ -412,7 +412,7 @@ REACT_APP_SERVER_DOMAIN=                 # 백엔드 API 서버 주소
 REACT_APP_GOOGLE_CLIENT_ID=              # Google OAuth 2.0 인증을 위한 값
 REACT_APP_AWS_ACCESS_KEY_ID=             # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
 REACT_APP_AWS_SECRET_ACCESS_KEY=         # AWS 서비스에 프로그래밍 방식으로 액세스하기 위한 값
-REACT_APP_REDIRECT_URI=                  # OAuth 인증 과정 중 사용자를 리다이렉트시킬 URI
+REACT_APP_REDIRECT_URI=                  # OAuth 인증 과정 중 사용자를 리다이렉트시키는 URI
 
 # 서버
 MONGODB_URI=                             # MongoDB 데이터베이스 연결을 위한 URI
