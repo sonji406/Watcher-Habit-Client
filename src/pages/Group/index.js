@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { clearHabitDetail } from '../../redux/habitSlice';
+import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
 import Loading from '../../lib/loading/Loading';
 import getGroupAPI from '../../services/api/group/getGroup';
 import getUserInfoAPI from '../../services/api/user/getUser';
 import getCurrentDate from '../../utils/getCurrentDate';
-import { clearHabitDetail } from '../../redux/habitSlice';
-import { useDailyHabits } from '../../hooks/useDailyHabits';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import useDailyHabits from '../../hooks/useDailyHabits';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 import HabitList from '../../components/habits/habitList/HabitList';
-import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
 
 function Group() {
