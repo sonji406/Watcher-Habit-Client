@@ -47,28 +47,36 @@ const RealTimeNotifications = () => {
   };
 
   const handleInvite = async (notification) => {
-    const body = { userId: notification.to };
-    const response = await patchGroupAPI(notification.groupId, body);
+    try {
+      const body = { userId: notification.to };
+      const response = await patchGroupAPI(notification.groupId, body);
 
-    const groupId = response.data.groupId;
-    navigate(`/group/${groupId}`);
+      const groupId = response.data.groupId;
+      navigate(`/group/${groupId}`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleHabitNotification = async (notification) => {
-    const response = await getHabitAPI(notification.habitId);
+    try {
+      const response = await getHabitAPI(notification.habitId);
 
-    const updatedApprovals = response.data.approvals.map((approval) => ({
-      ...approval._id,
-      status: approval.status,
-      profileImageUrl: approval._id.profileImageUrl,
-    }));
+      const updatedApprovals = response.data.approvals.map((approval) => ({
+        ...approval._id,
+        status: approval.status,
+        profileImageUrl: approval._id.profileImageUrl,
+      }));
 
-    dispatch(
-      setNotificationHabitDetail({
-        ...response.data,
-        approvals: updatedApprovals,
-      }),
-    );
+      dispatch(
+        setNotificationHabitDetail({
+          ...response.data,
+          approvals: updatedApprovals,
+        }),
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleActionButtonClick = async (notification) => {
