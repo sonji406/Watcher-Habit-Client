@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import getUserInfoAPI from '../services/api/user/getUser';
 
-export const useFetchUserInfo = (userId) => {
+const useFetchUserInfo = (userId) => {
   const [nickname, setNickname] = useState(null);
 
   useEffect(() => {
@@ -18,3 +18,5 @@ export const useFetchUserInfo = (userId) => {
 
   return nickname;
 };
+
+export default useFetchUserInfo;
