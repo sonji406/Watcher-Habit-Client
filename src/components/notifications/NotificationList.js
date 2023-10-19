@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NotificationItem from './NotificationItem';
 import { useNavigate } from 'react-router-dom';
-import logoutAPI from '../../services/api/logout';
+import logoutAPI from '../../services/api/auth/logout';
 import VerifyHabitModal from '../modals/VerifyHabit';
 import LogoutIcon from './icon/Logout';
 

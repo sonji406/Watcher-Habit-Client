@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import getUserInfo from '../services/api/userGet';
 
-export const useGroups = (userId) => {
+const useGroups = (userId) => {
   const [groupOptions, setGroupOptions] = useState([]);
 
   useEffect(() => {
@@ -22,3 +22,5 @@ export const useGroups = (userId) => {
 
   return { groupOptions };
 };
+
+export default useGroups;

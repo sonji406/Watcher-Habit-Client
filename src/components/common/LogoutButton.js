@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import logoutAPI from '../../services/api/logout';
+import logoutAPI from '../../services/api/auth/logout';
 
 const handleLogout = async (navigate, logoutAPI) => {
   try {

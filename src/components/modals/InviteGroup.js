@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import groupGet from '../../services/api/groupGet';
-import { useClickOutside } from '../../hooks/useClickOutside';
+import useClickOutside from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import getGroupAPI from '../../services/api/group/getGroup';
 import getInfoByEmailAPI from '../../services/api/user/getInfoByEmail';
 import postInviteGroupAPI from '../../services/api/group/postInviteGroup';
 
@@ -19,7 +19,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = groupGet(groupId);
+        const response = getGroupAPI(groupId);
 
         setGroupName(response.data.groupName);
       } catch (error) {

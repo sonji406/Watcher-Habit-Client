@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import BellIcon from './bellIcon';
 import NotificationList from '../notifications/NotificationList';
+import useProfileImage from '../../hooks/useProfileImage';
+import useClickOutside from '../../hooks/useClickOutside';
 import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
-import { useProfileImage } from '../../hooks/useProfileImage';
-import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import getNotificationList from '../../services/api/getNotificationList';
 

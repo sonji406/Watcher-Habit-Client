@@ -1,4 +1,4 @@
-import api from '../../lib/api';
+import api from '../../../lib/api';
 
 const userPostAPI = (body) => {
   return api.post('/user', body, {

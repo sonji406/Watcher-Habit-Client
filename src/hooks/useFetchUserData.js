@@ -1,9 +1,9 @@
 import { useQuery } from 'react-query';
-import userGetAPI from '../services/api/userGet';
+import getUserInfoAPI from '../services/api/user/getUser';
 
-export const useFetchUserData = (userId) => {
+const useFetchUserData = (userId) => {
   const fetchUserData = async () => {
-    const response = await userGetAPI(userId, 'group', true);
+    const response = await getUserInfoAPI(userId, 'group', true);
 
     return response.groups.map((group) => ({
       groupId: group._id,
@@ -21,3 +21,5 @@ export const useFetchUserData = (userId) => {
 
   return { groupList, refetch, isLoading };
 };
+
+export default useFetchUserData;

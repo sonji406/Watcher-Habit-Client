@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import postHabitAPI from '../services/api/habit/postHabit';
 import patchHabitAPI from '../services/api/habit/patchHabit';
-import { createHabitData } from '../lib/createHabit/createHabitData';
+import createHabitData from '../lib/createHabit/createHabitData';
 
-export const useHandleSubmit = (
+const useHandleSubmit = (
   validateForm,
   userId,
   navigate,
@@ -72,3 +72,5 @@ export const useHandleSubmit = (
 
   return { handleSubmit, isSubmitting, message, messageType };
 };
+
+export default useHandleSubmit;

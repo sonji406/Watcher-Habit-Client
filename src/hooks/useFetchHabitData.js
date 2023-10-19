@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import getHabitAPI from '../services/api/habit/getHabit';
 
-export const useFetchHabitData = (habitId, isEdit) => {
+const useFetchHabitData = (habitId, isEdit) => {
   const [habitData, setHabitData] = useState(null);
 
   useEffect(() => {
@@ -22,3 +22,5 @@ export const useFetchHabitData = (habitId, isEdit) => {
 
   return habitData;
 };
+
+export default useFetchHabitData;

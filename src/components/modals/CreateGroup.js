@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import { useClickOutside } from '../../hooks/useClickOutside';
+import useClickOutside from '../../hooks/useClickOutside';
 import postGroupAPI from '../../services/api/group/postGroup';
 
 const CreateGroupModal = ({ onClose, refetchGroups }) => {

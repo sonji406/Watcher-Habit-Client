@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import decodeJwtResponse from '../../utils/decodeJwtResponse';
-import userCheckAPI from '../../services/api/userCheck';
-import checkUserByEmail from '../../lib/userCheck/checkUserByEmail';
+import checkUserAPI from '../../services/api/user/checkUser';
+import checkUserByEmail from '../../lib/user/checkUserByEmail';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
 const GoogleLoginButton = () => {
@@ -27,7 +27,7 @@ const GoogleLoginButton = () => {
     try {
       const responsePayload = decodeJwtResponse(response.credential);
       const nickname = await checkUserByEmail(
-        userCheckAPI,
+        checkUserAPI,
         responsePayload.email,
       );
 

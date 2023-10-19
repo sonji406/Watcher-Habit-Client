@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
+import useFetchUserInfo from '../../hooks/useFetchUserInfo';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 
 function NotFound() {
   const navigate = useNavigate();
