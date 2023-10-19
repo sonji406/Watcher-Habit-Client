@@ -1,11 +1,7 @@
 import api from '../../../lib/api';
 
-const postHabitAPI = (habitData) => {
-  return api.post(
-    `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
-    habitData,
-    { withCredentials: true },
-  );
+const postHabitAPI = (body) => {
+  return api.post('/habit', body, { withCredentials: true });
 };
 
 export default postHabitAPI;

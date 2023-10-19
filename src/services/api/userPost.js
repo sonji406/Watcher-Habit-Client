@@ -1,7 +1,7 @@
 import api from '../../lib/api';
 
-const userPostAPI = (userData) => {
-  return api.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/user`, userData, {
+const userPostAPI = (body) => {
+  return api.post('/user', body, {
     withCredentials: true,
   });
 };

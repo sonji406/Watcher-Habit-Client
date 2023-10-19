@@ -1,7 +1,7 @@
 import api from '../../../lib/api';
 
 const postGroupAPI = (body) => {
-  return api.post(`${process.env.REACT_APP_SERVER_DOMAIN}/api/group`, body, {
+  return api.post('/group', body, {
     withCredentials: true,
   });
 };

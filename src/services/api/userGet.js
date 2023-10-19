@@ -6,16 +6,13 @@ export const getUserInfo = async (
   withUserData = true,
 ) => {
   try {
-    const response = await api.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
-      {
-        params: {
-          include,
-          withUserData,
-        },
-        withCredentials: true,
+    const response = await api.get(`/user/${userId}`, {
+      params: {
+        include,
+        withUserData,
       },
-    );
+      withCredentials: true,
+    });
 
     return response.data;
   } catch (error) {
