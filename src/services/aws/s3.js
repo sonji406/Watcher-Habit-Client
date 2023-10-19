@@ -8,7 +8,7 @@ const client = new S3Client({
   },
 });
 
-export const deletePhoto = async (photoKey) => {
+const deletePhoto = async (photoKey) => {
   const command = new DeleteObjectCommand({
     Bucket: 'watcher-habit',
     Key: photoKey,
@@ -21,3 +21,5 @@ export const deletePhoto = async (photoKey) => {
     console.error('삭제 에러', err);
   }
 };
+
+export default deletePhoto;
