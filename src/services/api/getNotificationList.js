@@ -1,8 +1,8 @@
 import api from '../../lib/api';
 
-const getNotificationList = async (userId) => {
+const getNotificationList = (userId) => {
   try {
-    const response = await api.get(`/notification/${userId}`, {
+    const response = api.get(`/notification/${userId}`, {
       withCredentials: true,
     });
     const notifications = response.data.data;
