@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import { getUserInfo } from '../../services/api/userGet';
+import getUserInfoAPI from '../../services/api/user/getUser';
 
 const Logo = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Logo = () => {
     const fetchData = async () => {
       try {
         const userId = getUserIdFromToken();
-        const userInfo = await getUserInfo(userId);
+        const userInfo = await getUserInfoAPI(userId);
         setNickname(userInfo.nickname);
       } catch (error) {
         console.error('An error occurred:', error);

@@ -5,7 +5,7 @@ import MyHabitPageButton from './MyHabitPageButton';
 import CreateGroupButton from './CreateGroupButton';
 import JoinedGroupsButton from './JoinedGroupsButton';
 import WeeklyScheduleButton from './WeeklyScheduleButton';
-import userGetAPI from '../../services/api/userGet';
+import getUserInfoAPI from '../../services/api/user/getUser';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useFetchUserData } from '../../hooks/useFetchUserData';
 
@@ -36,7 +36,7 @@ const Sidebar = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await userGetAPI(userId, 'group', true);
+        const response = await getUserInfoAPI(userId, 'group', true);
         setNickname(response.nickname);
       } catch (error) {
         throw new Error('사용자 정보 확인 중 문제가 발생했습니다.');
