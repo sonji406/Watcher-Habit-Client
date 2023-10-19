@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 import NicknameInput from './NicknameInput';
 import ErrorMessage from './ErrorMessage';
 import CreateNicknameButton from './CreateNicknameButton';
