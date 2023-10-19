@@ -1,6 +1,6 @@
 import api from '../../lib/api';
 
-const getNotificationList = (userId) => {
+const getNotificationListAPI = (userId) => {
   try {
     const response = api.get(`/notification/${userId}`, {
       withCredentials: true,
@@ -13,4 +13,4 @@ const getNotificationList = (userId) => {
   }
 };
 
-export default getNotificationList;
+export default getNotificationListAPI;

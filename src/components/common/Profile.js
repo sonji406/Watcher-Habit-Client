@@ -6,7 +6,7 @@ import useProfileImage from '../../hooks/useProfileImage';
 import useClickOutside from '../../hooks/useClickOutside';
 import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import getNotificationList from '../../services/api/getNotificationList';
+import getNotificationListAPI from '../../services/api/getNotificationList';
 
 const Profile = () => {
   const containerRef = useRef(null);
@@ -17,7 +17,7 @@ const Profile = () => {
 
   const { data: notifications, isError } = useQuery(
     'notifications',
-    async () => await getNotificationList(userId),
+    async () => await getNotificationListAPI(userId),
     {
       refetchInterval: 10000,
     },
