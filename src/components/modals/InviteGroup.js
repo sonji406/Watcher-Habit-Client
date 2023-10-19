@@ -2,7 +2,7 @@ import api from '../../lib/api';
 import { useEffect, useRef, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import groupGet from '../../services/api/groupGet';
+import getGroupAPI from '../../services/api/group/getGroup';
 
 const InviteGroupModal = ({ groupId, onClose }) => {
   const modalContentRef = useRef();
@@ -18,7 +18,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = groupGet(groupId);
+        const response = getGroupAPI(groupId);
 
         setGroupName(response.data.groupName);
       } catch (error) {

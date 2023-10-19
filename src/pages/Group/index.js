@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import Loading from '../../lib/loading/Loading';
-import groupGet from '../../services/api/groupGet';
-import getUserInfo from '../../services/api/userGet';
+import getGroupAPI from '../../services/api/group/getGroup';
+import getUserInfoAPI from '../../services/api/user/getUser';
 import getCurrentDate from '../../utils/getCurrentDate';
 import { clearHabitDetail } from '../../redux/habitSlice';
 import { useDailyHabits } from '../../hooks/useDailyHabits';
@@ -30,11 +30,11 @@ function Group() {
       dispatch(clearHabitDetail());
       dispatch(clearNotificationHabitDetail());
 
-      const data = await groupGet(groupId);
+      const data = await getGroupAPI(groupId);
 
       if (!data.isMember) {
         const userId = getUserIdFromToken();
-        const userInfo = await getUserInfo(userId);
+        const userInfo = await getUserInfoAPI(userId);
 
         setGroupInfo(data.group);
 
