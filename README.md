@@ -135,7 +135,7 @@ React 내장 Hook 중 `useState`는 비교적 간단한 로컬 상태 관리에 
 import { useQuery } from 'react-query';
 import getUserInfoAPI from '../services/api/user/getUser';
 
-export const useFetchUserData = (userId) => {
+const useFetchUserData = (userId) => {
   const fetchUserData = async () => {
     const response = await getUserInfoAPI(userId, 'group', true);
 
@@ -155,6 +155,8 @@ export const useFetchUserData = (userId) => {
 
   return { groupList, refetch, isLoading };
 };
+
+export default useFetchUserData;
 ```
 
 ### 4) 상태 관리의 효과와 향상된 결과
