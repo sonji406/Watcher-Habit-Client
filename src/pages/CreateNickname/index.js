@@ -4,7 +4,7 @@ import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import NicknameInput from './NicknameInput';
 import ErrorMessage from './ErrorMessage';
 import CreateNicknameButton from './CreateNicknameButton';
-import userPostAPI from '../../services/api/userPost';
+import postUserAPI from '../../services/api/user/postUser';
 import loginAndRedirect from '../../lib/login/loginAndRedirect';
 
 const CreateNickname = () => {
@@ -62,7 +62,7 @@ const CreateNickname = () => {
         socialLoginType: getSocialLoginType(responsePayload),
       };
 
-      await userPostAPI(userData);
+      await postUserAPI(userData);
 
       await loginAndRedirect(responsePayload.email, nickname, navigate);
     } catch (error) {
