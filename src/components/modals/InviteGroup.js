@@ -1,8 +1,9 @@
-import api from '../../lib/api';
 import { useEffect, useRef, useState } from 'react';
+import groupGet from '../../services/api/groupGet';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import groupGet from '../../services/api/groupGet';
+import getInfoByEmailAPI from '../../services/api/user/getInfoByEmail';
+import postInviteGroupAPI from '../../services/api/group/postInviteGroup';
 
 const InviteGroupModal = ({ groupId, onClose }) => {
   const modalContentRef = useRef();
@@ -36,10 +37,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
   const onClickGetUserByEmail = async (e) => {
     try {
-      const response = await api.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/getInfoByEmail?email=${inviteEmail}`,
-        { withCredentials: true },
-      );
+      const response = await getInfoByEmailAPI(inviteEmail);
 
       setInvitedUser(response.data);
       setErrorMsg('');
@@ -60,14 +58,12 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
   const onClickInvite = async (e) => {
     try {
-      await api.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/invite`,
-        {
-          fromUserId: inviteUserId,
-          toUserId: invitedUser.userId,
-        },
-        { withCredentials: true },
-      );
+      const requestBody = {
+        fromUserId: inviteUserId,
+        toUserId: invitedUser.userId,
+      };
+
+      await postInviteGroupAPI(groupId, requestBody);
 
       setErrorMsg('');
       onClose();
