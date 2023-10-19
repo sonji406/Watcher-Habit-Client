@@ -1,9 +1,9 @@
 import api from '../../../lib/api';
 
-const userPostAPI = (body) => {
+const postUserAPI = (body) => {
   return api.post('/user', body, {
     withCredentials: true,
   });
 };
 
-export default userPostAPI;
+export default postUserAPI;
