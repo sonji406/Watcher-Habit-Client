@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getUserProfileImage } from '../services/api/userGet';
 import getUserIdFromToken from '../utils/getUserIdFromToken';
+import getUserProfileImage from '../lib/user/getUserProfileImage';
 
 export const useProfileImage = () => {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
