@@ -1,4 +1,4 @@
-export const convertTimeToMinutes = (time, period) => {
+const convertTimeToMinutes = (time, period) => {
   const timeParts = time.split(':');
   let minutes = parseInt(timeParts[0], 10) * 60 + parseInt(timeParts[1], 10);
 
@@ -13,8 +13,15 @@ export const convertTimeToMinutes = (time, period) => {
   return minutes;
 };
 
-export const formatTimeFromMinutes = (minutes) => {
+const formatTimeFromMinutes = (minutes) => {
   return `${Math.floor(minutes / 60)
     .toString()
     .padStart(2, '0')}:${(minutes % 60).toString().padStart(2, '0')}`;
 };
+
+const handleTime = {
+  convertTimeToMinutes,
+  formatTimeFromMinutes,
+};
+
+export default handleTime;
