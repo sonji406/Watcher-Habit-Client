@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import WeeklySchedule from './WeeklySchedule';
-import { useClickOutside } from '../../../hooks/useClickOutside';
+import useClickOutside from '../../../hooks/useClickOutside';
 
 const WeeklyScheduleModal = ({ onClose }) => {
   const modalContentRef = useRef();

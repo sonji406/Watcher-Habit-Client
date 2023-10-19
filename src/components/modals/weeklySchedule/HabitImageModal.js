@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import getStatusMessage from './utils/getStatusMessage';
-import { useClickOutside } from '../../../hooks/useClickOutside';
+import useClickOutside from '../../../hooks/useClickOutside';
 
 const HabitImageModal = ({ isOpen, image, status, onClose }) => {
   const modalRef = useRef(null);

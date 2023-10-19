@@ -1,6 +1,6 @@
 import api from '../../lib/api';
 import { useEffect, useRef, useState } from 'react';
-import { useClickOutside } from '../../hooks/useClickOutside';
+import useClickOutside from '../../hooks/useClickOutside';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import getGroupAPI from '../../services/api/group/getGroup';
 
