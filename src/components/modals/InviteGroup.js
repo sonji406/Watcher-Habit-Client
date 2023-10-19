@@ -19,7 +19,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = getGroupAPI(groupId);
+        const response = await getGroupAPI(groupId);
 
         setGroupName(response.data.groupName);
       } catch (error) {

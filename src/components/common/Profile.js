@@ -17,7 +17,7 @@ const Profile = () => {
 
   const { data: notifications, isError } = useQuery(
     'notifications',
-    () => getNotificationList(userId),
+    async () => await getNotificationList(userId),
     {
       refetchInterval: 10000,
     },

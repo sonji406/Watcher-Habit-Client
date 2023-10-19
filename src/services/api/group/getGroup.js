@@ -1,11 +1,11 @@
 import getUserIdFromToken from '../../../utils/getUserIdFromToken';
 import api from '../../../lib/api';
 
-const getGroupAPI = async (groupId) => {
+const getGroupAPI = (groupId) => {
   const userId = getUserIdFromToken();
 
   try {
-    const response = await api.get(`/group/${groupId}?userId=${userId}`, {
+    const response = api.get(`/group/${groupId}?userId=${userId}`, {
       withCredentials: true,
     });
 
