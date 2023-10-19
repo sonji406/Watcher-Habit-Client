@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import NotificationList from '../notifications/NotificationList';
-import { useProfileImage } from '../../hooks/useProfileImage';
-import { useClickOutside } from '../../hooks/useClickOutside';
-import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
-import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import { useQuery } from 'react-query';
 import BellIcon from './bellIcon';
-import api from '../../lib/api';
+import NotificationList from '../notifications/NotificationList';
+import RealTimeNotifications from '../realTimeNotifications/RealTimeNotifications';
+import { useProfileImage } from '../../hooks/useProfileImage';
+import { useClickOutside } from '../../hooks/useClickOutside';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
+import getNotificationList from '../../services/api/getNotificationList';
 
 const Profile = () => {
   const containerRef = useRef(null);
@@ -17,14 +17,7 @@ const Profile = () => {
 
   const { data: notifications, isError } = useQuery(
     'notifications',
-    async () => {
-      const response = await api.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/notification/${userId}`,
-        { withCredentials: true },
-      );
-
-      return response.data.notifications;
-    },
+    () => getNotificationList(userId),
     {
       refetchInterval: 10000,
     },
