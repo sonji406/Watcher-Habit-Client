@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { useValidation } from '../../hooks/useValidationForm';
-import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
-import { useHandleSubmit } from '../../hooks/useHandleSubmit';
-import { useFetchHabitData } from '../../hooks/useFetchHabitData';
-import { useFetchUserData } from '../../hooks/useFetchUserData';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
+import useValidation from '../../hooks/useValidationForm';
+import useFetchUserInfo from '../../hooks/useFetchUserInfo';
+import useHandleSubmit from '../../hooks/useHandleSubmit';
+import useFetchHabitData from '../../hooks/useFetchHabitData';
+import useFetchUserData from '../../hooks/useFetchUserData';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import Loading from '../../lib/loading/Loading';
 
