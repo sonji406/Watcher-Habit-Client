@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import NotificationMessage from './NotificationMessage';
 import VerifyHabitModal from '../modals/VerifyHabit';
 import initEventSource from '../../utils/initEventSource';
+import getHabitAPI from '../../services/api/habit/getHabit';
+import patchGroupAPI from '../../services/api/group/patchGroup';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
-import api from '../../lib/api';
 
 const NOTIFICATION_STATUSES = [
   'success',
@@ -47,20 +48,14 @@ const RealTimeNotifications = () => {
 
   const handleInvite = async (notification) => {
     const body = { userId: notification.to };
-    const response = await api.patch(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${notification.groupId}/members`,
-      body,
-      { withCredentials: true },
-    );
+    const response = await patchGroupAPI(notification.groupId, body);
+
     const groupId = response.data.groupId;
     navigate(`/group/${groupId}`);
   };
 
   const handleHabitNotification = async (notification) => {
-    const response = await api.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${notification.habitId}`,
-      { withCredentials: true },
-    );
+    const response = await getHabitAPI(notification.habitId);
 
     const updatedApprovals = response.data.approvals.map((approval) => ({
       ...approval._id,

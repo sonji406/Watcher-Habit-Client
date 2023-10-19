@@ -1,10 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import getButtonText from '../../lib/notification/getButtonText';
-import formatDate from '../../utils/formatDate';
 import { useDispatch } from 'react-redux';
+import formatDate from '../../utils/formatDate';
+import getHabitAPI from '../../services/api/habit/getHabit';
+import patchGroupAPI from '../../services/api/group/patchGroup';
+import getButtonText from '../../lib/notification/getButtonText';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
-import api from '../../lib/api';
 
 const commonButtonClass =
   'bg-dark-blue-bg text-white hover:text-green-txt text-sm mt-2 px-4 py-2 rounded-full';
@@ -29,11 +30,7 @@ const NotificationItem = ({
   const handleInvite = async () => {
     try {
       const body = { userId };
-      await api.patch(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/members`,
-        body,
-        { withCredentials: true },
-      );
+      await patchGroupAPI(groupId, body);
 
       navigate(`/group/${groupId}`);
     } catch (error) {
@@ -58,10 +55,7 @@ const NotificationItem = ({
 
   const handleOnClick = async () => {
     try {
-      const response = await api.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
-        { withCredentials: true },
-      );
+      const response = await getHabitAPI(habitId);
 
       response.data.approvals = response.data.approvals.map((approval) => ({
         ...approval._id,

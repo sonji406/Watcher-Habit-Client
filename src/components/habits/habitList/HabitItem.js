@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
-import api from '../../../lib/api';
+import getHabitAPI from '../../../services/api/habit/getHabit';
 
 const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
   const dispatch = useDispatch();
@@ -8,10 +8,7 @@ const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
   const onClickHandler = async () => {
     try {
       onSelect();
-      const response = await api.get(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitInfo._id}`,
-        { withCredentials: true },
-      );
+      const response = await getHabitAPI(habitInfo._id);
 
       response.data.approvals = response.data.approvals.map((approval) => ({
         ...approval._id,
