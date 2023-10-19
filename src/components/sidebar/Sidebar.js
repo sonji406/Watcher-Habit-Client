@@ -7,7 +7,7 @@ import JoinedGroupsButton from './JoinedGroupsButton';
 import WeeklyScheduleButton from './WeeklyScheduleButton';
 import getUserInfoAPI from '../../services/api/user/getUser';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import { useFetchUserData } from '../../hooks/useFetchUserData';
+import useFetchUserData from '../../hooks/useFetchUserData';
 
 const Sidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
