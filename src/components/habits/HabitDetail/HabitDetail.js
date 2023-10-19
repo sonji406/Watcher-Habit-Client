@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import WatcherActions from './WatcherActions';
-import HabitDuration from './HabitDuration';
-import HabitTime from './HabitTime';
-import HabitDaysOfWeek from './HabitDaysOfWeek';
-import HabitSection from './HabitSection';
-import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import HabitTime from './HabitTime';
+import HabitSection from './HabitSection';
+import HabitDuration from './HabitDuration';
+import WatcherActions from './WatcherActions';
+import HabitDaysOfWeek from './HabitDaysOfWeek';
 import isLoginUser from '../../../lib/isLoginUser';
-import api from '../../../lib/api';
+import deleteHabitAPI from '../../../services/api/habit/deleteHabit';
 
 const HabitDetail = ({ isModal = false }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -27,11 +27,7 @@ const HabitDetail = ({ isModal = false }) => {
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      await api.delete(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
-        { withCredentials: true },
-      );
-
+      await deleteHabitAPI(habitDetail._id);
       navigate(0);
     } catch (error) {
       console.error('Habit deletion failed:', error);
