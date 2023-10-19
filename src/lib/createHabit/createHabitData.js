@@ -1,9 +1,6 @@
-import {
-  convertTimeToMinutes,
-  formatTimeFromMinutes,
-} from '../../utils/timeUtils';
+import handleTime from '../../utils/timeUtils';
 
-export const createHabitData = (formData, userId) => {
+const createHabitData = (formData, userId) => {
   const {
     habitTitle,
     habitContent,
@@ -18,11 +15,14 @@ export const createHabitData = (formData, userId) => {
     timePeriod,
   } = formData;
 
-  const startTimeInMinutes = convertTimeToMinutes(startTime, timePeriod);
+  const startTimeInMinutes = handleTime.convertTimeToMinutes(
+    startTime,
+    timePeriod,
+  );
   const endTimeInMinutes = startTimeInMinutes + duration;
 
-  const newStartTime = formatTimeFromMinutes(startTimeInMinutes);
-  const endTime = formatTimeFromMinutes(endTimeInMinutes);
+  const newStartTime = handleTime.formatTimeFromMinutes(startTimeInMinutes);
+  const endTime = handleTime.formatTimeFromMinutes(endTimeInMinutes);
 
   const habitData = {
     creator: userId,
@@ -43,3 +43,5 @@ export const createHabitData = (formData, userId) => {
 
   return habitData;
 };
+
+export default createHabitData;

@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import habitGetAPI from '../services/api/habitGet';
+import getHabitAPI from '../services/api/habit/getHabit';
 
-export const useFetchHabitData = (habitId, isEdit) => {
+const useFetchHabitData = (habitId, isEdit) => {
   const [habitData, setHabitData] = useState(null);
 
   useEffect(() => {
     const fetchHabitData = async () => {
       try {
-        const response = await habitGetAPI(habitId);
+        const response = await getHabitAPI(habitId);
 
         setHabitData(response.data);
       } catch (error) {
@@ -22,3 +22,5 @@ export const useFetchHabitData = (habitId, isEdit) => {
 
   return habitData;
 };
+
+export default useFetchHabitData;

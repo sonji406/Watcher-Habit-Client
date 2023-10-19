@@ -3,7 +3,7 @@ import GroupList from './GroupList';
 import ArrowUpIcon from './icon/ArrowUp';
 import ArrowDownIcon from './icon/ArrowDown';
 import JoinGroupIcon from './icon/JoinedGroups';
-import { useFetchUserData } from '../../hooks/useFetchUserData';
+import useFetchUserData from '../../hooks/useFetchUserData';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import CreateGroupModal from '../modals/CreateGroup';
 

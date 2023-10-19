@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { createHabitData } from '../lib/createHabit/createHabitData';
+import createHabitData from '../lib/createHabit/createHabitData';
 import api from '../lib/api';
 
-export const useHandleSubmit = (
+const useHandleSubmit = (
   validateForm,
   userId,
   navigate,
@@ -77,3 +77,5 @@ export const useHandleSubmit = (
 
   return { handleSubmit, isSubmitting, message, messageType };
 };
+
+export default useHandleSubmit;

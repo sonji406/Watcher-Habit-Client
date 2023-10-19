@@ -1,7 +1,7 @@
-import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import api from '../../lib/api';
+import getUserIdFromToken from '../../../utils/getUserIdFromToken';
+import api from '../../../lib/api';
 
-export const groupGet = async (groupId) => {
+const getGroupAPI = async (groupId) => {
   const userId = getUserIdFromToken();
 
   try {
@@ -16,4 +16,4 @@ export const groupGet = async (groupId) => {
   }
 };
 
-export default groupGet;
+export default getGroupAPI;

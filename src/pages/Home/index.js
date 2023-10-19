@@ -2,7 +2,7 @@ import React from 'react';
 import Carousel from './Carousel';
 import MainLogo from './MainLogo';
 import SubTitle from './SubTitle';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 import GoogleLoginButton from '../../components/common/GoogleLoginButton';
 
 function HomePage() {

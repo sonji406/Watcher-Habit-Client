@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
 
 function ServerError() {
   const navigate = useNavigate();

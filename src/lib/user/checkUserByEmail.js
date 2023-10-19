@@ -1,10 +1,10 @@
-const checkUserByEmail = async (userCheckAPI, email) => {
+const checkUserByEmail = async (checkUserAPI, email) => {
   try {
     if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email)) {
       throw new Error('유효하지 않은 이메일 형식');
     }
 
-    const response = await userCheckAPI(email);
+    const response = await checkUserAPI(email);
 
     if (response.data.nickname) {
       return response.data.nickname;

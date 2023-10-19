@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../lib/api';
 
-export const useDailyHabits = (apiUrl) => {
+const useDailyHabits = (apiUrl) => {
   const [dailyHabits, setDailyHabits] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,3 +24,5 @@ export const useDailyHabits = (apiUrl) => {
 
   return { dailyHabits, loading, error };
 };
+
+export default useDailyHabits;

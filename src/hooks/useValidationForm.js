@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import validationMessages from '../pages/CreateHabit/forms/message/validationMessages';
 
-export const useValidation = () => {
+const useValidation = () => {
   const [validationMessage, setValidationMessage] = useState('');
   const [timeoutId, setTimeoutId] = useState(null);
 
@@ -67,3 +67,5 @@ export const useValidation = () => {
 
   return { validationMessage, validateForm };
 };
+
+export default useValidation;

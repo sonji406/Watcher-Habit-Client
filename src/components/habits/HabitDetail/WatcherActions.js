@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  subscribeWatcher,
-  unsubscribeWatcher,
-} from '../../../services/api/watcher';
+import watcherAPI from '../../../services/api/habit/watcher/watcher';
 import {
   unSubscribeWatcherList,
   updateWatcherList,
@@ -55,7 +52,7 @@ const WatcherActions = ({ habitDetail, isModal = false }) => {
       setSubscriptionError(null);
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
-      const response = await subscribeWatcher(habitId, watcherId);
+      const response = await watcherAPI.subscribeWatcher(habitId, watcherId);
 
       dispatch(
         isModal
@@ -72,7 +69,7 @@ const WatcherActions = ({ habitDetail, isModal = false }) => {
       setSubscriptionError(null);
       const habitId = habitDetail._id;
       const watcherId = getUserIdFromToken();
-      const response = await unsubscribeWatcher(habitId, watcherId);
+      const response = await watcherAPI.unsubscribeWatcher(habitId, watcherId);
 
       dispatch(
         isModal

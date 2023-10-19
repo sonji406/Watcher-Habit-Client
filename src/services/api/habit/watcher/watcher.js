@@ -1,6 +1,6 @@
-import api from '../../lib/api';
+import api from '../../../../lib/api';
 
-export const subscribeWatcher = async (habitId, watcherId) => {
+const subscribeWatcher = async (habitId, watcherId) => {
   try {
     const res = await api.patch(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}/watcher`,
@@ -16,7 +16,7 @@ export const subscribeWatcher = async (habitId, watcherId) => {
   }
 };
 
-export const unsubscribeWatcher = async (habitId, watcherId) => {
+const unsubscribeWatcher = async (habitId, watcherId) => {
   try {
     const res = await api.delete(
       `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}/watcher/${watcherId}`,
@@ -27,3 +27,10 @@ export const unsubscribeWatcher = async (habitId, watcherId) => {
     console.error(error);
   }
 };
+
+const watcherAPI = {
+  subscribeWatcher,
+  unsubscribeWatcher,
+};
+
+export default watcherAPI;
