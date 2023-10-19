@@ -2,15 +2,15 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { clearHabitDetail } from '../../redux/habitSlice';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { useDailyHabits } from '../../hooks/useDailyHabits';
+import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
+import Loading from '../../lib/loading/Loading';
+import useDocumentTitle from '../../hooks/useDocumentTitle';
+import useDailyHabits from '../../hooks/useDailyHabits';
+import useFetchUserInfo from '../../hooks/useFetchUserInfo';
 import getCurrentDate from '../../utils/getCurrentDate';
+import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import HabitList from '../../components/habits/habitList/HabitList';
 import HabitDetailAndVerification from '../../components/habits/HabitDetailAndVerification';
-import Loading from '../../lib/loading/Loading';
-import { clearNotificationHabitDetail } from '../../redux/notificationHabitSlice';
-import getUserIdFromToken from '../../utils/getUserIdFromToken';
-import { useFetchUserInfo } from '../../hooks/useFetchUserInfo';
 
 function MyHabit() {
   const navigate = useNavigate();
