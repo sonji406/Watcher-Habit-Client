@@ -6,7 +6,7 @@ import HabitSection from './HabitSection';
 import HabitDuration from './HabitDuration';
 import WatcherActions from './WatcherActions';
 import HabitDaysOfWeek from './HabitDaysOfWeek';
-import isLoginUser from '../../../lib/isLoginUser';
+import isLoggedinUser from '../../../lib/isLoggedinUser';
 import deleteHabitAPI from '../../../services/api/habit/deleteHabit';
 
 const HabitDetail = ({ isModal = false }) => {
@@ -22,7 +22,7 @@ const HabitDetail = ({ isModal = false }) => {
   const habitDetail = useSelector(selectConditon);
   const location = useLocation();
 
-  const isCurrentUser = isLoginUser(habitDetail.creator._id);
+  const isCurrentUser = isLoggedinUser(habitDetail.creator._id);
 
   const handleDelete = async () => {
     try {
