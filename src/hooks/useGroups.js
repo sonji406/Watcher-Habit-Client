@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../lib/api';
 
-export const useGroups = (userId) => {
+const useGroups = (userId) => {
   const [groupOptions, setGroupOptions] = useState([]);
 
   useEffect(() => {
@@ -24,3 +24,5 @@ export const useGroups = (userId) => {
 
   return { groupOptions };
 };
+
+export default useGroups;
