@@ -1,5 +1,6 @@
 import axios from 'axios';
 import ERROR_MESSAGES from '../constants/errorMessages';
+import postRefreshTokenAPI from '../services/api/auth/postRefreshToken';
 
 const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_DOMAIN + '/api',
@@ -17,11 +18,7 @@ api.interceptors.response.use(
       if (!error.config._retry) {
         error.config._retry = true;
         try {
-          const res = await api.post(
-            `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/refreshToken`,
-            {},
-            { withCredentials: true },
-          );
+          const res = await postRefreshTokenAPI();
 
           const newAccessToken = res.data.accessToken;
           api.defaults.headers.common[

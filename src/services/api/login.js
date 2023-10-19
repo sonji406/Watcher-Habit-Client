@@ -1,9 +1,12 @@
 import api from '../../lib/api';
 
-const loginAPI = (payload) => {
+const loginAPI = (email) => {
   return api.post(
-    `${process.env.REACT_APP_SERVER_DOMAIN}/api/auth/login`,
-    payload,
+    '/auth/login',
+    {
+      email,
+    },
+    { withCredentials: true },
   );
 };
 
