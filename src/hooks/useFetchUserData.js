@@ -3,12 +3,15 @@ import getUserInfoAPI from '../services/api/user/getUser';
 
 const useFetchUserData = (userId) => {
   const fetchUserData = async () => {
-    const response = await getUserInfoAPI(userId, 'group', true);
-
-    return response.groups.map((group) => ({
-      groupId: group._id,
-      groupName: group.groupName,
-    }));
+    try {
+      const response = await getUserInfoAPI(userId, 'group', true);
+      return response.groups.map((group) => ({
+        groupId: group._id,
+        groupName: group.groupName,
+      }));
+    } catch (error) {
+      console.error('useFetchUserData error', error);
+    }
   };
 
   const {

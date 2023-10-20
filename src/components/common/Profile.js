@@ -17,7 +17,13 @@ const Profile = () => {
 
   const { data: notifications, isError } = useQuery(
     'notifications',
-    async () => await getNotificationListAPI(userId),
+    async () => {
+      try {
+        return await getNotificationListAPI(userId);
+      } catch (error) {
+        console.error('Profile error:', error);
+      }
+    },
     {
       refetchInterval: 10000,
     },
@@ -25,7 +31,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (isError) {
-      console.error('Error fetching notifications');
+      console.error('Profile error:', error);
     }
   }, [isError]);
 
