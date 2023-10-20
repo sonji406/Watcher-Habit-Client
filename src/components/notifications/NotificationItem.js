@@ -34,7 +34,7 @@ const NotificationItem = ({
 
       navigate(`/group/${groupId}`);
     } catch (error) {
-      console.error(error);
+      console.error('NotificationItem error:', error);
     }
   };
 
@@ -65,7 +65,7 @@ const NotificationItem = ({
 
       dispatch(setNotificationHabitDetail(response.data));
     } catch (error) {
-      console.error(error);
+      console.error('NotificationItem error:', error);
     }
     hideNotification();
     await getButtonHandler(status)();

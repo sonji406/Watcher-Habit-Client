@@ -30,7 +30,7 @@ const HabitDetail = ({ isModal = false }) => {
       await deleteHabitAPI(habitDetail._id);
       navigate(0);
     } catch (error) {
-      console.error('Habit deletion failed:', error);
+      console.error('HabitDetail error:', error);
       setIsDeleting(false);
     }
   };

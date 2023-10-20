@@ -40,7 +40,7 @@ const useWeeklySchedule = () => {
           regular: habitsData.regular || [],
         });
       } catch (error) {
-        console.error('Failed to fetch weekly schedule', error);
+        console.error('useWeeklySchedule error:', error);
       }
       setIsLoading(false);
     };

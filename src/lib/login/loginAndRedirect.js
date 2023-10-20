@@ -9,7 +9,7 @@ const loginAndRedirect = async (email, nickname, navigate) => {
 
     navigate(`/my-habit/${nickname}`);
   } catch (error) {
-    console.error(error);
+    console.error('loginAndRedirect error:', error);
     throw new Error('로그인에 문제가 발생했습니다.');
   }
 };

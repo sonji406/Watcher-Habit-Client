@@ -18,7 +18,7 @@ const HabitItem = ({ habitInfo, isSelected, onSelect }) => {
 
       dispatch(setHabitDetail(response.data));
     } catch (error) {
-      console.error(error);
+      console.error('HabitItem error:', error);
     }
   };
 

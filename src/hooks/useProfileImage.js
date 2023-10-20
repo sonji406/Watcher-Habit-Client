@@ -12,7 +12,7 @@ const useProfileImage = () => {
     try {
       userId = getUserIdFromToken();
     } catch (decodeError) {
-      console.error('Error decoding JWT:', decodeError);
+      console.error('useProfileImage error:', decodeError);
       setError(decodeError);
       return;
     }

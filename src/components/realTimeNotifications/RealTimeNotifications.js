@@ -54,7 +54,7 @@ const RealTimeNotifications = () => {
       const groupId = response.data.groupId;
       navigate(`/group/${groupId}`);
     } catch (error) {
-      console.error(error);
+      console.error('RealTimeNotifications error:', error);
     }
   };
 
@@ -75,7 +75,7 @@ const RealTimeNotifications = () => {
         }),
       );
     } catch (error) {
-      console.error(error);
+      console.error('RealTimeNotifications error:', error);
     }
   };
 

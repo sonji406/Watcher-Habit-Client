@@ -49,7 +49,7 @@ const CreateGroupModal = ({ onClose, refetchGroups }) => {
       }
 
       setErrorMsg(message);
-      console.error(error);
+      console.error('CreateGroupModal error:', error);
     }
   };
 

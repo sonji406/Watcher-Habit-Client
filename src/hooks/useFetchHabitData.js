@@ -11,7 +11,7 @@ const useFetchHabitData = (habitId, isEdit) => {
 
         setHabitData(response.data);
       } catch (error) {
-        console.error('Error fetching habit:', error);
+        console.error('useFetchHabitData error:', error);
       }
     };
 

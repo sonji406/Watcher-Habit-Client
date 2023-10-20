@@ -23,7 +23,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
 
         setGroupName(response.data.groupName);
       } catch (error) {
-        console.error(error);
+        console.error('InviteGroupModal error:', error);
       }
     };
     fetchData();
@@ -80,7 +80,7 @@ const InviteGroupModal = ({ groupId, onClose }) => {
       }
 
       setErrorMsg(message);
-      console.error(error);
+      console.error('InviteGroupModal error:', error);
     }
   };
 

@@ -12,7 +12,7 @@ const subscribeWatcher = async (habitId, watcherId) => {
 
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.error('subscribeWatcher error:', error);
   }
 };
 
@@ -23,7 +23,7 @@ const unsubscribeWatcher = async (habitId, watcherId) => {
     });
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.error('subscribeWatcher error:', error);
   }
 };
 

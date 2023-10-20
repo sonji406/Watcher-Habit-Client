@@ -13,7 +13,7 @@ const useGroups = (userId) => {
           setGroupOptions(response.groups);
         }
       } catch (error) {
-        console.error('Error fetching groups:', error);
+        console.error('useGroups error:', error);
       }
     };
 
