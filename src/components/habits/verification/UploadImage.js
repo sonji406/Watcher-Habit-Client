@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { setHabitDetail } from '../../../redux/habitSlice';
 import { setNotificationHabitDetail } from '../../../redux/notificationHabitSlice';
 import ImageIcon from './icon/ImageIcon';
 import CountdownTimer from './CountdownTimer';
-import { setHabitDetail } from '../../../redux/habitSlice';
 import postHabitImageAPI from '../../../services/api/habit/postHabitImage';
 
 const UploadImage = ({ habitId, endTime, isModal = false }) => {
