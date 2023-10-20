@@ -1,9 +1,9 @@
 import getUserIdFromToken from '../utils/getUserIdFromToken';
 
-const isLoginUser = (checkId) => {
+const isLoggedinUser = (checkId) => {
   const userId = getUserIdFromToken();
 
   return userId === checkId;
 };
 
-export default isLoginUser;
+export default isLoggedinUser;

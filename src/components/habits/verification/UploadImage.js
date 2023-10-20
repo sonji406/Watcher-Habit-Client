@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import ImageIcon from './icon/ImageIcon';
-import CountdownTimer from './CountdownTimer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHabitDetail } from '../../../redux/habitSlice';
 import { setNotificationHabitDetail } from '../../../redux/notificationHabitSlice';
-import api from '../../../lib/api';
+import ImageIcon from './icon/ImageIcon';
+import CountdownTimer from './CountdownTimer';
+import postHabitImageAPI from '../../../services/api/habit/postHabitImage';
 
 const UploadImage = ({ habitId, endTime, isModal = false }) => {
   const dispatch = useDispatch();
@@ -26,14 +26,7 @@ const UploadImage = ({ habitId, endTime, isModal = false }) => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await api.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}/image`,
-        formData,
-        {
-          headers: { 'Content-Type': 'multipart/form-data' },
-          withCredentials: true,
-        },
-      );
+      const response = await postHabitImageAPI(habitId, formData);
 
       const updatedHabitDetail = {
         ...habitDetail,

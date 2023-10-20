@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import api from '../lib/api';
+import getUserInfo from '../services/api/userGet';
 
 const useGroups = (userId) => {
   const [groupOptions, setGroupOptions] = useState([]);
@@ -7,15 +7,13 @@ const useGroups = (userId) => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const response = await api.get(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${userId}`,
-          { withCredentials: true },
-        );
-        if (response.status === 200 && response.data.groups) {
-          setGroupOptions(response.data.groups);
+        const response = await getUserInfo(userId);
+
+        if (response.groups) {
+          setGroupOptions(response.groups);
         }
       } catch (error) {
-        console.error('Error fetching groups:', error);
+        console.error('useGroups error:', error);
       }
     };
 

@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import NotificationMessage from './NotificationMessage';
 import VerifyHabitModal from '../modals/VerifyHabit';
 import initEventSource from '../../utils/initEventSource';
+import getHabitAPI from '../../services/api/habit/getHabit';
+import patchGroupAPI from '../../services/api/group/patchGroup';
 import { setNotificationHabitDetail } from '../../redux/notificationHabitSlice';
-import api from '../../lib/api';
 
 const NOTIFICATION_STATUSES = [
   'success',
@@ -46,34 +47,36 @@ const RealTimeNotifications = () => {
   };
 
   const handleInvite = async (notification) => {
-    const body = { userId: notification.to };
-    const response = await api.patch(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${notification.groupId}/members`,
-      body,
-      { withCredentials: true },
-    );
-    const groupId = response.data.groupId;
-    navigate(`/group/${groupId}`);
+    try {
+      const body = { userId: notification.to };
+      const response = await patchGroupAPI(notification.groupId, body);
+
+      const groupId = response.data.groupId;
+      navigate(`/group/${groupId}`);
+    } catch (error) {
+      console.error('RealTimeNotifications error:', error);
+    }
   };
 
   const handleHabitNotification = async (notification) => {
-    const response = await api.get(
-      `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${notification.habitId}`,
-      { withCredentials: true },
-    );
+    try {
+      const response = await getHabitAPI(notification.habitId);
 
-    const updatedApprovals = response.data.approvals.map((approval) => ({
-      ...approval._id,
-      status: approval.status,
-      profileImageUrl: approval._id.profileImageUrl,
-    }));
+      const updatedApprovals = response.data.approvals.map((approval) => ({
+        ...approval._id,
+        status: approval.status,
+        profileImageUrl: approval._id.profileImageUrl,
+      }));
 
-    dispatch(
-      setNotificationHabitDetail({
-        ...response.data,
-        approvals: updatedApprovals,
-      }),
-    );
+      dispatch(
+        setNotificationHabitDetail({
+          ...response.data,
+          approvals: updatedApprovals,
+        }),
+      );
+    } catch (error) {
+      console.error('RealTimeNotifications error:', error);
+    }
   };
 
   const handleActionButtonClick = async (notification) => {

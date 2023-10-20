@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import postHabitAPI from '../services/api/habit/postHabit';
+import patchHabitAPI from '../services/api/habit/patchHabit';
 import createHabitData from '../lib/createHabit/createHabitData';
-import api from '../lib/api';
 
 const useHandleSubmit = (
   validateForm,
@@ -30,6 +31,7 @@ const useHandleSubmit = (
 
     setTimeout(() => {
       navigate(`/my-habit/${nickname}`);
+      navigate(0);
     }, 2000);
   };
 
@@ -46,21 +48,14 @@ const useHandleSubmit = (
       let response;
 
       if (isEdit) {
-        response = await api.patch(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitId}`,
-          habitData,
-          { withCredentials: true },
-        );
+        response = await patchHabitAPI(habitId, habitData);
         handleResponse(response);
 
         return;
       } else {
-        response = await api.post(
-          `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit`,
-          habitData,
-          { withCredentials: true },
-        );
+        response = await postHabitAPI(habitData);
       }
+
       handleResponse(response);
     } catch (error) {
       const errorMsg =

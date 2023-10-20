@@ -22,7 +22,7 @@ function Group() {
   const [groupInfo, setGroupInfo] = useState(null);
 
   const { dailyHabits, loading, error } = useDailyHabits(
-    `${process.env.REACT_APP_SERVER_DOMAIN}/api/group/${groupId}/habitList?date=${currentDate}`,
+    `/group/${groupId}/habitList?date=${currentDate}`,
   );
 
   const fetchGroupInfo = async () => {

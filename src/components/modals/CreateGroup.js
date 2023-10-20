@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getUserIdFromToken from '../../utils/getUserIdFromToken';
 import useClickOutside from '../../hooks/useClickOutside';
-import api from '../../lib/api';
+import postGroupAPI from '../../services/api/group/postGroup';
 
 const CreateGroupModal = ({ onClose, refetchGroups }) => {
   const modalContentRef = useRef();
@@ -29,11 +29,7 @@ const CreateGroupModal = ({ onClose, refetchGroups }) => {
         creatorId: getUserIdFromToken(),
       };
 
-      const response = await api.post(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/group`,
-        requestBody,
-        { withCredentials: true },
-      );
+      const response = await postGroupAPI(requestBody);
 
       const newGroupId = response.data.newGroup._id;
 
@@ -53,7 +49,7 @@ const CreateGroupModal = ({ onClose, refetchGroups }) => {
       }
 
       setErrorMsg(message);
-      console.error(error);
+      console.error('CreateGroupModal error:', error);
     }
   };
 

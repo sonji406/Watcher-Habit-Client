@@ -14,7 +14,7 @@ function initEventSource(onMessage, onError) {
   };
 
   eventSource.onerror = function (error) {
-    console.error(error);
+    console.error('initEventSource error:', error);
 
     eventSource.close();
 

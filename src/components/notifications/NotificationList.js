@@ -20,7 +20,7 @@ const NotificationList = ({ notifications }) => {
       await logoutAPI();
       navigate('/');
     } catch (error) {
-      console.error('Error during logout:', error);
+      console.error('NotificationList error:', error);
     }
   };
 

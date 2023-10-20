@@ -25,7 +25,7 @@ function MyHabit() {
   useDocumentTitle(`${nickname}님의 습관 관리 페이지`);
 
   const { dailyHabits, loading, error } = useDailyHabits(
-    `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/${nickname}/habitList?date=${currentDate}`,
+    `/user/${nickname}/habitList?date=${currentDate}`,
   );
 
   useEffect(() => {

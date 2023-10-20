@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import ApprovalButtons from './ApprovalButtons';
 import ApprovedIcon from '../icon/Approved';
 import RejectedIcon from '../icon/Rejected';
-import isLoginUser from '../../../../lib/isLoginUser';
 import UnderlinedText from '../lib/UnderlinedText';
-import ApprovalButtons from './ApprovalButtons';
-import api from '../../../../lib/api';
+import isLoggedinUser from '../../../../lib/isLoggedinUser';
+import patchHabitAPI from '../../../../services/api/habit/patchHabit';
 
 const ApprovalItem = ({ watcher, isModal = false }) => {
   const [error, setError] = useState('');
@@ -16,7 +16,7 @@ const ApprovalItem = ({ watcher, isModal = false }) => {
   const habitDetail = useSelector(selectConditon);
 
   const getApprovalMessage = (watcherStatus) => {
-    if (watcherStatus === 'undecided' && isLoginUser(watcher._id)) {
+    if (watcherStatus === 'undecided' && isLoggedinUser(watcher._id)) {
       return (
         <ApprovalButtons
           onApprove={() => updateStatus('approved')}
@@ -52,11 +52,10 @@ const ApprovalItem = ({ watcher, isModal = false }) => {
 
   const updateStatus = async (newStatus) => {
     try {
-      await api.patch(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
-        { approvalStatus: newStatus, approvalId: watcher._id },
-        { withCredentials: true },
-      );
+      await await patchHabitAPI(habitDetail._id, {
+        approvalStatus: newStatus,
+        approvalId: watcher._id,
+      });
 
       setApprovalsMessage(getApprovalMessage(newStatus));
     } catch (error) {

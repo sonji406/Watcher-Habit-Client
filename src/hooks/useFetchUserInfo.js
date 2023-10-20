@@ -10,7 +10,7 @@ const useFetchUserInfo = (userId) => {
         const userInfo = await getUserInfoAPI(userId);
         setNickname(userInfo.nickname);
       } catch (error) {
-        console.error('An error occurred:', error);
+        console.error('useFetchUserInfo error:', error);
       }
     };
     fetchData();

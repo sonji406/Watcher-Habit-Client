@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import WatcherActions from './WatcherActions';
-import HabitDuration from './HabitDuration';
-import HabitTime from './HabitTime';
-import HabitDaysOfWeek from './HabitDaysOfWeek';
-import HabitSection from './HabitSection';
-import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import isLoginUser from '../../../lib/isLoginUser';
-import api from '../../../lib/api';
+import { useSelector } from 'react-redux';
+import HabitTime from './HabitTime';
+import HabitSection from './HabitSection';
+import HabitDuration from './HabitDuration';
+import WatcherActions from './WatcherActions';
+import HabitDaysOfWeek from './HabitDaysOfWeek';
+import isLoggedinUser from '../../../lib/isLoggedinUser';
+import deleteHabitAPI from '../../../services/api/habit/deleteHabit';
 
 const HabitDetail = ({ isModal = false }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -22,19 +22,15 @@ const HabitDetail = ({ isModal = false }) => {
   const habitDetail = useSelector(selectConditon);
   const location = useLocation();
 
-  const isCurrentUser = isLoginUser(habitDetail.creator._id);
+  const isCurrentUser = isLoggedinUser(habitDetail.creator._id);
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      await api.delete(
-        `${process.env.REACT_APP_SERVER_DOMAIN}/api/habit/${habitDetail._id}`,
-        { withCredentials: true },
-      );
-
+      await deleteHabitAPI(habitDetail._id);
       navigate(0);
     } catch (error) {
-      console.error('Habit deletion failed:', error);
+      console.error('HabitDetail error:', error);
       setIsDeleting(false);
     }
   };
