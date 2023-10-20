@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import isLoginUser from '../../../lib/isLoginUser';
+import isLoggedinUser from '../../../lib/isLoggedinUser';
 import UploadImage from './UploadImage';
 import PreVerificationIcon from './icon/PreVerification';
 
@@ -8,7 +8,7 @@ const WaitingVerification = ({ isModal = false }) => {
     ? (state) => state.notificationHabit.notificationHabitDetail
     : (state) => state.habit.habitDetail;
   const habitDetail = useSelector(selectConditon);
-  const isCreator = isLoginUser(habitDetail.creator._id || undefined);
+  const isCreator = isLoggedinUser(habitDetail.creator._id || undefined);
 
   return (
     <>

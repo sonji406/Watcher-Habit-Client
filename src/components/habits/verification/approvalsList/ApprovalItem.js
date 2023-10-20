@@ -4,7 +4,7 @@ import ApprovalButtons from './ApprovalButtons';
 import ApprovedIcon from '../icon/Approved';
 import RejectedIcon from '../icon/Rejected';
 import UnderlinedText from '../lib/UnderlinedText';
-import isLoginUser from '../../../../lib/isLoginUser';
+import isLoggedinUser from '../../../../lib/isLoggedinUser';
 import patchHabitAPI from '../../../../services/api/habit/patchHabit';
 
 const ApprovalItem = ({ watcher, isModal = false }) => {
@@ -16,7 +16,7 @@ const ApprovalItem = ({ watcher, isModal = false }) => {
   const habitDetail = useSelector(selectConditon);
 
   const getApprovalMessage = (watcherStatus) => {
-    if (watcherStatus === 'undecided' && isLoginUser(watcher._id)) {
+    if (watcherStatus === 'undecided' && isLoggedinUser(watcher._id)) {
       return (
         <ApprovalButtons
           onApprove={() => updateStatus('approved')}

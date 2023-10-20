@@ -1,5 +1,5 @@
 import ApprovalBox from './ApprovalBox';
-import isLoginUser from '../../../lib/isLoginUser';
+import isLoggedinUser from '../../../lib/isLoggedinUser';
 import PreVerificationIcon from './icon/PreVerification';
 import { useSelector } from 'react-redux';
 
@@ -40,7 +40,7 @@ const HabitVerification = ({ isModal = false }) => {
     : (state) => state.habit.habitDetail;
   const habitDetail = useSelector(selectConditon);
 
-  const isCreator = isLoginUser(habitDetail?.creator?._id || undefined);
+  const isCreator = isLoggedinUser(habitDetail?.creator?._id || undefined);
   const userType = isCreator ? 'creator' : 'member';
   const status = habitDetail?.status || undefined;
   const statusMessage = STATUS_MESSAGES[status]?.[userType] || '';
